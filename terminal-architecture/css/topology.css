@@ -1,0 +1,278 @@
+/* ==========================================================================
+   Q-NEX Topology & Online Delivery Styles
+   规范：遵循《Q-NEX 产品线拓扑图设计规范》，行数 <= 300 行
+   ========================================================================== */
+
+.topology-view-wrapper {
+    position: relative;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    margin-bottom: 20px;
+    box-shadow: var(--card-shadow);
+}
+
+/* 拓扑控制与下发操作条 */
+.delivery-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-surface-alt);
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+
+.delivery-status-text {
+    margin-left: auto;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* 拓扑画布主舞台 (带点阵背景) */
+.topology-stage {
+    position: relative;
+    width: 100%;
+    min-height: 580px;
+    background-color: var(--bg-surface);
+    background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+    background-size: 20px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.topology-svg-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* 规范设备节点卡片 */
+.topo-device-node {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    z-index: 20;
+    transition: transform var(--transition-fast), filter var(--transition-fast);
+    user-select: none;
+}
+
+.topo-device-node:hover {
+    transform: translate(-50%, -50%) scale(1.06);
+    filter: drop-shadow(0 4px 12px rgba(var(--primary-rgb), 0.35));
+}
+
+.topo-device-node.selected-node {
+    filter: drop-shadow(0 0 14px rgba(var(--primary-rgb), 0.6));
+}
+
+.topo-device-img {
+    height: 65px;
+    max-width: 110px;
+    object-fit: contain;
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.15));
+    margin-bottom: 4px;
+}
+
+/* 规范第 5 节：产品名称颜色规范 (深灰 #333333 背景 + 浅灰 #E6E6E6 文字) */
+.topo-device-label {
+    background-color: rgba(51, 51, 51, 0.88);
+    color: #e6e6e6;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.topo-device-label .badge-click-hint {
+    background: var(--primary-color);
+    color: #ffffff;
+    font-size: 0.65rem;
+    padding: 1px 4px;
+    border-radius: 3px;
+}
+
+/* 规范接线图例 (右上角固定) */
+.topology-legend-box {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    z-index: 30;
+    font-size: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+body.theme-dark .topology-legend-box {
+    background: rgba(30, 41, 59, 0.92);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.legend-color-bar {
+    width: 24px;
+    height: 3px;
+    border-radius: 2px;
+}
+
+/* 连线与下发光斑动画 */
+.delivery-pulse-dot {
+    fill: #00b4d8;
+    filter: drop-shadow(0 0 6px #00b4d8);
+}
+
+/* 抽屉式深度数据详情面板 */
+.inspection-drawer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 380px;
+    background: var(--bg-surface);
+    border-left: 2px solid var(--primary-color);
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    overflow-y: auto;
+    z-index: 50;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(105%);
+}
+
+.inspection-drawer.open {
+    transform: translateX(0);
+}
+
+.drawer-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.drawer-header-left {
+    flex: 1;
+    min-width: 0;
+}
+
+.drawer-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1.3;
+    margin-bottom: 4px;
+}
+
+.drawer-close-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: var(--bg-surface-alt);
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: all var(--transition-fast);
+}
+
+.drawer-close-btn:hover {
+    background: var(--danger-light);
+    border-color: var(--danger-color);
+    color: var(--danger-color);
+    transform: scale(1.08);
+}
+
+.drawer-item-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.drawer-item-card {
+    background: var(--bg-surface-alt);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    border-left: 3px solid var(--primary-color);
+}
+
+.card-item-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 2px;
+}
+
+.drawer-item-card.item-hardcoded {
+    background: var(--warning-light);
+    border-left: 4px solid var(--warning-color);
+}
+
+.drawer-item-card.item-hardcoded strong {
+    color: #c2410c;
+}
+
+body.theme-dark .drawer-item-card.item-hardcoded strong {
+    color: #fb923c;
+}
+
+.badge-hardcoded {
+    display: inline-flex;
+    align-items: center;
+    padding: 1px 6px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    border-radius: 4px;
+    background: rgba(255, 133, 27, 0.16);
+    color: #c2410c;
+    border: 1px solid rgba(255, 133, 27, 0.45);
+    white-space: nowrap;
+}
+
+body.theme-dark .badge-hardcoded {
+    color: #fb923c;
+    background: rgba(251, 146, 60, 0.2);
+    border-color: rgba(251, 146, 60, 0.45);
+}
+
+.drawer-item-card strong {
+    color: var(--text-primary);
+    display: block;
+}

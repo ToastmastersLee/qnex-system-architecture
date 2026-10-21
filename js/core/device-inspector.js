@@ -1,0 +1,117 @@
+/** Device inspector and wiring filter interactions. */
+(function (Simulator) {
+    Object.assign(Simulator.prototype, {
+    selectDevice(deviceId, { openSidebar = true } = {}) {
+        if (!this.isDeviceVisible(deviceId)) deviceId = 'switch';
+        this.selectedDevice = deviceId;
+        const dev = TOPOLOGY_DATA.devices[deviceId];
+        if (!dev) return;
+
+        if (openSidebar && this.isSidebarCollapsed) {
+            this.toggleSidebar(false);
+        }
+
+        // Highlight selected node
+        document.querySelectorAll('.topology-node').forEach(n => {
+            n.classList.toggle('selected-device', n.id === `node-${deviceId}`);
+        });
+
+        // Populate Inspector Card
+        const inspector = document.getElementById('device-inspector');
+        if (!inspector) return;
+
+        const zoneText = (this.lang === 'en' ? dev.zone_en : dev.zone_zh) || dev.zone;
+        const roleText = (this.lang === 'en' ? dev.role_en : dev.role_zh) || dev.role;
+
+        document.getElementById('inspector-title').textContent = dev.name;
+        document.getElementById('inspector-model').textContent = dev.model;
+        document.getElementById('inspector-img').src = dev.image;
+        document.getElementById('inspector-zone').textContent = zoneText;
+        document.getElementById('inspector-role').textContent = roleText;
+
+        // Ports
+        const portsList = document.getElementById('inspector-ports');
+        const portsSection = portsList?.closest('.inspector-section');
+        if (portsSection) {
+            if (dev.ports && dev.ports.length > 0) {
+                portsSection.style.display = '';
+                portsList.innerHTML = dev.ports.map(p => `<li>${p}</li>`).join('');
+            } else {
+                portsSection.style.display = 'none';
+            }
+        }
+
+        // Scenarios
+        const scenariosBox = document.getElementById('inspector-scenarios');
+        const scenariosSection = scenariosBox?.closest('.inspector-section');
+        if (scenariosSection) {
+            if (dev.scenarios) {
+                scenariosSection.style.display = '';
+                const isEn = this.lang === 'en';
+                const t = (window.I18N_DATA && window.I18N_DATA[this.lang]) || window.I18N_DATA?.zh;
+                const labels = {
+                    teaching: t?.inspector?.scenario_teaching || (isEn ? 'Teaching' : '教学场景'),
+                    control: t?.inspector?.scenario_control || (isEn ? 'Control' : '设备集控'),
+                    cascading: t?.inspector?.scenario_cascading || (isEn ? 'Cascading' : '全校级联')
+                };
+                const s = dev.scenarios;
+                const b1 = (isEn ? s.badge1_en : s.badge1_zh) || labels.teaching;
+                const i1 = s.icon1 || '🎓';
+                const b2 = (isEn ? s.badge2_en : s.badge2_zh) || labels.control;
+                const i2 = s.icon2 || '🎛️';
+                const b3 = (isEn ? s.badge3_en : s.badge3_zh) || labels.cascading;
+                const i3 = s.icon3 || '🌐';
+                scenariosBox.innerHTML = `
+                    <div class="scenario-item"><span class="scenario-badge scenario-badge-teaching">${i1} ${b1}</span><div class="scenario-desc">${isEn ? s.teaching_en : s.teaching_zh}</div></div>
+                    <div class="scenario-item"><span class="scenario-badge scenario-badge-control">${i2} ${b2}</span><div class="scenario-desc">${isEn ? s.control_en : s.control_zh}</div></div>
+                    <div class="scenario-item"><span class="scenario-badge scenario-badge-cascading">${i3} ${b3}</span><div class="scenario-desc">${isEn ? s.cascading_en : s.cascading_zh}</div></div>
+                `;
+            } else {
+                scenariosSection.style.display = 'none';
+            }
+        }
+
+        // Test action button title
+        const t = (window.I18N_DATA && window.I18N_DATA[this.lang]) || window.I18N_DATA?.zh;
+        const testBtn = document.getElementById('inspector-test-btn');
+        if (testBtn && t) {
+            testBtn.textContent = `${t.inspector.test_btn_prefix} ${dev.model} ${t.inspector.test_btn_suffix}`;
+        }
+    },
+    triggerDeviceSelfTest() {
+        if (!this.selectedDevice) return;
+        const dev = TOPOLOGY_DATA.devices[this.selectedDevice];
+        if (!dev) return;
+
+        if (window.soundSys) window.soundSys.playClick();
+
+        const nodeEl = document.getElementById(`node-${dev.id}`);
+        if (nodeEl) {
+            nodeEl.classList.add('node-pinging');
+            setTimeout(() => nodeEl.classList.remove('node-pinging'), 1000);
+        }
+
+        const bannerDesc = document.getElementById('scenario-banner-desc');
+        if (bannerDesc) {
+            const orig = bannerDesc.textContent;
+            const msg = this.lang === 'en'
+                ? `[Self-Test Ping] Diagnostic signal sent to ${dev.name}. Device responding nominally (RTT: 4.2ms)`
+                : `[自检中] 向 ${dev.name} 发送诊断 Ping 成功，设备响应正常 (RTT: 4.2ms)`;
+            bannerDesc.innerHTML = `<span style="color:#38bdf8;">${msg}</span>`;
+            setTimeout(() => { bannerDesc.textContent = orig; }, 3000);
+        }
+    },
+    toggleCableFilter(type, isVisible) {
+        this.cableFilters[type] = isVisible;
+        document.querySelectorAll(`.cable-${type}`).forEach(el => {
+            el.style.display = isVisible ? 'block' : 'none';
+        });
+        document.querySelectorAll(`.cable-label-${type}`).forEach(el => {
+            el.style.display = isVisible ? 'block' : 'none';
+        });
+        this.particles.forEach(particle => {
+            particle.element.style.display = particle.pathEl.style.display === 'none' ? 'none' : '';
+        });
+    }
+    });
+})(window.QnexApp.services.QnexSimulator);

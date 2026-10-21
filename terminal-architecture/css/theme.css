@@ -1,0 +1,86 @@
+/* ==========================================================================
+   Q-NEX Terminal Architecture & Power Linkage - Theme Variables
+   规范：纯静态离线设计，支持浅色/深色主题，行数 <= 300 行
+   ========================================================================== */
+
+:root {
+    --bg-primary: #f5f7fb;
+    --bg-surface: #ffffff;
+    --bg-surface-alt: #edf2f7;
+    --bg-elevated: #ffffff;
+    --border-color: #dbe2ea;
+    --border-light: #eef2f6;
+
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+
+    --primary-color: #0074d9;
+    --primary-hover: #005bb5;
+    --primary-light: #e6f0fa;
+    --primary-rgb: 0, 116, 217;
+
+    --accent-color: #00b4d8;
+    --accent-light: #e0f7fa;
+
+    --success-color: #2ecc40;
+    --success-light: #e8f8ec;
+    --success-rgb: 46, 204, 64;
+
+    --warning-color: #ff851b;
+    --warning-light: #fff3e6;
+
+    --danger-color: #ff4136;
+    --danger-light: #ffebee;
+    --danger-rgb: 255, 65, 54;
+
+    --purple-color: #7928ca;
+    --purple-light: #f5edfc;
+
+    --card-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.06);
+    --card-shadow-hover: 0 8px 24px 0 rgba(0, 0, 0, 0.1);
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.theme-dark {
+    --bg-primary: #0f172a;
+    --bg-surface: #1e293b;
+    --bg-surface-alt: #162032;
+    --bg-elevated: #26334d;
+    --border-color: #334155;
+    --border-light: #1e293b;
+
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #64748b;
+
+    --primary-color: #38bdf8;
+    --primary-hover: #0ea5e9;
+    --primary-light: #0c4a6e;
+    --primary-rgb: 56, 189, 248;
+
+    --accent-color: #22d3ee;
+    --accent-light: #164e63;
+
+    --success-color: #4ade80;
+    --success-light: #052e16;
+    --success-rgb: 74, 222, 128;
+
+    --warning-color: #fb923c;
+    --warning-light: #431407;
+
+    --danger-color: #f87171;
+    --danger-light: #450a0a;
+    --danger-rgb: 248, 113, 113;
+
+    --purple-color: #c084fc;
+    --purple-light: #3b0764;
+
+    --card-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.35);
+    --card-shadow-hover: 0 8px 24px 0 rgba(0, 0, 0, 0.5);
+}
