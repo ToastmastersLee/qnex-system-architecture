@@ -31,9 +31,9 @@
         },
 
         applyLanguage(language) {
-            this.lang = language || 'zh';
+            this.lang = language === 'zh' ? 'zh' : 'en';
             try {
-                localStorage.setItem('qnex_lang', this.lang);
+                localStorage.setItem('qnex_arch_lang_v2', this.lang);
             } catch (error) {}
             document.documentElement.lang = this.lang === 'en' ? 'en' : 'zh-CN';
 
@@ -54,7 +54,7 @@
             const title = document.querySelector('.app-title-group h1');
             if (title) {
                 title.childNodes[0].textContent = `${translations.app_title} `;
-                const tag = title.querySelector('.tag');
+                const tag = document.getElementById('app-version');
                 if (tag) tag.textContent = translations.app_tag;
             }
             const subtitle = document.querySelector('.app-title-group p');
@@ -196,6 +196,7 @@
             const dropdown = document.querySelector('.settings-dropdown');
             if (!panel) return;
             const isHidden = panel.classList.toggle('hidden');
+            document.getElementById('btn-settings-toggle')?.setAttribute('aria-expanded', String(!isHidden));
             dropdown?.classList.toggle('open', !isHidden);
             window.soundSys?.playClick();
         },
@@ -205,6 +206,7 @@
             const dropdown = document.querySelector('.settings-dropdown');
             if (panel && !panel.classList.contains('hidden')) {
                 panel.classList.add('hidden');
+                document.getElementById('btn-settings-toggle')?.setAttribute('aria-expanded', 'false');
                 dropdown?.classList.remove('open');
             }
         },

@@ -5,7 +5,12 @@
 (function (app) {
     class QnexSimulator {
         constructor() {
-            this.lang = localStorage.getItem('qnex_lang') || 'zh';
+            // New preference key also resets the old Chinese-first default once.
+            this.lang = 'en';
+            try {
+                const saved = localStorage.getItem('qnex_arch_lang_v2');
+                if (saved === 'zh' || saved === 'en') this.lang = saved;
+            } catch (error) {}
             this.theme = localStorage.getItem('qnex_theme') || 'light';
             this.currentScenario = 'standby';
             this.mediaServerEnabled = false;

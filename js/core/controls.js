@@ -94,6 +94,9 @@
                 event.stopPropagation();
                 this.toggleSettingsPanel();
             });
+            settingsPanel?.addEventListener('click', event => {
+                if (event.target.closest('.tool-actions button')) this.closeSettingsPanel();
+            });
 
             document.addEventListener('click', (event) => {
                 if (settingsPanel && !settingsPanel.classList.contains('hidden')) {
@@ -105,7 +108,9 @@
 
             document.addEventListener('keydown', (event) => {
                 if (event.key === 'Escape') {
+                    const wasOpen = !settingsPanel?.classList.contains('hidden');
                     this.closeSettingsPanel();
+                    if (wasOpen) settingsToggle?.focus();
                 }
             });
 

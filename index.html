@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="assets/Q-NEX.png">
-    <title>Q-NEX 系统架构全景仿真器 - 交互式培训系统</title>
+    <title>Q-NEX System Architecture Simulator</title>
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/header.css">
@@ -20,48 +20,37 @@
         <div class="brand-section">
             <div class="brand-badge">Q-NEX</div>
             <div class="app-title-group">
-                <h1>
-                    系统架构全景仿真器 (System Architecture Simulator)
-                    <span class="tag">Online Training v3.0</span>
-                </h1>
-                <p>基于《Q-NEX 产品线拓扑图设计规范》的动态信号流仿真与新手教学系统</p>
+                <h1>System Architecture Simulator</h1>
+                <p>Interactive Dynamic Signal Flow Simulator based on Q-NEX Topology Wiring Specifications</p>
             </div>
         </div>
-
         <div class="header-actions">
-            <label class="btn media-server-option">
-                <input id="media-server-option" type="checkbox">
-                <span id="lbl-media-server-option">Media Server（可选）</span>
-            </label>
-            <button id="btn-export-png" class="btn" type="button">导出 PNG</button>
-            <span id="export-status" class="export-status" role="status" aria-live="polite"></span>
-            <button id="btn-scenarios-toggle" class="btn btn-scenarios-toggle" title="展开/收起演练场景面板">
-                <span>🧭</span> <span id="lbl-scenario-current">场景：待机心跳与拓扑</span> <span class="scenario-arrow">▾</span>
-            </button>
-            <button id="btn-start-tour" class="btn btn-primary" title="新手培训向导 / Guided Tour">
-                <span>🎓</span> <span id="lbl-start-tour">新手培训向导</span>
-            </button>
-            <button id="btn-play-pause" class="btn" title="暂停/继续播放仿真">
-                <span>⏸️</span> 暂停
-            </button>
-            <button id="btn-reset" class="btn" title="重置拓扑演练到待机状态">
-                <span>🔄</span> 重置拓扑
-            </button>
-            <button id="btn-sidebar-toggle" class="btn" title="折叠/展开设备说明面板">
-                <span>📋</span> <span id="lbl-sidebar-toggle-text">收起说明</span>
-            </button>
-            <a id="terminal-architecture-link" href="terminal-architecture/index.html" class="btn" hidden title="查看 Q-NEX 终端体系与开关机联动架构仿真器" style="text-decoration: none;">
-                <span>🔌</span> 终端架构与联动
-            </a>
+            <button id="btn-lang-toggle" class="btn" title="Switch language / 切换语言" type="button">🌐 Lang: English</button>
             <div class="settings-dropdown">
-                <button id="btn-settings-toggle" class="btn" title="偏好与显示设置">
-                    <span>⚙️</span> <span id="lbl-settings-toggle-text">更多设置</span> <span class="arrow-indicator">▾</span>
+                <button id="btn-settings-toggle" class="btn" title="Tools &amp; settings" type="button" aria-expanded="false" aria-controls="settings-panel">
+                    <span>⚙️</span> <span id="lbl-settings-toggle-text">More</span> <span class="arrow-indicator">▾</span>
                 </button>
-                <div id="settings-panel" class="settings-panel hidden">
+                <div id="settings-panel" class="settings-panel hidden" aria-labelledby="lbl-settings-heading">
                     <div class="settings-panel-header">
-                        <span id="lbl-settings-heading">偏好与控制设置</span>
+                        <span id="lbl-settings-heading">Tools &amp; Settings</span>
+                        <span id="app-version" class="tag">Online Training v3.0</span>
                     </div>
                     <div class="settings-panel-body">
+                        <div class="tool-actions">
+                            <label class="btn media-server-option">
+                                <input id="media-server-option" type="checkbox">
+                                <span id="lbl-media-server-option">Media Server (optional)</span>
+                            </label>
+                            <button id="btn-scenarios-toggle" class="btn btn-scenarios-toggle" type="button">
+                                <span>🧭</span> <span id="lbl-scenario-current">Scenario: STANDBY</span> <span class="scenario-arrow">▾</span>
+                            </button>
+                            <button id="btn-export-png" class="btn" type="button">Export PNG</button>
+                            <button id="btn-start-tour" class="btn btn-primary" type="button">🎓 Newbie Guide</button>
+                            <button id="btn-play-pause" class="btn" type="button">⏸️ Pause</button>
+                            <button id="btn-reset" class="btn" type="button">🔄 Reset Topology</button>
+                            <button id="btn-sidebar-toggle" class="btn" type="button">📋 Hide Inspector</button>
+                            <a id="terminal-architecture-link" href="terminal-architecture/index.html" class="btn" hidden>Terminal Architecture</a>
+                        </div>
                         <div class="settings-item">
                             <span class="settings-item-label" id="lbl-setting-speed">动画速度</span>
                             <select id="speed-select" class="speed-select" title="动画播放速度">
@@ -83,12 +72,6 @@
                             </button>
                         </div>
                         <div class="settings-item">
-                            <span class="settings-item-label" id="lbl-setting-lang">显示语言</span>
-                            <button id="btn-lang-toggle" class="btn settings-item-btn" title="切换语言 / Switch Language">
-                                <span>🌐</span> 语言：中文
-                            </button>
-                        </div>
-                        <div class="settings-item">
                             <span class="settings-item-label" id="lbl-setting-fullscreen">屏幕显示</span>
                             <button id="btn-fullscreen" class="btn settings-item-btn" title="全屏显示 / Fullscreen">
                                 <span>⛶</span> 全屏显示
@@ -99,6 +82,7 @@
             </div>
         </div>
     </header>
+    <span id="export-status" class="export-status" role="status" aria-live="polite"></span>
 
     <!-- 可折叠场景与说明面板 -->
     <div id="scenarios-collapse-wrapper" class="scenarios-collapse-wrapper collapsed">
