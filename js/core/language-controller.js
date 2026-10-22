@@ -7,6 +7,7 @@
         mn: ['LCS 3D үзүүлэн ↗', 'Dante 3D үзүүлэн ↗'],
         ja: ['LCS 3D デモ ↗', 'Dante 3D デモ ↗'],
         es: ['Demo 3D LCS ↗', 'Demo 3D Dante ↗'],
+        fr: ['Démo LCS 3D ↗', 'Démo Dante 3D ↗'],
         ar: ['عرض LCS ثلاثي الأبعاد ↗', 'عرض Dante ثلاثي الأبعاد ↗']
     };
     Object.assign(Simulator.prototype, {
