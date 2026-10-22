@@ -20,10 +20,10 @@
         const inspector = document.getElementById('device-inspector');
         if (!inspector) return;
 
-        const zoneText = (this.lang === 'en' ? dev.zone_en : dev.zone_zh) || dev.zone;
-        const roleText = (this.lang === 'en' ? dev.role_en : dev.role_zh) || dev.role;
+        const zoneText = this.localizedDeviceValue(dev, 'zone');
+        const roleText = this.localizedDeviceValue(dev, 'role');
 
-        document.getElementById('inspector-title').textContent = dev.name;
+        document.getElementById('inspector-title').textContent = this.getDeviceTranslation(dev, 'name') || dev.name;
         document.getElementById('inspector-model').textContent = dev.model;
         document.getElementById('inspector-img').src = dev.image;
         document.getElementById('inspector-zone').textContent = zoneText;
@@ -33,9 +33,10 @@
         const portsList = document.getElementById('inspector-ports');
         const portsSection = portsList?.closest('.inspector-section');
         if (portsSection) {
-            if (dev.ports && dev.ports.length > 0) {
+            const ports = this.getDeviceTranslation(dev, 'ports') || dev.ports;
+            if (ports && ports.length > 0) {
                 portsSection.style.display = '';
-                portsList.innerHTML = dev.ports.map(p => `<li>${p}</li>`).join('');
+                portsList.innerHTML = ports.map(p => `<li>${p}</li>`).join('');
             } else {
                 portsSection.style.display = 'none';
             }
@@ -55,16 +56,16 @@
                     cascading: t?.inspector?.scenario_cascading || (isEn ? 'Cascading' : '全校级联')
                 };
                 const s = dev.scenarios;
-                const b1 = (isEn ? s.badge1_en : s.badge1_zh) || labels.teaching;
+                const b1 = this.localizedScenarioValue(dev, 'badge1') || labels.teaching;
                 const i1 = s.icon1 || '🎓';
-                const b2 = (isEn ? s.badge2_en : s.badge2_zh) || labels.control;
+                const b2 = this.localizedScenarioValue(dev, 'badge2') || labels.control;
                 const i2 = s.icon2 || '🎛️';
-                const b3 = (isEn ? s.badge3_en : s.badge3_zh) || labels.cascading;
+                const b3 = this.localizedScenarioValue(dev, 'badge3') || labels.cascading;
                 const i3 = s.icon3 || '🌐';
                 scenariosBox.innerHTML = `
-                    <div class="scenario-item"><span class="scenario-badge scenario-badge-teaching">${i1} ${b1}</span><div class="scenario-desc">${isEn ? s.teaching_en : s.teaching_zh}</div></div>
-                    <div class="scenario-item"><span class="scenario-badge scenario-badge-control">${i2} ${b2}</span><div class="scenario-desc">${isEn ? s.control_en : s.control_zh}</div></div>
-                    <div class="scenario-item"><span class="scenario-badge scenario-badge-cascading">${i3} ${b3}</span><div class="scenario-desc">${isEn ? s.cascading_en : s.cascading_zh}</div></div>
+                    <div class="scenario-item"><span class="scenario-badge scenario-badge-teaching">${i1} ${b1}</span><div class="scenario-desc">${this.localizedScenarioValue(dev, 'teaching')}</div></div>
+                    <div class="scenario-item"><span class="scenario-badge scenario-badge-control">${i2} ${b2}</span><div class="scenario-desc">${this.localizedScenarioValue(dev, 'control')}</div></div>
+                    <div class="scenario-item"><span class="scenario-badge scenario-badge-cascading">${i3} ${b3}</span><div class="scenario-desc">${this.localizedScenarioValue(dev, 'cascading')}</div></div>
                 `;
             } else {
                 scenariosSection.style.display = 'none';
@@ -94,9 +95,7 @@
         const bannerDesc = document.getElementById('scenario-banner-desc');
         if (bannerDesc) {
             const orig = bannerDesc.textContent;
-            const msg = this.lang === 'en'
-                ? `[Self-Test Ping] Diagnostic signal sent to ${dev.name}. Device responding nominally (RTT: 4.2ms)`
-                : `[自检中] 向 ${dev.name} 发送诊断 Ping 成功，设备响应正常 (RTT: 4.2ms)`;
+            const msg = `${dev.model}: ${this.getTranslations().inspector.ping_success}`;
             bannerDesc.innerHTML = `<span style="color:#38bdf8;">${msg}</span>`;
             setTimeout(() => { bannerDesc.textContent = orig; }, 3000);
         }

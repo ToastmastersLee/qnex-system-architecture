@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eaf0f7">
+  <title>LCS 810 · 3D Room Demo</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles-presentation.css">
+  <script defer src="dist/app.js"></script>
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <header class="topbar">
+      <div class="brand-lockup">
+        <span class="brand-mark" aria-hidden="true">LCS</span>
+        <div><div class="eyebrow" data-i18n="eyebrow">INTERACTIVE ROOM STUDY</div><h1 data-i18n="title">LCS 810 · 3D Room Demo</h1></div>
+      </div>
+      <div class="room-toolbar room-controls">
+        <label><span data-i18n="preset">Preset</span><select id="preset"><option value="standard" data-i18n="standard">Standard 8 × 10</option><option value="large" data-i18n="large">Large 10 × 20</option><option value="lecture" data-i18n="lecture">Lecture 12 × 15</option><option value="ultra" data-i18n="ultra">Auditorium 17 × 37</option><option value="custom" data-i18n="custom">Custom</option></select></label>
+        <label><span data-i18n="width">WIDTH</span><input id="room-width" type="number" min="4" max="30" step="0.1" value="8"></label>
+        <label><span data-i18n="depth">DEPTH</span><input id="room-depth" type="number" min="5" max="50" step="0.1" value="10"></label>
+        <label><span data-i18n="height">HEIGHT</span><input id="room-height-input" type="number" min="2.4" max="6" step="0.1" value="3"></label>
+        <button id="recalculate-button" class="primary-button" type="button" data-i18n="recalculate">Recalculate</button>
+        <span id="input-error" role="alert" hidden></span>
+      </div>
+      <div class="topbar-actions">
+        <button id="language-button" class="quiet-button" type="button" aria-label="Switch language">中文</button>
+        <button id="export-button" class="primary-button" type="button" data-i18n="export">Export PNG</button>
+      </div>
+    </header>
+    <div id="imported-plan-banner" class="room-toolbar" hidden></div>
+
+
+    <main class="main-layout">
+      <section class="scene-panel" aria-label="Interactive 3D room">
+        <canvas id="scene-canvas" aria-label="3D LCS classroom"></canvas>
+        <div id="device-labels" class="device-labels"></div>
+        <div class="scene-topline"><span class="live-dot"></span><span id="scene-caption">8 × 10 m</span></div>
+        <div class="scene-tools">
+        <div class="view-controls" role="group" aria-label="Camera views">
+          <button type="button" data-view="overview" class="view-button active" data-i18n="overview">Overview</button>
+          <button type="button" data-view="top" class="view-button" data-i18n="top">Top</button>
+          <button type="button" data-view="stage" class="view-button" data-i18n="stageView">Stage</button>
+          <button type="button" data-view="audience" class="view-button" data-i18n="audienceView">Audience</button>
+        </div>
+        <div class="scene-tool-actions"><button id="theme-toggle" type="button">Theme</button><button id="sidebar-toggle" type="button" aria-expanded="true">Hide sidebar</button></div>
+      </div>
+        <div class="scene-bottomline"><span data-i18n="gestureHint">Drag to orbit · Scroll to zoom · Right drag to pan · Click a device</span><span id="frame-status">3D</span></div>
+        <div id="scene-error" class="scene-error" role="alert" hidden></div>
+      </section>
+
+      <aside id="scene-sidebar" class="sidebar">
+        <div class="sidebar-intro"><span class="section-kicker" data-i18n="study">PRESALES SPATIAL STUDY</span><h2 data-i18n="layoutTitle">System layout</h2><p data-i18n="layoutDesc">A clear view of where the core LCS devices would be installed.</p></div>
+        <div class="metric-row"><div><span data-i18n="width">WIDTH</span><strong id="width-metric">8.0 <small>m</small></strong></div><div><span data-i18n="depth">DEPTH</span><strong id="depth-metric">10.0 <small>m</small></strong></div><div><span data-i18n="height">HEIGHT</span><strong id="height-metric">3.0 <small>m</small></strong></div></div>
+        <section class="sidebar-section selected-section" aria-live="polite"><div class="section-heading"><h3 data-i18n="selected">Selected device</h3></div><div id="device-detail" class="device-detail"></div></section>
+        <details id="settings-panel" class="settings-panel"><summary><span data-i18n="settings">Scene settings</span><span class="summary-chevron" aria-hidden="true">⌄</span></summary>
+          <div class="settings-content">
+            <div id="equipment-controls">
+            <div class="subheading" data-i18n="equipment">Equipment configuration</div>
+            <label class="select-row"><span data-i18n="ifpSize">IFP size</span><select id="ifp-size"><option value="65">65&quot;</option><option value="75">75&quot;</option><option value="86" selected>86&quot;</option></select></label>
+            <label class="select-row"><span data-i18n="ifpCount">IFP panels</span><select id="ifp-count"><option value="1">1</option><option value="2" selected>2</option></select></label>
+            <label class="select-row"><span data-i18n="displaySize">Auxiliary Display size</span><select id="display-size"><option value="55" selected>55&quot;</option><option value="65">65&quot;</option><option value="75">75&quot;</option></select></label>
+            <label class="select-row"><span data-i18n="cameraPackage">Camera package</span><select id="camera-package"><option value="CV870">CV870 Pro</option><option value="CV210">CV210</option></select></label>
+            <div id="long-camera-settings" hidden>
+              <label class="select-row"><span data-i18n="teacherModel">Teacher camera</span><select id="teacher-model"><option value="CV870">CV870 Pro</option><option value="PVC-G530P">PVC-G530P</option><option value="PVC-G520P">PVC-G520P</option><option value="PVC-G512P">PVC-G512P</option></select></label>
+              <label class="select-row"><span data-i18n="studentModel">Student camera</span><select id="student-model"><option value="CV870">CV870 Pro</option><option value="PVC-G530P">PVC-G530P</option><option value="PVC-G520P">PVC-G520P</option><option value="PVC-G512P">PVC-G512P</option></select></label>
+              <label class="select-row"><span data-i18n="studentQty">Student cameras</span><select id="student-qty"><option>1</option><option>2</option><option>3</option></select></label>
+              <button id="apply-recommendation" type="button" class="reset-button" data-i18n="applyRecommendation">Apply recommended cameras</button>
+              <p id="recommendation-note" class="settings-note"></p>
+            </div>
+            <button id="apply-equipment" type="button" class="reset-button" data-i18n="applyEquipment">Apply equipment</button>
+            </div>
+            <label class="select-row"><span data-i18n="doorSide">Door side</span><select id="door-side"><option value="right" selected data-i18n="doorRight">Right wall</option><option value="left" data-i18n="doorLeft">Left wall</option></select></label>
+            <div class="settings-divider"></div>
+            <div id="visibility-heading" class="subheading" data-i18n="visibility">Visibility</div>
+            <div class="check-grid">
+              <label class="check-row"><input id="show-labels" type="checkbox" checked><span data-i18n="showLabels">Device names</span></label>
+              <div id="visibility-controls" class="visibility-kinds"></div>
+              <label class="check-row"><input id="show-furniture" type="checkbox" checked><span data-i18n="showFurniture">Reference furniture</span></label>
+              <label class="check-row"><input id="show-coverage" type="checkbox"><span data-i18n="showCoverage">Floor coverage projection</span></label>
+            </div>
+            <p class="settings-note" data-i18n="coverageNote">Coverage marks project the existing 2D rules onto the floor. They are not a validated 3D acoustic or image model.</p>
+            <div class="settings-divider"></div><div class="subheading" data-i18n="mountingHeights">Illustrative mounting heights</div>
+            <div id="height-controls"></div>
+            <button id="reset-button" type="button" class="reset-button" data-i18n="reset">Restore demo defaults</button>
+          </div>
+        </details>
+        <div id="height-warning" class="height-warning" hidden></div>
+        <p class="assumption-note" data-i18n="assumption">Mounting heights are presentation assumptions. Confirm the final equipment positions on site.</p>
+      </aside>
+    </main>
+  </div>
+</body>
+</html>

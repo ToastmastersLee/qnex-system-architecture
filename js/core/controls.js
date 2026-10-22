@@ -52,8 +52,11 @@
         bindDisplayControls() {
             document.getElementById('btn-theme-toggle')
                 ?.addEventListener('click', () => this.toggleTheme());
-            document.getElementById('btn-lang-toggle')
-                ?.addEventListener('click', () => this.toggleLanguage());
+            document.getElementById('language-select')
+                ?.addEventListener('change', event => {
+                    this.applyLanguage(event.target.value);
+                    window.soundSys?.playClick();
+                });
             document.getElementById('btn-fullscreen')
                 ?.addEventListener('click', () => this.toggleFullscreen());
 

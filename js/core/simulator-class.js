@@ -9,9 +9,10 @@
             this.lang = 'en';
             try {
                 const saved = localStorage.getItem('qnex_arch_lang_v2');
-                if (saved === 'zh' || saved === 'en') this.lang = saved;
+                if (Object.hasOwn(app.data.i18n, saved)) this.lang = saved;
             } catch (error) {}
-            this.theme = localStorage.getItem('qnex_theme') || 'light';
+            this.theme = 'light';
+            try { this.theme = localStorage.getItem('qnex_theme') || 'light'; } catch (error) {}
             this.currentScenario = 'standby';
             this.mediaServerEnabled = false;
             try {

@@ -7,7 +7,7 @@
 
     Object.assign(Simulator.prototype, {
         getTranslations() {
-            return window.I18N_DATA?.[this.lang] || window.I18N_DATA?.zh;
+            return window.I18N_DATA?.[this.lang] || window.I18N_DATA?.en;
         },
 
         applyTheme(theme) {
@@ -31,15 +31,17 @@
         },
 
         applyLanguage(language) {
-            this.lang = language === 'zh' ? 'zh' : 'en';
+            this.lang = Object.hasOwn(window.I18N_DATA, language) ? language : 'en';
             try {
                 localStorage.setItem('qnex_arch_lang_v2', this.lang);
             } catch (error) {}
-            document.documentElement.lang = this.lang === 'en' ? 'en' : 'zh-CN';
+            document.documentElement.lang = this.lang === 'zh' ? 'zh-CN' : this.lang;
+            document.documentElement.dir = this.lang === 'ar' ? 'rtl' : 'ltr';
 
             const translations = this.getTranslations();
             if (!translations) return;
             this.updateHeaderLanguage(translations);
+            this.updateLanguageControls(translations);
             this.updateMediaServerControls();
             this.updateExportButton();
             this.updateScenarioLanguage(translations);
@@ -62,7 +64,6 @@
 
             const htmlValues = {
                 'btn-theme-toggle': this.theme === 'dark' ? translations.theme_dark : translations.theme_light,
-                'btn-lang-toggle': translations.lang_btn,
                 'btn-start-tour': translations.tour_btn,
                 'btn-sound-toggle': window.soundSys?.isMuted ? translations.sound_off : translations.sound_on,
                 'btn-play-pause': this.isPlaying ? translations.pause : translations.play,
@@ -157,8 +158,9 @@
         },
 
         localizedDeviceValue(device, property) {
-            return device[`${property}_${this.lang}`]
-                || device[`${property}_zh`]
+            return this.getDeviceTranslation(device, property)
+                || device[`${property}_${this.lang}`]
+                || device[`${property}_en`]
                 || device[property]
                 || device.name;
         },
@@ -240,6 +242,7 @@
             this.isScenariosCollapsed = (forceState !== undefined) ? forceState : !this.isScenariosCollapsed;
             wrapper.classList.toggle('collapsed', this.isScenariosCollapsed);
             toggleBtn?.classList.toggle('open', !this.isScenariosCollapsed);
+            toggleBtn?.setAttribute('aria-expanded', String(!this.isScenariosCollapsed));
             window.soundSys?.playClick();
             setTimeout(() => this.handleResize(), 320);
         },

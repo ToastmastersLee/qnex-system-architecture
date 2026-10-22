@@ -143,8 +143,11 @@ class NewbieTour {
     }
 
     get steps() {
-        const lang = window.simulator?.lang || 'zh';
-        const steps = lang === 'en' ? this.steps_en : this.steps_zh;
+        const lang = window.simulator?.lang || 'en';
+        const content = window.QnexApp.data.localeContent?.[lang];
+        const steps = content
+            ? this.steps_en.map((step, index) => ({ ...step, ...content.tour[index] }))
+            : (lang === 'zh' ? this.steps_zh : this.steps_en);
         return steps.filter(step => window.simulator?.mediaServerEnabled
             || !step.targetNodes.includes('mediaserver'));
     }

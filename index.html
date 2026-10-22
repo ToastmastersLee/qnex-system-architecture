@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="assets/Q-NEX.png">
+    <link rel="icon" href="assets/qnex-logo.png">
     <title>Q-NEX System Architecture Simulator</title>
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/localization.css">
     <link rel="stylesheet" href="css/scenarios.css">
     <link rel="stylesheet" href="css/workspace.css">
     <link rel="stylesheet" href="css/topology.css">
@@ -18,14 +19,30 @@
     <!-- 顶部导航与全局控制栏 -->
     <header class="app-header">
         <div class="brand-section">
-            <div class="brand-badge">Q-NEX</div>
+            <div class="brand-badge"><img src="assets/qnex-logo.png" alt="Q-NEX" width="118" height="40"></div>
             <div class="app-title-group">
                 <h1>System Architecture Simulator</h1>
                 <p>Interactive Dynamic Signal Flow Simulator based on Q-NEX Topology Wiring Specifications</p>
             </div>
         </div>
         <div class="header-actions">
-            <button id="btn-lang-toggle" class="btn" title="Switch language / 切换语言" type="button">🌐 Lang: English</button>
+            <label class="language-control btn">
+                <span aria-hidden="true">🌐</span>
+                <select id="language-select" aria-label="Language">
+                    <option value="en" lang="en">English</option>
+                    <option value="zh" lang="zh-CN">简体中文</option>
+                    <option value="ko" lang="ko">한국어</option>
+                    <option value="mn" lang="mn">Монгол</option>
+                    <option value="ja" lang="ja">日本語</option>
+                    <option value="es" lang="es">Español</option>
+                    <option value="ar" lang="ar">العربية</option>
+                </select>
+            </label>
+            <button id="btn-scenarios-toggle" class="btn btn-scenarios-toggle" type="button" aria-expanded="false" aria-controls="scenarios-collapse-wrapper">
+                <span>🧭</span> <span id="lbl-scenario-current">Scenario: STANDBY</span> <span class="scenario-arrow">▾</span>
+            </button>
+            <a id="lcs-demo-link" class="btn demo-shortcut" href="demos/lcs/index.html" target="_blank" rel="noopener">LCS 3D Demo ↗</a>
+            <a id="dante-demo-link" class="btn demo-shortcut" href="demos/dante/index.html" target="_blank" rel="noopener">Dante 3D Demo ↗</a>
             <div class="settings-dropdown">
                 <button id="btn-settings-toggle" class="btn" title="Tools &amp; settings" type="button" aria-expanded="false" aria-controls="settings-panel">
                     <span>⚙️</span> <span id="lbl-settings-toggle-text">More</span> <span class="arrow-indicator">▾</span>
@@ -41,9 +58,6 @@
                                 <input id="media-server-option" type="checkbox">
                                 <span id="lbl-media-server-option">Media Server (optional)</span>
                             </label>
-                            <button id="btn-scenarios-toggle" class="btn btn-scenarios-toggle" type="button">
-                                <span>🧭</span> <span id="lbl-scenario-current">Scenario: STANDBY</span> <span class="scenario-arrow">▾</span>
-                            </button>
                             <button id="btn-export-png" class="btn" type="button">Export PNG</button>
                             <button id="btn-start-tour" class="btn btn-primary" type="button">🎓 Newbie Guide</button>
                             <button id="btn-play-pause" class="btn" type="button">⏸️ Pause</button>
@@ -244,19 +258,27 @@
         </div>
     </div>
 
-    <!-- 脚本引入 -->
-    <!-- Namespace and data -->
     <script src="js/namespace.js"></script>
     <script src="js/i18n.js"></script>
+    <script src="js/i18n/locale-ko.js"></script>
+    <script src="js/i18n/locale-ja.js"></script>
+    <script src="js/i18n/locale-es.js"></script>
+    <script src="js/i18n/locale-ar.js"></script>
+    <script src="js/i18n/locale-mn.js"></script>
+    <script src="js/i18n/content-ko.js"></script>
+    <script src="js/i18n/content-ja.js"></script>
+    <script src="js/i18n/content-es.js"></script>
+    <script src="js/i18n/content-ar.js"></script>
+    <script src="js/i18n/content-mn.js"></script>
     <script src="js/data/screen-states.js"></script>
     <script src="js/data/topology-config.js"></script>
     <script src="js/data/devices-infrastructure.js"></script>
     <script src="js/data/devices-spaces.js"></script>
     <script src="js/data/connections.js"></script>
     <script src="js/data/topology-finalize.js"></script>
+    <script src="js/i18n/prepare-content.js"></script>
     <script src="js/data/scenario-flows.js"></script>
 
-    <!-- Feature services and application coordinator -->
     <script src="js/audio.js"></script>
     <script src="js/tour.js"></script>
     <script src="js/core/simulator-class.js"></script>
@@ -265,6 +287,7 @@
     <script src="js/data/export-images.js"></script>
     <script src="js/core/png-export.js"></script>
     <script src="js/core/ui-controller.js"></script>
+    <script src="js/core/language-controller.js"></script>
     <script src="js/core/topology-renderer.js"></script>
     <script src="js/core/node-renderer.js"></script>
     <script src="js/core/particle-engine.js"></script>
