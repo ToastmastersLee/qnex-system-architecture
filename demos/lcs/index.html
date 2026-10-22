@@ -8,6 +8,7 @@
   <title>LCS 810 · 3D Room Demo</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="styles-presentation.css">
+  <link rel="stylesheet" href="styles-camera-field.css">
   <script defer src="dist/app.js"></script>
 </head>
 <body>
@@ -55,6 +56,24 @@
         <div class="sidebar-intro"><span class="section-kicker" data-i18n="study">PRESALES SPATIAL STUDY</span><h2 data-i18n="layoutTitle">System layout</h2><p data-i18n="layoutDesc">A clear view of where the core LCS devices would be installed.</p></div>
         <div class="metric-row"><div><span data-i18n="width">WIDTH</span><strong id="width-metric">8.0 <small>m</small></strong></div><div><span data-i18n="depth">DEPTH</span><strong id="depth-metric">10.0 <small>m</small></strong></div><div><span data-i18n="height">HEIGHT</span><strong id="height-metric">3.0 <small>m</small></strong></div></div>
         <section class="sidebar-section selected-section" aria-live="polite"><div class="section-heading"><h3 data-i18n="selected">Selected device</h3></div><div id="device-detail" class="device-detail"></div></section>
+        <section id="camera-field-panel" class="sidebar-section camera-field-panel" data-enabled="false">
+          <h3 data-field-i18n="heading">Camera field of view</h3>
+          <label class="check-row"><input id="camera-field-enabled" type="checkbox"><span data-field-i18n="enabled">Show 3D camera field</span></label>
+          <p id="camera-field-empty" data-field-i18n="empty" hidden>No camera is available.</p>
+          <div id="camera-field-settings" hidden>
+            <label class="select-row"><span data-field-i18n="camera">Camera</span><select id="camera-field-select"></select></label>
+            <label class="check-row"><input id="camera-field-only" type="checkbox"><span data-field-i18n="onlyCurrent">Only current camera</span></label>
+            <div class="field-angle-row"><label for="camera-field-pan" data-field-i18n="pan">Pan</label><div><input id="camera-field-pan" type="range" min="-90" max="90" step="1" value="0"><input id="camera-field-pan-number" type="number" min="-90" max="90" step="1" value="0"><span>°</span></div></div>
+            <div class="field-angle-row"><label for="camera-field-tilt" data-field-i18n="tilt">Tilt</label><div><input id="camera-field-tilt" type="range" min="-60" max="60" step="1" value="0"><input id="camera-field-tilt-number" type="number" min="-60" max="60" step="1" value="0"><span>°</span></div></div>
+            <p class="settings-note" data-field-i18n="tiltHint">Positive tilt points down; negative tilt points up.</p>
+            <label id="camera-field-custom-row" class="check-row"><input id="camera-field-custom" type="checkbox"><span data-field-i18n="custom">Custom demonstration</span></label>
+            <div class="field-angle-row"><label for="camera-field-hfov" data-field-i18n="hfov">Horizontal field of view</label><div><input id="camera-field-hfov" type="range" min="2" max="140" step="0.1" value="43"><input id="camera-field-hfov-number" type="number" min="2" max="140" step="0.1" value="43"><span>°</span></div></div>
+            <p id="camera-field-vfov" class="settings-note"></p>
+            <p id="camera-field-hint" class="settings-note"></p>
+            <button id="camera-field-reset" type="button" class="reset-button" data-field-i18n="reset">Reset this camera</button>
+            <p class="settings-note" data-field-i18n="note">16:9 field-of-view illustration.</p>
+          </div>
+        </section>
         <details id="settings-panel" class="settings-panel"><summary><span data-i18n="settings">Scene settings</span><span class="summary-chevron" aria-hidden="true">⌄</span></summary>
           <div class="settings-content">
             <div id="equipment-controls">
