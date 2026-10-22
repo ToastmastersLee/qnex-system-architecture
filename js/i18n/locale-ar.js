@@ -55,7 +55,7 @@ window.I18N_DATA.ar = {
         test_btn_prefix: '🚀 إرسال', test_btn_suffix: 'فحص ذاتي', ping_success: 'استجابة الجهاز طبيعية (RTT: 4.2ms)'
     },
     legend: {
-        title: 'معايير ألوان التوصيل', filter_hint: 'تصفية الطبقات', lan: '🟦 LAN / إيثرنت / PoE+ (#0074D9)',
+        title: 'معايير ألوان التوصيل', filter_hint: 'تصفية الطبقات', lan: '🟦 LAN / إيثرنت (#0074D9)',
         hdmi: '🔴 HDMI / فيديو (#FF4136)', audio: '🟢 صوت / كابل مكبر الصوت (#2ECC40)',
         wireless: '📶 لاسلكي / 4G / ميكروفون UHF (خط متقطع)'
     },

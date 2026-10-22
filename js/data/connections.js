@@ -71,7 +71,7 @@
         type: 'lan',
         color: TOPOLOGY_CONFIG.colors.lan,
         dashed: false,
-        label: 'PoE+ LAN',
+        label: 'Gigabit LAN',
         pathType: 'orthogonal',
         points: [[605, 500], [755, 500], [755, 115], [800, 115]]
     },
@@ -83,7 +83,7 @@
         type: 'lan',
         color: TOPOLOGY_CONFIG.colors.lan,
         dashed: false,
-        label: 'PoE+ LAN',
+        label: 'Gigabit LAN',
         pathType: 'orthogonal',
         points: [[605, 510], [745, 510], [745, 305], [800, 305]]
     },

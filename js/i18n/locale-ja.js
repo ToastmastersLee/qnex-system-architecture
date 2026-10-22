@@ -55,7 +55,7 @@ window.I18N_DATA.ja = {
         test_btn_prefix: '🚀 診断送信：', test_btn_suffix: '自己診断', ping_success: '正常に応答しました（RTT: 4.2ms）'
     },
     legend: {
-        title: '配線の色分け規則', filter_hint: '表示するレイヤーを選択', lan: '🟦 LAN / イーサネット / PoE+ (#0074D9)',
+        title: '配線の色分け規則', filter_hint: '表示するレイヤーを選択', lan: '🟦 LAN / イーサネット (#0074D9)',
         hdmi: '🔴 HDMI / 映像信号 (#FF4136)', audio: '🟢 音声 / スピーカーケーブル (#2ECC40)',
         wireless: '📶 無線 / 4G / UHFマイク（破線）'
     },

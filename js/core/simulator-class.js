@@ -5,12 +5,8 @@
 (function (app) {
     class QnexSimulator {
         constructor() {
-            // New preference key also resets the old Chinese-first default once.
+            // Every page load starts in English, including returning browsers.
             this.lang = 'en';
-            try {
-                const saved = localStorage.getItem('qnex_arch_lang_v2');
-                if (Object.hasOwn(app.data.i18n, saved)) this.lang = saved;
-            } catch (error) {}
             this.theme = 'light';
             try { this.theme = localStorage.getItem('qnex_theme') || 'light'; } catch (error) {}
             this.currentScenario = 'standby';

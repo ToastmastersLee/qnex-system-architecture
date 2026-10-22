@@ -56,7 +56,7 @@ window.I18N_DATA.ko = {
         test_btn_prefix: '🚀 진단 전송:', test_btn_suffix: '자체 점검', ping_success: '장치 응답 정상 (RTT: 4.2ms)'
     },
     legend: {
-        title: '배선 색상 규격', filter_hint: '표시할 계층 선택', lan: '🟦 LAN / 이더넷 / PoE+ (#0074D9)',
+        title: '배선 색상 규격', filter_hint: '표시할 계층 선택', lan: '🟦 LAN / 이더넷 (#0074D9)',
         hdmi: '🔴 HDMI / 영상 신호 (#FF4136)', audio: '🟢 오디오 / 스피커 케이블 (#2ECC40)',
         wireless: '📶 무선 / 4G / UHF 마이크 (점선)'
     },

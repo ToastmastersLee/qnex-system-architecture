@@ -57,7 +57,7 @@ const I18N_DATA = {
                 btn: '<span>📡</span> 全校视讯直播 (RTMP推流)',
                 badge: '视讯直播',
                 title: '全校视讯直播 (Campus Live Streaming & RTMP Distribution)',
-                desc: '【重点演练】：流媒体服务器作为内网分发中心，将超高清直播流推往各终端；【核心考点】：SL100 专为本地多媒体互动演示设计，流媒体不往 SL100 走，有效节省网络带宽。'
+                desc: '本示例由选配的流媒体服务器通过校园内网向支持的终端分发直播。SL100 在本示例中用于本地教学，不参与音视频广播。'
             },
             bell_music: {
                 btn: '<span>🎵</span> 定时打铃与午间音乐 (内网音频)',
@@ -69,19 +69,19 @@ const I18N_DATA = {
                 btn: '<span>⚡</span> 云端批量控制 (MQTT信令)',
                 badge: '云端中控',
                 title: '云端批量统一控制 (Cloud Remote Control & IoT Management)',
-                desc: '【重点演练】：管理员在 PC Web Console 或手机 App 点击一键批量开机，指令经由 Q-NEX 云端 -> 网关 -> 交换机秒级下发，教室设备统一通电并同步自检。'
+                desc: '管理员通过 Web 或移动端下发支持的远程控制，信令经过云端、网关和交换机到达终端；实际动作以设备接口、平台与权限配置为准。'
             },
             emergency_alert: {
                 btn: '<span>🚨</span> 突发火警文本广播',
                 badge: '云端文本广播',
                 title: '突发火警文本广播 (Emergency Evacuation Text Notice)',
-                desc: '【应急文本下发】：管理员或消防联动通过 Q-NEX 云端直接下发紧急疏散文本通知（基于轻量 MQTT 协议），各终端大屏接收并显示撤离指引。【核心考点】：火警系云端直接下发的纯文本广播，无需流媒体服务器，SL100 等讲台终端亦全面支持文本通知接收与大屏展示。'
+                desc: '本场景演示通过云端信令向连接的显示设备发送文字通知，无需经过流媒体服务器。可用的通知与控制功能以终端型号、固件和平台配置为准。'
             },
             local_teaching: {
-                btn: '<span>💻</span> 教室本地授课模式 (零网络开销)',
+                btn: '<span>💻</span> 教室本地授课模式 (本地音视频)',
                 badge: '本地模式',
                 title: '教室本地教学授课模式 (Classroom Local Teaching Mode)',
-                desc: '【售前培训点】：NDP600、NMP311、NDP200 与 SL100 均全面支持本地教学授课模式！教师在讲台连接笔记本课件、实物展台或讲台鹅颈麦，音视频信号直接经由终端本地 HDMI 矩阵与内置功放切换输出至大屏与音箱，完全不消耗校园网络带宽，彰显 Q-NEX 强大的本地自主中控能力。'
+                desc: '本场景演示通过本地 HDMI、USB 与音频接口完成授课。音视频使用本地路径，无需占用校园广播流；设备管理及其他网络功能仍可能产生网络流量。'
             }
         },
 
@@ -112,8 +112,8 @@ const I18N_DATA = {
         legend: {
             title: '接线规范图例 (Wiring Standards)',
             filter_hint: '可勾选过滤图层',
-            lan: '🟦 LAN / 网络线 / PoE+ (#0074D9)',
-            hdmi: '🔴 HDMI / 4K 视讯传输线 (#FF4136)',
+            lan: '🟦 LAN / 网络线 (#0074D9)',
+            hdmi: '🔴 HDMI / 视频传输线 (#FF4136)',
             audio: '🟢 Audio / 音频线 / 喇叭线 (#2ECC40)',
             wireless: '📶 无线网络 / 4G / 麦克风 (虚线)'
         },
@@ -182,7 +182,7 @@ const I18N_DATA = {
                 btn: '<span>📡</span> Live Broadcast (RTMP)',
                 badge: 'LIVE ON AIR',
                 title: 'Campus Live Streaming & Video Distribution (RTMP Distribution)',
-                desc: '[Key Architecture Lesson]: Media Server distributes video across campus Gigabit LAN to endpoints. [Key Exam Rule]: SL100 focuses on local interactive lectures; live streams do not route to SL100, conserving network bandwidth.'
+                desc: 'This example distributes video from the optional media server over the campus LAN to supported endpoints. SL100 is used for local presentations and does not receive AV broadcast streams in this example.'
             },
             bell_music: {
                 btn: '<span>🎵</span> Bell & Lunch Music (Audio)',
@@ -194,19 +194,19 @@ const I18N_DATA = {
                 btn: '<span>⚡</span> Cloud Control (MQTT)',
                 badge: 'CLOUD CONTROL',
                 title: 'Centralized Cloud Remote Control & IoT Management (MQTT Control)',
-                desc: '[Key Architecture Lesson]: Administrator clicks batch power-on from PC Web Console or Mobile App. Lightweight MQTT commands traverse Q-NEX Cloud -> Gateway -> Switch -> Endpoints in milliseconds.'
+                desc: '[Key Architecture Lesson]: Administrator clicks batch power-on from PC Web Console or Mobile App. Lightweight MQTT commands traverse Q-NEX Cloud -> Gateway -> Switch -> Endpoints according to the device and platform configuration.'
             },
             emergency_alert: {
                 btn: '<span>🚨</span> Emergency Text Broadcast',
                 badge: 'TEXT BROADCAST',
                 title: 'Campus Emergency Evacuation Text Broadcast',
-                desc: '[Emergency Text Push]: Administrators or fire linkage systems trigger emergency evacuation text notices directly from Q-NEX Cloud via lightweight MQTT. [Key Exam Rule]: Fire alerts are text-only broadcasts pushed from the Cloud without needing the Media Server; SL100 natively supports text broadcast display.'
+                desc: 'This example illustrates cloud text notices on connected displays without using the Media Server. Available actions and text display depend on the endpoint, firmware and platform configuration.'
             },
             local_teaching: {
-                btn: '<span>💻</span> Local Teaching Mode (No LAN)',
+                btn: '<span>💻</span> Local Teaching Mode (Local AV)',
                 badge: 'LOCAL AV',
                 title: 'Classroom Local Teaching & AV Presentation Mode',
-                desc: '[Presales Key Point]: NDP600, NMP311, NDP200, and SL100 all fully support local teaching mode! Teachers connect laptops, document cameras, or podium gooseneck mics; AV signals route directly via local HDMI matrices and amplifiers to room displays and speakers without consuming campus LAN bandwidth, demonstrating robust independent control.'
+                desc: 'This example uses local HDMI, USB and audio connections for teaching without a campus AV broadcast stream. Device management and other network features may still generate LAN traffic.'
             }
         },
 
@@ -237,7 +237,7 @@ const I18N_DATA = {
         legend: {
             title: 'WIRING STANDARDS',
             filter_hint: 'Filter Layers',
-            lan: '🟦 LAN / Ethernet / PoE+ (#0074D9)',
+            lan: '🟦 LAN / Ethernet (#0074D9)',
             hdmi: '🔴 HDMI / Video Transmission (#FF4136)',
             audio: '🟢 Audio / Speaker Cable (#2ECC40)',
             wireless: '📶 Wireless / 4G / Mic UHF (Dashed)'

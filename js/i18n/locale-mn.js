@@ -55,7 +55,7 @@ window.I18N_DATA.mn = {
         test_btn_prefix: '🚀 Илгээх:', test_btn_suffix: 'өөрийн оношилгоо', ping_success: 'Төхөөрөмж хэвийн хариулав (RTT: 4.2ms)'
     },
     legend: {
-        title: 'ХОЛБОЛТЫН ӨНГӨНИЙ СТАНДАРТ', filter_hint: 'Давхаргыг шүүх', lan: '🟦 LAN / Ethernet / PoE+ (#0074D9)',
+        title: 'ХОЛБОЛТЫН ӨНГӨНИЙ СТАНДАРТ', filter_hint: 'Давхаргыг шүүх', lan: '🟦 LAN / Ethernet (#0074D9)',
         hdmi: '🔴 HDMI / Видео (#FF4136)', audio: '🟢 Аудио / Чанга яригчийн кабель (#2ECC40)',
         wireless: '📶 Утасгүй / 4G / UHF микрофон (тасархай)'
     },

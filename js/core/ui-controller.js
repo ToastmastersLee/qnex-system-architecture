@@ -32,9 +32,6 @@
 
         applyLanguage(language) {
             this.lang = Object.hasOwn(window.I18N_DATA, language) ? language : 'en';
-            try {
-                localStorage.setItem('qnex_arch_lang_v2', this.lang);
-            } catch (error) {}
             document.documentElement.lang = this.lang === 'zh' ? 'zh-CN' : this.lang;
             document.documentElement.dir = this.lang === 'ar' ? 'rtl' : 'ltr';
 

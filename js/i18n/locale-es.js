@@ -55,7 +55,7 @@ window.I18N_DATA.es = {
         test_btn_prefix: '🚀 Enviar', test_btn_suffix: 'diagnóstico', ping_success: 'El equipo responde correctamente (RTT: 4.2ms)'
     },
     legend: {
-        title: 'NORMAS DE CABLEADO', filter_hint: 'Filtrar capas', lan: '🟦 LAN / Ethernet / PoE+ (#0074D9)',
+        title: 'NORMAS DE CABLEADO', filter_hint: 'Filtrar capas', lan: '🟦 LAN / Ethernet (#0074D9)',
         hdmi: '🔴 HDMI / Vídeo (#FF4136)', audio: '🟢 Audio / Cable de altavoz (#2ECC40)',
         wireless: '📶 Inalámbrico / 4G / Micrófono UHF (discontinuo)'
     },

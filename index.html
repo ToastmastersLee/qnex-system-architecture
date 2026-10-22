@@ -63,7 +63,7 @@
                             <button id="btn-play-pause" class="btn" type="button">⏸️ Pause</button>
                             <button id="btn-reset" class="btn" type="button">🔄 Reset Topology</button>
                             <button id="btn-sidebar-toggle" class="btn" type="button">📋 Hide Inspector</button>
-                            <a id="terminal-architecture-link" href="terminal-architecture/index.html" class="btn" hidden>Terminal Architecture</a>
+                            <a id="terminal-architecture-link" class="btn" hidden>Terminal Architecture</a>
                         </div>
                         <div class="settings-item">
                             <span class="settings-item-label" id="lbl-setting-speed">动画速度</span>
@@ -151,17 +151,17 @@
         <!-- 侧边栏：设备深度学习检查器 + 接线颜色规范图例 -->
         <aside class="sidebar-panel" id="sidebar-panel">
             <div class="sidebar-top-bar">
-                <span class="sidebar-top-title" id="lbl-sidebar-title">📋 详细说明与规范</span>
+                <span class="sidebar-top-title" id="lbl-sidebar-title">📋 Details &amp; Standards</span>
                 <button id="btn-sidebar-close" class="btn-sidebar-close" title="收起说明面板">
-                    <span id="lbl-sidebar-close-text">收起 ❯</span>
+                    <span id="lbl-sidebar-close-text">Hide ❯</span>
                 </button>
             </div>
             <!-- 设备检查卡片 -->
             <div class="inspector-card" id="device-inspector">
                 <div class="inspector-header">
                     <div class="inspector-title-wrap">
-                        <h2 id="inspector-title">Core Managed PoE+ Switch</h2>
-                        <span class="inspector-model-badge" id="inspector-model">24-Port Gigabit PoE+</span>
+                        <h2 id="inspector-title">Core Gigabit Switch</h2>
+                        <span class="inspector-model-badge" id="inspector-model">Gigabit Network Switch</span>
                     </div>
                     <span class="inspector-zone-tag" id="inspector-zone">Campus Local Area Network</span>
                 </div>
@@ -169,15 +169,15 @@
                     <img id="inspector-img" src="assets/Switch-2.png" alt="Device Preview" class="inspector-preview-img">
                 </div>
                 <div class="inspector-section">
-                    <h4 id="lbl-role">设备架构职责 (Role in Architecture)</h4>
+                    <h4 id="lbl-role">ROLE IN ARCHITECTURE</h4>
                     <p class="inspector-role-text" id="inspector-role"></p>
                 </div>
                 <div class="inspector-section">
-                    <h4 id="lbl-ports">关键端口与物理接口 (I/O Ports)</h4>
+                    <h4 id="lbl-ports">I/O PORTS &amp; CONNECTORS</h4>
                     <ul class="inspector-ports-list" id="inspector-ports"></ul>
                 </div>
                 <div class="inspector-section">
-                    <h4 id="lbl-scenarios">核心业务与使用场景 (Application Scenarios)</h4>
+                    <h4 id="lbl-scenarios">APPLICATION &amp; USAGE SCENARIOS</h4>
                     <div class="scenario-items" id="inspector-scenarios"></div>
                 </div>
 
@@ -191,14 +191,14 @@
             <!-- 接线颜色规范图例 (严格匹配 Q-NEX 规范) -->
             <div class="legend-card" id="legend-card">
                 <h3 id="legend-title">
-                    接线规范图例 (Wiring Standards)
-                    <span id="legend-filter-hint">可勾选过滤图层</span>
+                    Wiring Legend
+                    <span id="legend-filter-hint">Filter cable layers</span>
                 </h3>
                 <div class="legend-items">
                     <label class="legend-row">
                         <div class="legend-left">
                             <span class="color-bar lan"></span>
-                            <span id="legend-label-lan">🟦 LAN / 网络线 / PoE+ (#0074D9)</span>
+                            <span id="legend-label-lan">🟦 LAN / Ethernet (#0074D9)</span>
                         </div>
                         <input type="checkbox" class="legend-filter-chk" data-type="lan" checked>
                     </label>
@@ -206,7 +206,7 @@
                     <label class="legend-row">
                         <div class="legend-left">
                             <span class="color-bar hdmi"></span>
-                            <span id="legend-label-hdmi">🔴 HDMI / 4K 视讯传输线 (#FF4136)</span>
+                            <span id="legend-label-hdmi">🔴 HDMI / Video (#FF4136)</span>
                         </div>
                         <input type="checkbox" class="legend-filter-chk" data-type="hdmi" checked>
                     </label>
