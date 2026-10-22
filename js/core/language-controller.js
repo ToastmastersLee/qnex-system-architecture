@@ -18,6 +18,7 @@
             const [lcs, dante] = DEMO_TEXT[this.lang];
             document.getElementById('lcs-demo-link').textContent = lcs;
             document.getElementById('dante-demo-link').textContent = dante;
+            for (const name of ['lcs','dante']) document.getElementById(`${name}-demo-link`).setAttribute('href', `demos/${name}/index.html?lang=${this.lang}`);
             const titles = {
                 'btn-settings-toggle': t.settings_heading,
                 'btn-scenarios-toggle': t.scenario_bar_title,

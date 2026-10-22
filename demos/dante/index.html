@@ -19,7 +19,7 @@
       <label><span data-i18n="height">Height</span><input id="room-height" type="number" min="2" max="4" step="0.1" value="3"></label>
       <button id="recalculate" class="primary" data-i18n="recalculate">Recalculate</button>
     </div>
-    <div class="top-actions"><label class="model-toggle"><input id="show-models" type="checkbox"><span id="model-caption">Show model numbers</span></label><button id="language" aria-label="Language">中文</button><button id="export" data-i18n="export">Export PNG</button></div>
+    <div class="top-actions"><select id="language" class="language-select" aria-label="Language"><option value="en">English</option></select><button id="export" data-i18n="export">Export PNG</button></div>
   </header>
   <main class="workspace">
     <section class="scene-panel" aria-label="3D room">
@@ -40,6 +40,7 @@
       <section class="card metrics"><div class="section-heading"><h2 data-i18n="coverage">Ground projection</h2><span class="tag" data-i18n="projection">2D rule</span></div><div id="coverage-stats"></div><p class="microcopy" data-i18n="coverageNote">Projection of the 2D rules, not a validated 3D acoustic simulation.</p></section>
       <section class="card"><div class="section-heading"><h2 data-i18n="selection">Selected device</h2><span class="tag" data-i18n="demo">Demo</span></div><div id="device-detail" class="detail" data-i18n="selectPrompt">Click a device or choose one below.</div><button id="focus-device" class="focus-device" data-i18n="focusDevice" hidden>View device close up</button></section>
       <details id="settings-panel" class="card settings"><summary data-i18n="settings">Settings & devices</summary>
+        <label class="model-toggle"><input id="show-models" type="checkbox"><span id="model-caption">Show model numbers</span></label>
         <label class="select-field"><span data-i18n="doorSide">Door side</span><select id="door-side"><option value="right" selected data-i18n="doorRight">Right wall</option><option value="left" data-i18n="doorLeft">Left wall</option></select></label>
         <h3 data-i18n="visualConfig">Teaching equipment · 3D demonstration</h3>
         <label class="select-field"><span data-i18n="ifpCount">IFP panels</span><select id="ifp-count"><option value="1">1</option><option value="2" selected>2</option></select></label>
@@ -48,8 +49,8 @@
         <div class="check-grid"><label><input type="checkbox" data-kind="ifp" checked><span data-i18n="main">IFP</span></label><label><input type="checkbox" data-kind="podium" checked><span data-i18n="podium">Podium</span></label><label><input type="checkbox" data-kind="station" checked><span data-i18n="station">Recording Station</span></label></div>
         <h3 data-i18n="visibility">Visibility</h3><div id="visibility-controls" class="check-grid">
           <label><input type="checkbox" id="show-labels" checked><span data-i18n="showLabels">Device names</span></label>
-          <label><input type="checkbox" data-kind="m100" checked><span data-audio-name="m100"></span></label><label><input type="checkbox" data-kind="m40" checked><span data-audio-name="m40"></span></label><label><input type="checkbox" data-kind="dc20" checked><span data-audio-name="dc20"></span></label><label><input type="checkbox" data-kind="display" checked data-i18n-label="aux">Auxiliary Displays</label>
-          <label><input type="checkbox" data-kind="remote" data-i18n-label="remote">Remote pickup</label><label><input type="checkbox" data-kind="pa" data-i18n-label="pa">Local PA pickup</label><label><input type="checkbox" data-kind="speaker" data-i18n-label="speaker">Speaker projection</label>
+          <label><input type="checkbox" data-kind="m100" checked><span data-audio-name="m100"></span></label><label><input type="checkbox" data-kind="m40" checked><span data-audio-name="m40"></span></label><label><input type="checkbox" data-kind="dc20" checked><span data-audio-name="dc20"></span></label><label data-i18n-label="aux"><input type="checkbox" data-kind="display" checked>Auxiliary Displays</label>
+          <label data-i18n-label="remote"><input type="checkbox" data-kind="remote">Remote pickup</label><label data-i18n-label="pa"><input type="checkbox" data-kind="pa">Local PA pickup</label><label data-i18n-label="speaker"><input type="checkbox" data-kind="speaker">Speaker projection</label>
         </div>
         <p class="microcopy" data-i18n="paNote">M100/M40 do not produce sound. Local PA requires DC20.</p>
         <h3 data-i18n="install">Demo mounting heights</h3><label class="inline-field"><span data-i18n="audioDrop">M100/M40 below ceiling</span><input id="audio-drop" type="number" min="0.1" max="1" step="0.05" value="0.15">m</label><p class="microcopy" data-i18n="dc20MountNote">DC20 face is fixed 12 mm below the ceiling; its enclosure sits above it.</p><label class="inline-field"><span data-i18n="mainHeight">Main display center</span><input id="main-height" type="number" min="0.5" max="3.5" step="0.1" value="1.5">m</label><label class="inline-field"><span data-i18n="auxDrop">Auxiliary below ceiling</span><input id="aux-drop" type="number" min="0.3" max="1.5" step="0.1" value="0.7">m</label>

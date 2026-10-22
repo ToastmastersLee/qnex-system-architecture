@@ -59,3 +59,12 @@ button,input,select { font-family:inherit }
   .scene-caption,.scene-topline { top:14px; left:12px; font-size:10px }
   .sidebar-collapsed .scene-panel { height:calc(100dvh - 175px); min-height:420px }
 }
+
+/* Language follows the main site; scene coordinates are never mirrored. */
+.language-select{background:var(--button,#20384b);color:inherit;border:1px solid #75899a66;border-radius:10px;padding:9px 12px;font:inherit;max-width:150px;cursor:pointer}
+.language-select option{background:#fff;color:#173044}
+html[dir="rtl"] .main-layout,html[dir="rtl"] .workspace{direction:ltr}
+html[dir="rtl"] .sidebar{direction:rtl;text-align:right}
+html[dir="rtl"] .scene-panel{direction:ltr}
+input[type="number"]{direction:ltr}
+.sidebar .model-toggle{display:flex;align-items:center;gap:9px;margin:16px 0;padding:12px;border:1px solid #75899a44;border-radius:8px;cursor:pointer}
