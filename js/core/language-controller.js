@@ -20,7 +20,11 @@
             document.getElementById('lcs-demo-link').textContent = lcs;
             document.getElementById('dante-demo-link').textContent = dante;
             for (const name of ['lcs','dante']) document.getElementById(`${name}-demo-link`).setAttribute('href', `demos/${name}/index.html?lang=${this.lang}`);
-            const titles = {
+            for (const name of ['lcs','dante']) {
+ const link=document.getElementById(`${name}-2d-link`);
+ link.onclick=()=>{link.href=`planners/${name}/index.html?lang=${this.lang}&theme=${this.theme}&home=../../index.html`;};
+ }
+ const titles = {
                 'btn-settings-toggle': t.settings_heading,
                 'btn-scenarios-toggle': t.scenario_bar_title,
                 'btn-scenarios-close-bar': t.scenarios_collapse_btn,
