@@ -245,3 +245,12 @@
 
 
 .reset-demo{width:100%;margin-top:16px;color:var(--accent-text);background:var(--accent-soft)}
+.height-profile-card { display: grid; gap: 8px; }
+.height-profile-card h2 { margin: 0 0 3px; font-size: 0.96rem; }
+.height-profile-field { display: flex; gap: 6px; align-items: center; justify-content: space-between; font-size: 0.82rem; }
+.height-profile-field[hidden] { display: none; }
+.height-profile-field input, .height-profile-field select { min-width: 0; max-width: 95px; }
+#front-height-slider, #rear-height-slider { width: 100%; }
+#rear-height-controls { display: grid; gap: 7px; }
+#rear-height-controls[hidden] { display: none; }
+#profile-estimate[data-warning="true"] { color: #d79235; font-weight: 600; }

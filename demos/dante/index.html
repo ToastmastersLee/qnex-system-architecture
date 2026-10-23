@@ -17,7 +17,6 @@
       <label><span data-i18n="preset">Room</span><select id="preset"><option value="medium">8 × 10 m</option><option value="standard">10 × 10 m</option><option value="large">10 × 14 m</option><option value="step">10 × 20 m</option><option value="small">5 × 6 m</option><option value="custom" data-i18n="custom">Custom</option></select></label>
       <label><span data-i18n="length">Length X</span><input id="room-length" type="number" min="2" max="40" step="0.5" value="8"></label>
       <label><span data-i18n="width">Depth Y</span><input id="room-width" type="number" min="2" max="20" step="0.5" value="10"></label>
-      <label><span data-i18n="height">Height</span><input id="room-height" type="number" min="2" max="4" step="0.1" value="3"></label>
       <button id="recalculate" class="primary" data-i18n="recalculate">Recalculate</button>
     </div>
     <div class="top-actions"><select id="language" class="language-select" aria-label="Language"><option value="en">English</option></select><button id="export" data-i18n="export">Export PNG</button></div>
@@ -38,6 +37,30 @@
     </section>
     <aside id="scene-sidebar" class="sidebar">
       <section class="card intro"><p class="eyebrow" data-i18n="planLabel">CURRENT PLAN</p><h1 data-i18n="title">Classroom coverage in 3D</h1><p id="plan-origin" class="microcopy" hidden></p><p id="reference-note" class="microcopy"></p><p data-i18n="intro">Devices and floor positions follow the 2D Recalculate rules.</p></section>
+      <section class="card height-profile-card">
+        <h2 id="profile-heading">Ceiling height &amp; microphone reach</h2>
+        <label class="height-profile-field" hidden><span data-i18n="height">Height</span><input id="room-height" type="number" min="2" max="4" step="0.01" value="3"></label>
+        <label class="height-profile-field"><span id="profile-mode-label">Ceiling profile</span><select id="profile-mode"><option value="uniform">Uniform</option><option value="split">Front / rear</option></select></label>
+        <label class="height-profile-field"><span id="front-height-label">Front / uniform height</span><input id="front-height" type="number" min="2" max="4" step="0.01" value="3"></label>
+        <input id="front-height-slider" type="range" min="2" max="4" step="0.01" value="3" aria-label="Front ceiling height">
+        <div id="rear-height-controls" hidden>
+          <label class="height-profile-field"><span id="rear-height-label">Rear height</span><input id="rear-height" type="number" min="2" max="4" step="0.01" value="3"></label>
+          <input id="rear-height-slider" type="range" min="2" max="4" step="0.01" value="3" aria-label="Rear ceiling height">
+          <label class="height-profile-field"><span id="split-depth-label">Front zone depth</span><input id="split-depth" type="number" min="0.1" max="19.9" step="0.01" value="5"></label>
+        </div>
+        <p id="profile-estimate" class="microcopy" role="status"></p>
+        <button id="reset-m100-radii" type="button" hidden>Use 73° estimate</button>
+      </section>
+      <section class="card" id="volume-controls">
+        <h2 id="volume-title">3D coverage</h2>
+        <div class="check-grid">
+          <label><input type="checkbox" id="volume-remote" checked><span id="volume-remote-label">Remote pickup</span></label>
+          <label><input type="checkbox" id="volume-pa"><span id="volume-pa-label">Local PA pickup</span></label>
+          <label><input type="checkbox" id="volume-speaker"><span id="volume-speaker-label">Speaker</span></label>
+          <label><input type="checkbox" id="volume-selected"><span id="volume-selected-label">Selected device only</span></label>
+          <label><input type="checkbox" id="volume-animation"><span id="volume-animation-label">Animate waves</span></label>
+        </div><p class="microcopy" id="volume-note"></p>
+      </section>
       <section class="card metrics"><div class="section-heading"><h2 data-i18n="coverage">Ground projection</h2><span class="tag" data-i18n="projection">2D rule</span></div><div id="coverage-stats"></div><p class="microcopy" data-i18n="coverageNote">Projection of the 2D rules, not a validated 3D acoustic simulation.</p></section>
       <section class="card"><div class="section-heading"><h2 data-i18n="selection">Selected device</h2><span class="tag" data-i18n="demo">Demo</span></div><div id="device-detail" class="detail" data-i18n="selectPrompt">Click a device or choose one below.</div><button id="focus-device" class="focus-device" data-i18n="focusDevice" hidden>View device close up</button></section>
       <details id="settings-panel" class="card settings"><summary data-i18n="settings">Settings & devices</summary>
@@ -54,7 +77,7 @@
           <label data-i18n-label="remote"><input type="checkbox" data-kind="remote">Remote pickup</label><label data-i18n-label="pa"><input type="checkbox" data-kind="pa">Local PA pickup</label><label data-i18n-label="speaker"><input type="checkbox" data-kind="speaker">Speaker projection</label>
         </div>
         <p class="microcopy" data-i18n="paNote">M100/M40 do not produce sound. Local PA requires DC20.</p>
-        <h3 data-i18n="install">Demo mounting heights</h3><label class="inline-field"><span data-i18n="audioDrop">M100/M40 below ceiling</span><input id="audio-drop" type="number" min="0.1" max="1" step="0.05" value="0.15">m</label><p class="microcopy" data-i18n="dc20MountNote">DC20 face is fixed 12 mm below the ceiling; its enclosure sits above it.</p><label class="inline-field"><span data-i18n="mainHeight">Main display center</span><input id="main-height" type="number" min="0.5" max="3.5" step="0.1" value="1.5">m</label><label class="inline-field"><span data-i18n="auxDrop">Auxiliary below ceiling</span><input id="aux-drop" type="number" min="0.3" max="1.5" step="0.1" value="0.7">m</label>
+        <h3 data-i18n="install">Demo mounting heights</h3><label class="inline-field"><span data-i18n="audioDrop">M100/M40 below ceiling</span><input id="audio-drop" type="number" min="0" max="0.7" step="0.01" value="0">m</label><p class="microcopy" data-i18n="dc20MountNote">DC20 face is fixed 12 mm below the ceiling; its enclosure sits above it.</p><label class="inline-field"><span data-i18n="mainHeight">Main display center</span><input id="main-height" type="number" min="0.5" max="3.5" step="0.1" value="1.5">m</label><label class="inline-field"><span data-i18n="auxDrop">Auxiliary below ceiling</span><input id="aux-drop" type="number" min="0.3" max="1.5" step="0.1" value="0.7">m</label>
         <button id="reset-demo" class="reset-demo" type="button" data-i18n="reset">Restore demo defaults</button>
         <h3 data-i18n="radii">2D coverage radii · m</h3><div id="radii-list" class="radii-list"></div>
         <h3 data-i18n="devices">Devices</h3><div id="device-list" class="device-list"></div>
