@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="assets/qnex-logo.png">
     <title>Q-NEX System Architecture Simulator</title>
-    <link rel="stylesheet" href="css/theme.css">
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/localization.css">
-    <link rel="stylesheet" href="css/scenarios.css">
-    <link rel="stylesheet" href="css/workspace.css">
-    <link rel="stylesheet" href="css/topology.css">
-    <link rel="stylesheet" href="css/sidebar.css">
-    <link rel="stylesheet" href="css/tour.css">
+    <link rel="stylesheet" href="css/theme.css?v=20261023-nps-simple5">
+    <link rel="stylesheet" href="css/base.css?v=20261023-nps-simple5">
+    <link rel="stylesheet" href="css/header.css?v=20261023-nps-simple5">
+    <link rel="stylesheet" href="css/localization.css?v=20261023-nps-simple5">
+    <link rel="stylesheet" href="css/scenarios.css?v=20261023-nps-simple5">
+    <link rel="stylesheet" href="css/workspace.css?v=20261023-nps-simple5">
+    <link rel="stylesheet" href="css/topology.css?v=20261023-nps-simple5">
+    <link rel="stylesheet" href="css/sidebar.css?v=20261023-nps-simple5">
+    <link rel="stylesheet" href="css/tour.css?v=20261023-nps-simple5">
 </head>
 <body class="theme-light">
     <!-- 顶部导航与全局控制栏 -->
@@ -139,8 +139,8 @@
         <div class="board-container" id="board-container">
             <div class="topology-board" id="topology-board">
                 <!-- SVG 连接线、虚线框与动画粒子层 -->
-                <svg id="topology-svg" width="1440" height="1200" viewBox="0 0 1440 1200"></svg>
-                
+                <svg id="topology-svg"></svg>
+
                 <!-- HTML 设备卡片层 (支持点击交互与状态呈现) -->
                 <div id="nodes-container"></div>
             </div>
@@ -196,7 +196,7 @@
                     <label class="legend-row">
                         <div class="legend-left">
                             <span class="color-bar lan"></span>
-                            <span id="legend-label-lan">🟦 LAN / Ethernet (#0074D9)</span>
+                            <span id="legend-label-lan">🟦 LAN / Ethernet</span>
                         </div>
                         <input type="checkbox" class="legend-filter-chk" data-type="lan" checked>
                     </label>
@@ -204,7 +204,7 @@
                     <label class="legend-row">
                         <div class="legend-left">
                             <span class="color-bar hdmi"></span>
-                            <span id="legend-label-hdmi">🔴 HDMI / Video (#FF4136)</span>
+                            <span id="legend-label-hdmi">🔴 HDMI / Video</span>
                         </div>
                         <input type="checkbox" class="legend-filter-chk" data-type="hdmi" checked>
                     </label>
@@ -212,9 +212,17 @@
                     <label class="legend-row">
                         <div class="legend-left">
                             <span class="color-bar audio"></span>
-                            <span id="legend-label-audio">🟢 Audio / 音频线 / 喇叭线 (#2ECC40)</span>
+                            <span id="legend-label-audio">🟢 Audio / 音频线 / 喇叭线</span>
                         </div>
                         <input type="checkbox" class="legend-filter-chk" data-type="audio" checked>
+                    </label>
+
+                    <label class="legend-row">
+                        <div class="legend-left">
+                            <span class="color-bar usb"></span>
+                            <span id="legend-label-usb">USB</span>
+                        </div>
+                        <input type="checkbox" class="legend-filter-chk" data-type="usb" checked>
                     </label>
 
                     <label class="legend-row">
@@ -256,44 +264,46 @@
         </div>
     </div>
 
-    <script src="js/namespace.js"></script>
-    <script src="js/i18n.js"></script>
-    <script src="js/i18n/locale-ko.js"></script>
-    <script src="js/i18n/locale-ja.js"></script>
-    <script src="js/i18n/locale-es.js"></script>
-    <script src="js/i18n/locale-fr.js"></script>
-    <script src="js/i18n/locale-ar.js"></script>
-    <script src="js/i18n/locale-mn.js"></script>
-    <script src="js/i18n/content-ko.js"></script>
-    <script src="js/i18n/content-ja.js"></script>
-    <script src="js/i18n/content-es.js"></script>
-    <script src="js/i18n/content-fr.js"></script>
-    <script src="js/i18n/content-ar.js"></script>
-    <script src="js/i18n/content-mn.js"></script>
-    <script src="js/data/screen-states.js"></script>
-    <script src="js/data/topology-config.js"></script>
-    <script src="js/data/devices-infrastructure.js"></script>
-    <script src="js/data/devices-spaces.js"></script>
-    <script src="js/data/connections.js"></script>
-    <script src="js/data/topology-finalize.js"></script>
-    <script src="js/i18n/prepare-content.js"></script>
-    <script src="js/data/scenario-flows.js"></script>
+    <script src="js/namespace.js?v=20261023-nps-simple5"></script>
+    <script src="js/i18n.js?v=20261023-nps-simple5"></script>
+    <script src="js/i18n/locale-ko.js?v=20261023-nps-simple5"></script>
+    <script src="js/i18n/locale-ja.js?v=20261023-nps-simple5"></script>
+    <script src="js/i18n/locale-es.js?v=20261023-nps-simple5"></script>
+    <script src="js/i18n/locale-fr.js?v=20261023-nps-simple5"></script>
+    <script src="js/i18n/locale-ar.js?v=20261023-nps-simple5"></script>
+    <script src="js/i18n/locale-mn.js?v=20261023-nps-simple5"></script>
+    <script src="js/i18n/content-ko.js?v=20261023-nps-simple5"></script>
+    <script src="js/i18n/content-ja.js?v=20261023-nps-simple5"></script>
+    <script src="js/i18n/content-es.js?v=20261023-nps-simple5"></script>
+    <script src="js/i18n/content-fr.js?v=20261023-nps-simple5"></script>
+    <script src="js/i18n/content-ar.js?v=20261023-nps-simple5"></script>
+    <script src="js/i18n/content-mn.js?v=20261023-nps-simple5"></script>
+    <script src="js/data/screen-states.js?v=20261023-nps-simple5"></script>
+    <script src="js/data/topology-config.js?v=20261023-nps-simple5"></script>
+    <script src="js/data/devices-infrastructure.js?v=20261023-nps-simple5"></script>
+    <script src="js/data/devices-spaces.js?v=20261023-nps-simple5"></script>
+    <script src="js/data/devices-lcs.js?v=20261023-nps-simple5"></script>
+    <script src="js/data/connections.js?v=20261023-nps-simple5"></script>
+    <script src="js/data/topology-finalize.js?v=20261023-nps-simple5"></script>
+    <script src="js/i18n/prepare-content.js?v=20261023-nps-simple5"></script>
+    <script src="js/data/meeting-screen-states.js?v=20261023-nps-simple5"></script>
+    <script src="js/data/scenario-flows.js?v=20261023-nps-simple5"></script>
 
-    <script src="js/audio.js"></script>
-    <script src="js/tour.js"></script>
-    <script src="js/core/simulator-class.js"></script>
-    <script src="js/core/media-server-option.js"></script>
-    <script src="js/vendor/html-to-image-1.11.13.min.js"></script>
-    <script src="js/data/export-images.js"></script>
-    <script src="js/core/png-export.js"></script>
-    <script src="js/core/ui-controller.js"></script>
-    <script src="js/core/language-controller.js"></script>
-    <script src="js/core/topology-renderer.js"></script>
-    <script src="js/core/node-renderer.js"></script>
-    <script src="js/core/particle-engine.js"></script>
-    <script src="js/core/scenario-controller.js"></script>
-    <script src="js/core/device-inspector.js"></script>
-    <script src="js/core/controls.js"></script>
-    <script src="js/simulator.js"></script>
+    <script src="js/audio.js?v=20261023-nps-simple5"></script>
+    <script src="js/tour.js?v=20261023-nps-simple5"></script>
+    <script src="js/core/simulator-class.js?v=20261023-nps-simple5"></script>
+    <script src="js/core/media-server-option.js?v=20261023-nps-simple5"></script>
+    <script src="js/vendor/html-to-image-1.11.13.min.js?v=20261023-nps-simple5"></script>
+    <script src="js/data/export-images.js?v=20261023-nps-simple5"></script>
+    <script src="js/core/png-export.js?v=20261023-nps-simple5"></script>
+    <script src="js/core/ui-controller.js?v=20261023-nps-simple5"></script>
+    <script src="js/core/language-controller.js?v=20261023-nps-simple5"></script>
+    <script src="js/core/topology-renderer.js?v=20261023-nps-simple5"></script>
+    <script src="js/core/node-renderer.js?v=20261023-nps-simple5"></script>
+    <script src="js/core/particle-engine.js?v=20261023-nps-simple5"></script>
+    <script src="js/core/scenario-controller.js?v=20261023-nps-simple5"></script>
+    <script src="js/core/device-inspector.js?v=20261023-nps-simple5"></script>
+    <script src="js/core/controls.js?v=20261023-nps-simple5"></script>
+    <script src="js/simulator.js?v=20261023-nps-simple5"></script>
 </body>
 </html>

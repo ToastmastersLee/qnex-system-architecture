@@ -62,11 +62,12 @@
                 const i2 = s.icon2 || '🎛️';
                 const b3 = this.localizedScenarioValue(dev, 'badge3') || labels.cascading;
                 const i3 = s.icon3 || '🌐';
-                scenariosBox.innerHTML = `
-                    <div class="scenario-item"><span class="scenario-badge scenario-badge-teaching">${i1} ${b1}</span><div class="scenario-desc">${this.localizedScenarioValue(dev, 'teaching')}</div></div>
-                    <div class="scenario-item"><span class="scenario-badge scenario-badge-control">${i2} ${b2}</span><div class="scenario-desc">${this.localizedScenarioValue(dev, 'control')}</div></div>
-                    <div class="scenario-item"><span class="scenario-badge scenario-badge-cascading">${i3} ${b3}</span><div class="scenario-desc">${this.localizedScenarioValue(dev, 'cascading')}</div></div>
-                `;
+                scenariosBox.innerHTML = [
+                    ['teaching', i1, b1], ['control', i2, b2], ['cascading', i3, b3]
+                ].map(([key, icon, badge]) => {
+                    const description = this.localizedScenarioValue(dev, key);
+                    return description ? `<div class="scenario-item"><span class="scenario-badge scenario-badge-${key}">${icon} ${badge}</span><div class="scenario-desc">${description}</div></div>` : '';
+                }).join('');
             } else {
                 scenariosSection.style.display = 'none';
             }

@@ -51,19 +51,19 @@ const I18N_DATA = {
                 btn: '<span>🌐</span> 待机心跳与拓扑',
                 badge: '待机总览',
                 title: '校园物联待机拓扑 (Normal Standby & IoT Heartbeat)',
-                desc: '全校所有 Q-NEX 终端（数字讲台、NMP处理器、SL100、公共区域 MBX 媒体盒）与云端管理平台保持轻量 MQTT 心跳连接，用于实时检测在线/离线状态；校园局域网与流媒体引擎处于低功耗就绪状态。'
+                desc: '全校所有 Q-NEX 终端（数字讲台、NMP处理器、SL100、NPS150、图书馆 MBX 媒体盒）与云端管理平台保持轻量 MQTT 心跳连接，用于实时检测在线/离线状态；校园局域网与流媒体引擎处于低功耗就绪状态。'
             },
             live_broadcast: {
                 btn: '<span>📡</span> 全校视讯直播 (RTMP推流)',
                 badge: '视讯直播',
                 title: '全校视讯直播 (Campus Live Streaming & RTMP Distribution)',
-                desc: '本示例由选配的流媒体服务器通过校园内网向支持的终端分发直播。SL100 在本示例中用于本地教学，不参与音视频广播。'
+                desc: "选配的 Media Server 通过校园内网向 NDP600、NMP311、NDP200 和图书馆 MBX100 分发直播。NPS150 和 SL100 不参与此广播。"
             },
             bell_music: {
                 btn: '<span>🎵</span> 定时打铃与午间音乐 (内网音频)',
                 badge: '定时广播',
                 title: '作息打铃与午间音乐 (Scheduled Bell & Lunch Break Music)',
-                desc: '【重点演练】：打铃本质上是流媒体音频分发。流媒体服务器内置定时作息引擎自动触发铃声与轻音乐，通过校园千兆内网推送到各个终端（Classroom A 的 NDP600、Classroom B 的 NMP311、报告厅的 NDP200 以及走廊/图书馆的 MBX），终端内置/外接功放驱动扬声器同步播放作息打铃与背景音乐！'
+                desc: "选配的 Media Server 向 NDP600、NMP311、NDP200 和图书馆 MBX100 分发定时打铃与背景音乐。NPS150 和 SL100 不参与此广播。"
             },
             cloud_control: {
                 btn: '<span>⚡</span> 云端批量控制 (MQTT信令)',
@@ -78,22 +78,22 @@ const I18N_DATA = {
                 desc: '本场景演示通过云端信令向连接的显示设备发送文字通知，无需经过流媒体服务器。可用的通知与控制功能以终端型号、固件和平台配置为准。'
             },
             local_teaching: {
-                btn: '<span>💻</span> 教室本地授课模式 (本地音视频)',
+                btn: "💻 本地教学与会议（本地音视频）",
                 badge: '本地模式',
-                title: '教室本地教学授课模式 (Classroom Local Teaching Mode)',
-                desc: '本场景演示通过本地 HDMI、USB 与音频接口完成授课。音视频使用本地路径，无需占用校园广播流；设备管理及其他网络功能仍可能产生网络流量。'
+                title: "本地教学与会议演示",
+                desc: "本场景演示通过本地 HDMI、USB 与音频接口完成授课。音视频使用本地路径，无需占用校园广播流；设备管理及其他网络功能仍可能产生网络流量。 本地会议控制与信号源切换，通过 HDMI 输出画面、Line Out 连接有源音箱。"
             }
         },
 
         // Canvas Zones & Rooms
         zones: {
             cloud_plane: '☁️ Internet / Public Cloud Management Plane (公有云信令中枢与外网访问区)',
-            campus_lan: '🏫 Campus Gigabit Local Area Network (校园千兆局域网 / 核心内网保护区)',
+            campus_lan: "🏫 校园千兆局域网（核心内网）",
             room_a: 'Classroom A (多功能集控讲台方案)',
             room_b: 'Classroom B (标准多媒体教室 - NMP中控方案)',
             room_h: 'Lecture Hall (大型报告厅 - NDP200落地讲台方案)',
             room_sl: 'Classroom C (高端精品智慧教室 - SL100讲台方案)',
-            room_c: 'Corridor (公共教学走廊 - MBX广播电视)',
+            room_c: "Smart Meeting Room（智慧会议室 - NPS150）",
             room_l: 'Library (图书馆阅览大厅 - 视听与通知)'
         },
 
@@ -112,9 +112,10 @@ const I18N_DATA = {
         legend: {
             title: '接线规范图例 (Wiring Standards)',
             filter_hint: '可勾选过滤图层',
-            lan: '🟦 LAN / 网络线 (#0074D9)',
-            hdmi: '🔴 HDMI / 视频传输线 (#FF4136)',
-            audio: '🟢 Audio / 音频线 / 喇叭线 (#2ECC40)',
+            lan: '🟦 LAN / 网络线',
+            hdmi: '🔴 HDMI / 视频传输线',
+            audio: '🟢 Audio / 音频线 / 喇叭线',
+            usb: 'USB',
             wireless: '📶 无线网络 / 4G / 麦克风 (虚线)'
         },
 
@@ -176,19 +177,19 @@ const I18N_DATA = {
                 btn: '<span>🌐</span> Standby & Topology',
                 badge: 'STANDBY',
                 title: 'Campus IoT Standby Topology (Normal Standby & IoT Heartbeat)',
-                desc: 'All Q-NEX terminals across campus (Smart Podiums, NMP, SL100, and corridor/library MBX media boxes) maintain lightweight MQTT heartbeat connections with Q-NEX Cloud to determine real-time online/offline status.'
+                desc: 'All Q-NEX terminals across campus (Smart Podiums, NMP, SL100, and NPS150 and library MBX media boxes) maintain lightweight MQTT heartbeat connections with Q-NEX Cloud to determine real-time online/offline status.'
             },
             live_broadcast: {
                 btn: '<span>📡</span> Live Broadcast (RTMP)',
                 badge: 'LIVE ON AIR',
                 title: 'Campus Live Streaming & Video Distribution (RTMP Distribution)',
-                desc: 'This example distributes video from the optional media server over the campus LAN to supported endpoints. SL100 is used for local presentations and does not receive AV broadcast streams in this example.'
+                desc: "The optional Media Server distributes live video over the campus LAN to NDP600, NMP311, NDP200 and the library MBX100. NPS150 and SL100 do not receive this broadcast."
             },
             bell_music: {
                 btn: '<span>🎵</span> Bell & Lunch Music (Audio)',
                 badge: 'SCHEDULED AUDIO',
                 title: 'Scheduled Bell & Lunch Break Music (Internal LAN Broadcast)',
-                desc: '[Key Architecture Lesson]: School bells and BGM are streaming audio. Media Server scheduled engine automatically dispatches audio streams via campus LAN to all endpoints—NDP600 in Classroom A, NMP311 in Classroom B, NDP200 in Lecture Hall, and MBX in Corridor/Library. Built-in and hall amplifiers drive connected speakers synchronously!'
+                desc: "The optional Media Server sends scheduled bells and background music to NDP600, NMP311, NDP200 and the library MBX100. NPS150 and SL100 do not participate."
             },
             cloud_control: {
                 btn: '<span>⚡</span> Cloud Control (MQTT)',
@@ -203,22 +204,22 @@ const I18N_DATA = {
                 desc: 'This example illustrates cloud text notices on connected displays without using the Media Server. Available actions and text display depend on the endpoint, firmware and platform configuration.'
             },
             local_teaching: {
-                btn: '<span>💻</span> Local Teaching Mode (Local AV)',
+                btn: "💻 Local Teaching & Meetings (Local AV)",
                 badge: 'LOCAL AV',
-                title: 'Classroom Local Teaching & AV Presentation Mode',
-                desc: 'This example uses local HDMI, USB and audio connections for teaching without a campus AV broadcast stream. Device management and other network features may still generate LAN traffic.'
+                title: "Local Teaching & Meetings",
+                desc: "This example uses local HDMI, USB and audio connections for teaching without a campus AV broadcast stream. Device management and other network features may still generate LAN traffic. Local meeting control and source switching; HDMI display output and Line Out to an active speaker."
             }
         },
 
         // Canvas Zones & Rooms
         zones: {
             cloud_plane: '☁️ Internet / Public Cloud Management Plane (Q-NEX Cloud & Remote Admin)',
-            campus_lan: '🏫 Campus Gigabit Local Area Network (Core Intranet Protected Zone)',
+            campus_lan: "🏫 Campus Gigabit LAN (Core Intranet)",
             room_a: 'Classroom A (Multi-Function Control Lectern)',
             room_b: 'Classroom B (Standard Classroom - NMP Processor)',
             room_h: 'Lecture Hall (Auditorium - NDP200 Podium)',
             room_sl: 'Classroom C (Premium Smart Classroom - SL100 Podium)',
-            room_c: 'Corridor (Public Area - MBX Broadcast Display)',
+            room_c: "Smart Meeting Room (NPS150)",
             room_l: 'Library (Reading Hall - Audio & Bulletin)'
         },
 
@@ -237,9 +238,10 @@ const I18N_DATA = {
         legend: {
             title: 'WIRING STANDARDS',
             filter_hint: 'Filter Layers',
-            lan: '🟦 LAN / Ethernet (#0074D9)',
-            hdmi: '🔴 HDMI / Video Transmission (#FF4136)',
-            audio: '🟢 Audio / Speaker Cable (#2ECC40)',
+            lan: '🟦 LAN / Ethernet',
+            hdmi: '🔴 HDMI / Video Transmission',
+            audio: '🟢 Audio / Speaker Cable',
+            usb: 'USB',
             wireless: '📶 Wireless / 4G / Mic UHF (Dashed)'
         },
 

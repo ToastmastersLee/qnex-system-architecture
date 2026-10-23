@@ -281,11 +281,14 @@ aside.sidebar-panel.collapsed {
 .color-bar {
     width: 22px;
     height: 4px;
+    flex-shrink: 0;
     border-radius: 2px;
 }
 
 .color-bar.lan { background: #0074D9; }
 .color-bar.hdmi { background: #FF4136; }
 .color-bar.audio { background: #2ECC40; }
-.color-bar.wireless { background: #0284c7; border-top: 2px dashed #0284c7; height: 0; }
+.color-bar.wireless { background: repeating-linear-gradient(to right, #0284c7 0 5px, transparent 5px 8px); border-radius: 0; }
 .legend-filter-chk { cursor: pointer; accent-color: #0074D9; }
+
+.color-bar.usb { background: #FFDC00; }

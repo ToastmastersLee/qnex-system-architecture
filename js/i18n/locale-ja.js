@@ -24,11 +24,11 @@ window.I18N_DATA.ja = {
         },
         live_broadcast: {
             btn: '📡 学内ライブ配信（RTMP）', badge: 'ライブ配信', title: 'キャンパス全体へのライブ映像配信',
-            desc: 'メディアサーバーが学内ギガビットLANを介して各端末にRTMP映像を配信します。この構成のSL100はローカル授業用で、ライブストリームを受信しません。'
+            desc: "オプションのMedia Serverが学内LAN経由でNDP600、NMP311、NDP200と図書館のMBX100にライブ映像を配信します。NPS150とSL100は受信しません。"
         },
         bell_music: {
             btn: '🎵 定時チャイムと音楽', badge: '定時音声', title: '授業チャイムと昼休みの音楽',
-            desc: 'メディアサーバーのスケジュール機能がNDP600、NMP311、NDP200、廊下・図書館のMBXに音声を配信します。内蔵アンプまたは外部音響システムがスピーカーを駆動します。SL100はこの配信に参加しません。'
+            desc: "オプションのMedia ServerがNDP600、NMP311、NDP200と図書館のMBX100に定時チャイムとBGMを配信します。NPS150とSL100は参加しません。"
         },
         cloud_control: {
             btn: '⚡ クラウド一括制御（MQTT）', badge: 'クラウド制御', title: 'クラウドからの遠隔制御とIoT管理',
@@ -39,15 +39,15 @@ window.I18N_DATA.ja = {
             desc: 'Q-NEXクラウドがMQTTで避難案内を直接配信します。メディアサーバーは不要で、SL100を含む端末が接続先の画面に案内を表示します。このシナリオはテキスト通知です。'
         },
         local_teaching: {
-            btn: '💻 ローカル授業（LAN配信なし）', badge: 'ローカルAV', title: '教室内の授業とAVプレゼンテーション',
-            desc: 'ノートPC、書画カメラ、マイクの信号をNDP600、NMP311、NDP200、SL100のローカルAV経路で画面とスピーカーへ送ります。学内LANのストリーミング帯域を消費しません。'
+            btn: "💻 ローカル授業・会議 (AV)", badge: 'ローカルAV', title: "ローカル授業・会議",
+            desc: "ノートPC、書画カメラ、マイクの信号をNDP600、NMP311、NDP200、SL100のローカルAV経路で画面とスピーカーへ送ります。学内LANのストリーミング帯域を消費しません。 ローカル制御と入力切替。HDMIで映像を出力し、Line Outにアクティブスピーカーを接続します。"
         }
     },
     zones: {
-        cloud_plane: '☁️ インターネット / パブリッククラウド管理領域', campus_lan: '🏫 キャンパスのギガビットLAN',
+        cloud_plane: '☁️ インターネット / パブリッククラウド管理領域', campus_lan: "🏫 キャンパス内ギガビットLAN",
         room_a: '教室A（多機能制御教卓）', room_b: '教室B（NMPメディアプロセッサー）',
         room_h: '講堂（NDP200教卓）', room_sl: '教室C（SL100スマート教卓）',
-        room_c: '廊下（MBX配信）', room_l: '図書館（音声・お知らせ）'
+        room_c: "スマート会議室 (NPS150)", room_l: '図書館（音声・お知らせ）'
     },
     inspector: {
         role_label: 'システム内での役割', ports_label: '主な入出力ポート', scenarios_label: '用途と活用シナリオ',
@@ -55,9 +55,9 @@ window.I18N_DATA.ja = {
         test_btn_prefix: '🚀 診断送信：', test_btn_suffix: '自己診断', ping_success: '正常に応答しました（RTT: 4.2ms）'
     },
     legend: {
-        title: '配線の色分け規則', filter_hint: '表示するレイヤーを選択', lan: '🟦 LAN / イーサネット (#0074D9)',
-        hdmi: '🔴 HDMI / 映像信号 (#FF4136)', audio: '🟢 音声 / スピーカーケーブル (#2ECC40)',
-        wireless: '📶 無線 / 4G / UHFマイク（破線）'
+        title: '配線の色分け規則', filter_hint: '表示するレイヤーを選択', lan: '🟦 LAN / イーサネット',
+        hdmi: '🔴 HDMI / 映像信号', audio: '🟢 音声 / スピーカーケーブル',
+        usb: "USB", wireless: '📶 無線 / 4G / UHFマイク（破線）'
     },
     tour: { step_badge: 'ステップ', prev_btn: '← 前へ', next_btn: '次へ →', finish_btn: '研修を終了 🎉', close_btn: '✕ 閉じる' }
 };

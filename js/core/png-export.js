@@ -25,7 +25,7 @@
         const background = getComputedStyle(document.getElementById('board-container'));
         Object.assign(clone.style, {
             position: 'relative', top: '0', left: '0', transform: 'none', margin: '0',
-            width: '1440px', height: '1200px', overflow: 'hidden',
+            width: `${app.data.topology.config.canvasWidth}px`, height: `${app.data.topology.config.canvasHeight}px`, overflow: 'hidden',
             backgroundColor: background.backgroundColor,
             backgroundImage: background.backgroundImage,
             backgroundSize: background.backgroundSize
@@ -72,7 +72,8 @@
                 snapshot = snapshotBoard();
                 await Promise.all([...snapshot.clone.querySelectorAll('img')].map(img => img.decode()));
                 const blob = await window.htmlToImage.toBlob(snapshot.clone, {
-                    width: 1440, height: 1200, pixelRatio: 2, fontEmbedCSS: ''
+                    width: app.data.topology.config.canvasWidth,
+                    height: app.data.topology.config.canvasHeight, pixelRatio: 2, fontEmbedCSS: ''
                 });
                 if (!blob) throw new Error('PNG encoder returned no data');
                 const url = URL.createObjectURL(blob);

@@ -26,6 +26,7 @@
                 lan: true,
                 hdmi: true,
                 audio: true,
+                usb: true,
                 wireless: true
             };
             this.isSidebarCollapsed = false;

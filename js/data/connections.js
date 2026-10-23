@@ -85,7 +85,7 @@
         dashed: false,
         label: 'Gigabit LAN',
         pathType: 'orthogonal',
-        points: [[605, 510], [745, 510], [745, 305], [800, 305]]
+        points: [[605, 510], [745, 510], [745, 465], [800, 465]]
     },
     // Lecture Hall: NDP200
     {
@@ -97,7 +97,7 @@
         dashed: false,
         label: 'Gigabit LAN',
         pathType: 'orthogonal',
-        points: [[605, 520], [735, 520], [735, 495], [800, 495]]
+        points: [[605, 520], [735, 520], [735, 655], [800, 655]]
     },
     // Classroom C: SL100 (Default lacks broadcast decoder)
     {
@@ -109,19 +109,19 @@
         dashed: false,
         label: 'LAN Control',
         pathType: 'orthogonal',
-        points: [[605, 530], [725, 530], [725, 685], [800, 685]]
+        points: [[605, 530], [725, 530], [725, 845], [800, 845]]
     },
-    // Corridor: MBX100
+    // Smart Meeting Room: NPS150
     {
-        id: 'link_switch_mbx_c',
+        id: 'link_switch_nps150',
         from: 'switch',
-        to: 'mbx_corridor',
+        to: 'nps150',
         type: 'lan',
         color: TOPOLOGY_CONFIG.colors.lan,
         dashed: false,
-        label: 'Gigabit LAN',
+        label: 'LAN Control',
         pathType: 'orthogonal',
-        points: [[605, 540], [715, 540], [715, 875], [800, 875]]
+        points: [[605, 540], [715, 540], [715, 1035], [800, 1035]]
     },
     // Library: MBX100
     {
@@ -133,7 +133,7 @@
         dashed: false,
         label: 'Gigabit LAN',
         pathType: 'orthogonal',
-        points: [[605, 550], [705, 550], [705, 1065], [800, 1065]]
+        points: [[605, 550], [705, 550], [705, 1225], [800, 1225]]
     },
 
     // 7. HDMI Video Links (#FF4136 Red) - Straight horizontal from Terminal to Screen
@@ -157,7 +157,7 @@
         dashed: false,
         label: 'HDMI Video',
         pathType: 'linear',
-        points: [[940, 305], [1020, 305]]
+        points: [[940, 465], [1020, 465]]
     },
     {
         id: 'link_ndp200_ifp_h',
@@ -168,7 +168,7 @@
         dashed: false,
         label: 'HDMI 4K',
         pathType: 'linear',
-        points: [[940, 495], [1020, 495]]
+        points: [[940, 655], [1020, 655]]
     },
     {
         id: 'link_sl100_ifp_sl',
@@ -179,18 +179,18 @@
         dashed: false,
         label: 'HDMI Video',
         pathType: 'linear',
-        points: [[940, 685], [1020, 685]]
+        points: [[940, 845], [1020, 845]]
     },
     {
-        id: 'link_mbx_c_disp_c',
-        from: 'mbx_corridor',
+        id: 'link_nps150_disp_c',
+        from: 'nps150',
         to: 'disp_c',
         type: 'hdmi',
         color: TOPOLOGY_CONFIG.colors.hdmi,
         dashed: false,
         label: 'HDMI Video',
         pathType: 'linear',
-        points: [[940, 875], [1020, 875]]
+        points: [[940, 1035], [1020, 1035]]
     },
     {
         id: 'link_mbx_l_disp_l',
@@ -201,7 +201,7 @@
         dashed: false,
         label: 'HDMI Video',
         pathType: 'linear',
-        points: [[940, 1065], [1020, 1065]]
+        points: [[940, 1225], [1020, 1225]]
     },
 
     // 8. Audio In/Out Links (#2ECC40 Green) - Swoops smoothly UNDERNEATH the screen!
@@ -225,7 +225,7 @@
         dashed: false,
         label: 'Audio (Amped)',
         pathType: 'cubic',
-        points: [[940, 350], [1010, 385], [1140, 385], [1210, 350]]
+        points: [[940, 510], [1010, 545], [1140, 545], [1210, 510]]
     },
     {
         id: 'link_ndp200_spk_h',
@@ -236,7 +236,7 @@
         dashed: false,
         label: 'Line Out / Audio',
         pathType: 'cubic',
-        points: [[940, 540], [1010, 575], [1140, 575], [1210, 540]]
+        points: [[940, 700], [1010, 735], [1140, 735], [1210, 700]]
     },
     {
         id: 'link_sl100_spk_sl',
@@ -247,18 +247,18 @@
         dashed: false,
         label: 'Audio (Local)',
         pathType: 'cubic',
-        points: [[940, 730], [1010, 765], [1140, 765], [1210, 730]]
+        points: [[940, 890], [1010, 925], [1140, 925], [1210, 890]]
     },
     {
-        id: 'link_mbx_c_spk_c',
-        from: 'mbx_corridor',
+        id: 'link_nps150_spk_c',
+        from: 'nps150',
         to: 'spk_c',
         type: 'audio',
         color: TOPOLOGY_CONFIG.colors.audio,
         dashed: false,
-        label: 'Audio Out',
+        label: 'Line Out',
         pathType: 'cubic',
-        points: [[940, 920], [1010, 955], [1140, 955], [1210, 920]]
+        points: [[940, 1080], [1010, 1115], [1140, 1115], [1210, 1080]]
     },
     {
         id: 'link_mbx_l_spk_l',
@@ -269,7 +269,19 @@
         dashed: false,
         label: 'Audio Out',
         pathType: 'cubic',
-        points: [[940, 1110], [1010, 1145], [1140, 1145], [1210, 1110]]
+        points: [[940, 1270], [1010, 1305], [1140, 1305], [1210, 1270]]
+    },
+    {
+        id: 'link_ndp600_lcs810',
+        from: 'ndp600',
+        to: 'lcs810',
+        type: 'usb',
+        color: TOPOLOGY_CONFIG.colors.usb,
+        dashed: false,
+        label: 'USB',
+        labelPosition: [870, 234],
+        pathType: 'orthogonal',
+        points: [[870, 182], [870, 285], [968, 285]]
     }
     ];
 })(window.QnexApp);

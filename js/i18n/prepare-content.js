@@ -1,9 +1,9 @@
 /** Join localized content to stable device IDs without altering topology data. */
 (function (app) {
     const roomDevices = {
-        room_a: ['ndp600', 'ifp_a', 'spk_a'], room_b: ['nmp', 'ifp_b', 'spk_b'],
+        room_a: ['ndp600', 'ifp_a', 'spk_a', 'lcs810'], room_b: ['nmp', 'ifp_b', 'spk_b'],
         room_h: ['ndp200', 'ifp_h', 'spk_h'], room_sl: ['sl100', 'ifp_sl', 'spk_sl'],
-        room_c: ['mbx_corridor', 'disp_c', 'spk_c'], room_l: ['mbx_library', 'disp_l', 'spk_l']
+        room_c: ['nps150', 'disp_c', 'spk_c'], room_l: ['mbx_library', 'disp_l', 'spk_l']
     };
     Object.entries(app.data.localeContent).forEach(([lang, content]) => {
         const ui = app.data.i18n[lang];
@@ -14,11 +14,10 @@
         Object.entries(roomDevices).forEach(([zone, devices]) => {
             devices.forEach(id => { content.deviceZones[id] = ui.zones[zone]; });
         });
-        content.ports.mbx_library = content.ports.mbx_corridor;
         content.deviceScenarios = {};
         Object.entries(content.applications).forEach(([id, values]) => {
             content.deviceScenarios[id] = Object.fromEntries(
-                ['teaching', 'control', 'cascading'].map((key, index) => [key, values[index]])
+                ['teaching', 'control', 'cascading', 'badge1', 'badge2', 'badge3'].map((key, index) => [key, values[index]])
             );
         });
         content.tour.forEach(step => {
@@ -28,7 +27,7 @@
         Object.entries(app.data.screenStates.en).forEach(([scenario, screens]) => {
             app.data.screenStates[lang][scenario] = {};
             Object.entries(screens).forEach(([id, state]) => {
-                // Preserve SL100's standby and public-area signage exceptions.
+                // Preserve inactive displays; meeting-screen-states supplies NPS150-specific text.
                 const inactive = ['STANDBY', 'SIGNAGE', 'NOTICE'].includes(state.badge);
                 const text = ui.scenarios[inactive ? 'standby' : scenario];
                 app.data.screenStates[lang][scenario][id] = {

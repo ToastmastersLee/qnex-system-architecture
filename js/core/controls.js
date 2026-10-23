@@ -13,6 +13,8 @@
             this.bindCableFilters();
             this.bindCollapsiblePanels();
             window.addEventListener('resize', () => this.handleResize());
+            this.boardResizeObserver = new ResizeObserver(() => this.handleResize());
+            this.boardResizeObserver.observe(document.getElementById('board-container'));
             this.handleResize();
         },
 

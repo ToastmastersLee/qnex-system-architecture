@@ -7,15 +7,24 @@
     padding: 0;
 }
 
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
 body {
     background-color: var(--bg-primary);
     color: var(--text-main);
     font-family: var(--font-sans);
-    overflow-x: hidden;
-    overflow-y: auto;
-    min-height: 100vh;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+body > header, body > .scenarios-collapse-wrapper, body > .scenario-banner {
+    flex-shrink: 0;
 }
 

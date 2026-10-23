@@ -2,6 +2,8 @@
 main.workspace {
     display: flex;
     flex: 1;
+    min-height: 0;
+    min-width: 0;
     overflow: hidden;
     position: relative;
     padding: 12px;
@@ -12,7 +14,7 @@ main.workspace {
 .board-container {
     flex: 1;
     background-color: var(--board-bg);
-    background-image: 
+    background-image:
         radial-gradient(var(--board-dot) 1.2px, transparent 1.2px),
         linear-gradient(to right, var(--board-grid) 1px, transparent 1px),
         linear-gradient(to bottom, var(--board-grid) 1px, transparent 1px);
@@ -20,9 +22,10 @@ main.workspace {
     border: 1px solid var(--border-color);
     border-radius: 12px;
     position: relative;
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: auto;
-    min-height: 720px;
+    min-height: 0;
+    min-width: 0;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
@@ -30,8 +33,7 @@ main.workspace {
     position: absolute;
     top: 12px;
     left: 12px;
-    width: 1440px;
-    height: 1200px;
+    /* Dimensions are set from topology.config by renderCanvas. */
     transform-origin: top left;
 }
 

@@ -91,10 +91,10 @@
             if (!waveElement) return;
 
             const activeByScenario = {
-                live_broadcast: speakerId !== 'spk_sl',
-                bell_music: ['spk_a', 'spk_b', 'spk_h', 'spk_c', 'spk_l'].includes(speakerId),
+                live_broadcast: !['spk_sl', 'spk_c'].includes(speakerId),
+                bell_music: ['spk_a', 'spk_b', 'spk_h', 'spk_l'].includes(speakerId),
                 emergency_alert: false,
-                local_teaching: ['spk_a', 'spk_b', 'spk_h', 'spk_sl'].includes(speakerId)
+                local_teaching: ['spk_a', 'spk_b', 'spk_h', 'spk_sl', 'spk_c'].includes(speakerId)
             };
             const active = Boolean(activeByScenario[scenarioKey]);
             const color = scenarioKey === 'live_broadcast' ? '#3b82f6' : '#2ECC40';

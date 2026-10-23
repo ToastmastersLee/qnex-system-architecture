@@ -142,6 +142,7 @@
             setText('legend-label-lan', translations.legend.lan);
             setText('legend-label-hdmi', translations.legend.hdmi);
             setText('legend-label-audio', translations.legend.audio);
+            setText('legend-label-usb', translations.legend.usb);
             setText('legend-label-wireless', translations.legend.wireless);
         },
 
@@ -249,9 +250,10 @@
             const container = document.getElementById('board-container');
             if (!board || !container) return;
 
-            const width = TOPOLOGY_DATA.config.canvasWidth || 1440;
-            const height = TOPOLOGY_DATA.config.canvasHeight || 1200;
-            const scale = Math.max(0.65, Math.min((container.clientWidth - 28) / width, 1.15));
+            const width = TOPOLOGY_DATA.config.canvasWidth;
+            const height = TOPOLOGY_DATA.config.canvasHeight;
+            // clientWidth excludes the native vertical scrollbar. Keep 12px on each side.
+            const scale = Math.min(Math.max(0, container.clientWidth - 24) / width, 1.15);
             board.style.transform = `scale(${scale})`;
             board.style.transformOrigin = 'top left';
 
@@ -260,15 +262,14 @@
                 spacer = document.createElement('div');
                 spacer.id = 'board-scroll-spacer';
                 container.appendChild(spacer);
+                spacer.appendChild(board);
             }
+            // Clip the unscaled layout box so only the scaled board contributes to scrolling.
             Object.assign(spacer.style, {
-                width: `${Math.round(width * scale) + 24}px`,
-                height: `${Math.round(height * scale) + 24}px`,
-                position: 'absolute',
-                top: '0',
-                left: '0',
-                pointerEvents: 'none',
-                zIndex: '-1'
+                width: `${width * scale + 24}px`,
+                height: `${height * scale + 24}px`,
+                position: 'relative',
+                overflow: 'hidden'
             });
         }
     });

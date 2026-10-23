@@ -14,7 +14,7 @@
             role_zh: "Web 管理界面，用于设备注册、在线状态查看与授权范围内的远程控制。可用功能取决于设备型号、平台配置及账户权限。",
             role_en: "Web management interface for device registration, status monitoring and authorized remote control. Available functions depend on the model, platform configuration and account permissions.",
             ports: ["Web Browser (Chrome / Edge)", "Internet / Campus Network"],
-            scenarios: {"teaching_zh": "在 Web 界面管理教室设备。", "teaching_en": "Manage classroom devices through the web interface.", "control_zh": "按设备支持的接口和权限执行远程控制。", "control_en": "Use remote controls supported by the device and account.", "cascading_zh": "按项目配置管理多间教室。", "cascading_en": "Manage multiple rooms according to the project configuration."},
+            scenarios: {teaching_zh: "在 Web 界面管理教室设备。", teaching_en: "Manage classroom devices through the web interface.", control_zh: "按设备支持的接口和权限执行远程控制。", control_en: "Use remote controls supported by the device and account.", cascading_zh: "按项目配置管理多间教室。", cascading_en: "Manage multiple rooms according to the project configuration."},
         },
         app: {
             id: "app",
@@ -29,7 +29,7 @@
             role_zh: "Q-NEX 移动管理界面，用于查看状态与远程控制。具体功能以设备、平台版本和授权配置为准。",
             role_en: "Q-NEX mobile management interface for device status and remote control. Functions depend on the device, platform version and permissions.",
             ports: ["Mobile Internet / Campus Wi-Fi"],
-            scenarios: {"teaching_zh": "通过移动端操作支持的教室设备。", "teaching_en": "Operate supported classroom devices from a mobile device.", "control_zh": "查看设备状态并执行授权控制。", "control_en": "Check device status and use authorized controls.", "cascading_zh": "按项目配置参与多教室管理。", "cascading_en": "Manage multiple rooms as configured for the project."},
+            scenarios: {teaching_zh: "通过移动端操作支持的教室设备。", teaching_en: "Operate supported classroom devices from a mobile device.", control_zh: "查看设备状态并执行授权控制。", control_en: "Check device status and use authorized controls.", cascading_zh: "按项目配置参与多教室管理。", cascading_en: "Manage multiple rooms as configured for the project."},
         },
         cloud: {
             id: "cloud",
@@ -44,7 +44,7 @@
             role_zh: "Q-NEX 设备注册、在线状态与远程控制平台。示意图区分云端管理信令与校园内网音视频分发路径。",
             role_en: "Q-NEX platform for device registration, online status and remote control. The diagram separates cloud management signaling from campus LAN media distribution.",
             ports: ["Device Registration / Online Status", "Authorized Remote Control"],
-            scenarios: {"teaching_zh": "管理已注册的教室设备。", "teaching_en": "Manage registered classroom devices.", "control_zh": "查看在线状态并下发支持的远程指令。", "control_en": "Check online status and send supported remote commands.", "cascading_zh": "按权限与项目配置管理校园终端。", "cascading_en": "Manage campus endpoints according to permissions and configuration."},
+            scenarios: {teaching_zh: "管理已注册的教室设备。", teaching_en: "Manage registered classroom devices.", control_zh: "查看在线状态并下发支持的远程指令。", control_en: "Check online status and send supported remote commands.", cascading_zh: "按权限与项目配置管理校园终端。", cascading_en: "Manage campus endpoints according to permissions and configuration."},
         },
         router: {
             id: "router",
@@ -85,7 +85,7 @@
             role_zh: "可选的校园内网流媒体服务，用于直播与定时音频分发。内网分发可减少教室重复下载外部内容；外部节目源和云端管理仍可能需要互联网。服务器硬件按项目选型。",
             role_en: "Optional campus LAN streaming service for live broadcasts and scheduled audio. Local distribution can reduce repeated external downloads; external sources and cloud management may still require internet. Server hardware is selected for the project.",
             ports: ["Campus LAN", "Live Streaming / Scheduled Audio"],
-            scenarios: {"teaching_zh": "在内网向支持的终端分发节目内容。", "teaching_en": "Distribute content to supported endpoints over the LAN.", "control_zh": "按项目配置执行作息铃声和音乐排期。", "control_en": "Schedule bells and music according to the project configuration.", "cascading_zh": "向选定的校园终端分发直播或音频。", "cascading_en": "Distribute live streams or audio to selected campus endpoints."},
+            scenarios: {teaching_zh: "在内网向支持的终端分发节目内容。", teaching_en: "Distribute content to supported endpoints over the LAN.", control_zh: "按项目配置执行作息铃声和音乐排期。", control_en: "Schedule bells and music according to the project configuration.", cascading_zh: "向选定的校园终端分发直播或音频。", cascading_en: "Distribute live streams or audio to selected campus endpoints."},
         },
         ndp600: {
             id: "ndp600",
@@ -100,7 +100,7 @@
             role_zh: "桌面智能讲台，集成 23.8 寸手写屏、内置 10.1 寸中控屏、3×3 HDMI 1.4 矩阵（4K@30Hz 无缝切换）及 2×40W 功放。具备 2 个千兆网口；MIC BASE RJ45 为专用麦克风底座接口。",
             role_en: "Desktop smart podium with a 23.8-inch pen display, built-in 10.1-inch control panel, 3×3 HDMI 1.4 matrix (4K@30Hz seamless switching) and 2×40W amplifier. Two Gigabit LAN ports; the dedicated MIC BASE RJ45 is a microphone-base interface.",
             ports: ["2× Gigabit LAN RJ45", "Dedicated MIC BASE RJ45", "3×3 HDMI 1.4 Matrix (4K@30Hz)", "USB 2.0 Device / Touch", "2×40W Speaker Out", "Display / Screen / External Power Control", "RS232 / RS485 / IR"],
-            scenarios: {"teaching_zh": "桌面互动教学：23.8 寸手写屏板书，HDMI 视频输入与 USB 触控连接，3×3 HDMI 矩阵切换。", "teaching_en": "Desktop teaching: 23.8-inch pen display, HDMI video and USB touch connections, with 3×3 HDMI matrix routing.", "control_zh": "通过内置 NDP600-CPL20 中控屏及 RS232 / RS485 / IR 接口操作支持的设备。", "control_en": "Use the built-in NDP600-CPL20 panel and RS232 / RS485 / IR interfaces to control supported devices.", "cascading_zh": "按系统配置接收校园广播及远程控制。", "cascading_en": "Receive campus broadcasts and remote control as configured."},
+            scenarios: {teaching_zh: "桌面互动教学：23.8 寸手写屏板书，HDMI 视频输入与 USB 触控连接，3×3 HDMI 矩阵切换。", teaching_en: "Desktop teaching: 23.8-inch pen display, HDMI video and USB touch connections, with 3×3 HDMI matrix routing.", control_zh: "通过内置 NDP600-CPL20 中控屏及 RS232 / RS485 / IR 接口操作支持的设备。", control_en: "Use the built-in NDP600-CPL20 panel and RS232 / RS485 / IR interfaces to control supported devices.", cascading_zh: "按系统配置接收校园广播及远程控制。", cascading_en: "Receive campus broadcasts and remote control as configured."},
         },
         nmp: {
             id: "nmp",
@@ -115,7 +115,7 @@
             role_zh: "NMP311 网络媒体处理器，集成 3×3 HDMI 1.4 矩阵（4K@30Hz 无缝切换）、4 个千兆网口（其中 2 个支持 PoE 输出）、2×40W 功放与 RS232 / RS485 / IR 控制。终端的 PoE 输出不代表核心交换机必须供电。",
             role_en: "NMP311 networked media processor with a 3×3 HDMI 1.4 matrix (4K@30Hz seamless switching), four Gigabit LAN ports (two with PoE output), 2×40W amplifier and RS232 / RS485 / IR control. Endpoint PoE output does not require a PoE core switch.",
             ports: ["4× Gigabit LAN (2× PoE OUT, ≤30W per PoE port)", "3×3 HDMI 1.4 Matrix (4K@30Hz)", "2×40W Speaker Out", "Display / Screen / External Power Control", "RS232 / RS485 / IR"],
-            scenarios: {"teaching_zh": "通过 HDMI 矩阵切换授课信号，并连接合适的无源音箱。", "teaching_en": "Route lesson sources through the HDMI matrix and connect suitable passive speakers.", "control_zh": "搭配 NMP311-CPL20-GEN2 面板和适配的控制接口操作教室设备。", "control_en": "Use an NMP311-CPL20-GEN2 panel and compatible control interfaces for classroom devices.", "cascading_zh": "按配置接收校园音视频广播及远程控制。", "cascading_en": "Receive campus AV broadcasts and remote control as configured."},
+            scenarios: {teaching_zh: "通过 HDMI 矩阵切换授课信号，并连接合适的无源音箱。", teaching_en: "Route lesson sources through the HDMI matrix and connect suitable passive speakers.", control_zh: "搭配 NMP311-CPL20-GEN2 面板和适配的控制接口操作教室设备。", control_en: "Use an NMP311-CPL20-GEN2 panel and compatible control interfaces for classroom devices.", cascading_zh: "按配置接收校园音视频广播及远程控制。", cascading_en: "Receive campus AV broadcasts and remote control as configured."},
         },
         ndp200: {
             id: "ndp200",
@@ -130,7 +130,7 @@
             role_zh: "落地智能讲台，集成 NMP311、21.5 寸手写屏、内置 10.1 寸中控屏与鹅颈麦克风。内部 3×3 HDMI 1.4 矩阵中 1 路输出供手写屏使用，外部有效为 3×2。支持手写屏电动角度调节（12–35°）。",
             role_en: "Standing smart podium with NMP311, a 21.5-inch pen display, built-in 10.1-inch control panel and gooseneck microphone. One output of the internal 3×3 HDMI 1.4 matrix serves the pen display, leaving an effective 3×2 external matrix. Electric pen-display tilt adjustment: 12–35°.",
             ports: ["4× Gigabit LAN (2× PoE OUT)", "3×2 External HDMI Matrix (4K@30Hz) + Internal Pen Display", "2×40W Speaker Out", "3.5mm Line Out / MIC Out", "RS232 / RS485 / IR", "Electric Pen-display Tilt (12–35°)"],
-            scenarios: {"teaching_zh": "讲台演示：21.5 寸手写屏、两路外接 HDMI 显示输出和鹅颈麦克风。", "teaching_en": "Present with the 21.5-inch pen display, two external HDMI display outputs and gooseneck microphone.", "control_zh": "通过 NDP200-CPL20-GEN2 中控屏操作设备；调节的是手写屏角度。", "control_en": "Use the NDP200-CPL20-GEN2 panel for device control; the electric adjustment changes pen-display tilt.", "cascading_zh": "按配置接收校园广播及远程控制；现场视频推流需另配编码或采集设备。", "cascading_en": "Receive campus broadcasts and remote control as configured. Sending stage video requires separate capture or encoding equipment."},
+            scenarios: {teaching_zh: "讲台演示：21.5 寸手写屏、两路外接 HDMI 显示输出和鹅颈麦克风。", teaching_en: "Present with the 21.5-inch pen display, two external HDMI display outputs and gooseneck microphone.", control_zh: "通过 NDP200-CPL20-GEN2 中控屏操作设备；调节的是手写屏角度。", control_en: "Use the NDP200-CPL20-GEN2 panel for device control; the electric adjustment changes pen-display tilt.", cascading_zh: "按配置接收校园广播及远程控制；现场视频推流需另配编码或采集设备。", cascading_en: "Receive campus broadcasts and remote control as configured. Sending stage video requires separate capture or encoding equipment."},
         },
         sl100: {
             id: "sl100",
@@ -145,22 +145,37 @@
             role_zh: "智能演讲台，集成 23.8 寸手写屏、8.8 寸串口中控屏、3×3 HDMI 1.4 与 3×3 USB 2.0 KVM 矩阵。Type-C 支持 DP、65W PD、USB 3.0、触控及网络共享；电动丝杆升降范围 1060–1250mm。AC 插座仅供电，不提供强电设备控制。",
             role_en: "Smart podium with a 23.8-inch pen display, 8.8-inch serial control panel, 3×3 HDMI 1.4 and 3×3 USB 2.0 KVM matrices. Type-C supports DP, 65W PD, USB 3.0, touch and LAN sharing; electric lead-screw height range: 1060–1250mm. AC outlets supply power only, without high-voltage device control.",
             ports: ["4× Gigabit LAN", "3×3 HDMI 1.4 Matrix (4K@30Hz)", "3×3 USB 2.0 KVM", "Type-C: DP / 65W PD / USB 3.0 / Touch / LAN", "Electric Lead-screw Lift (1060–1250mm)", "AC Outlets: Power Only"],
-            scenarios: {"teaching_zh": "使用手写屏与 Type-C 五合一连接进行本地教学演示。", "teaching_en": "Use the pen display and Type-C five-in-one connection for local presentations.", "control_zh": "8.8 寸中控屏、电动丝杆升降、USB KVM 和电子锁集成操作。", "control_en": "Operate the 8.8-inch panel, electric lift, USB KVM and electronic lock.", "cascading_zh": "按设备与平台配置执行远程控制；本示意方案不向 SL100 分发音视频广播流。", "cascading_en": "Use supported remote controls as configured. This example does not route AV broadcast streams to SL100."},
+            scenarios: {teaching_zh: "使用手写屏与 Type-C 五合一连接进行本地教学演示。", teaching_en: "Use the pen display and Type-C five-in-one connection for local presentations.", control_zh: "8.8 寸中控屏、电动丝杆升降、USB KVM 和电子锁集成操作。", control_en: "Operate the 8.8-inch panel, electric lift, USB KVM and electronic lock.", cascading_zh: "按设备与平台配置执行远程控制；本示意方案不向 SL100 分发音视频广播流。", cascading_en: "Use supported remote controls as configured. This example does not route AV broadcast streams to SL100."},
         },
-        mbx_corridor: {
-            id: "mbx_corridor",
-            name: "MBX100 Media Box (Corridor)",
-            genericName_zh: "网络广播媒体盒 (公共走廊)",
-            genericName_en: "Media Box (Corridor Broadcast)",
-            model: "Q-NEX MBX100",
-            image: "assets/MBX.png",
+        nps150: {
+            id: "nps150",
+            name: "NPS150 Presentation Switcher",
+            model: "Q-NEX NPS150",
+            image: "assets/NPS150.png",
             category: "terminal",
-            zone_zh: "Corridor (公共教学走廊)",
-            zone_en: "Corridor (Public Area)",
-            role_zh: "MBX100 公共区域广播终端，用于接收定时或实时音视频、文字通知并连接显示与音响设备。具备 10/100M 以太网、HDMI 显示输出、RS232 / IR 控制及 DC 12V 输入。",
-            role_en: "MBX100 public-area endpoint for scheduled or live AV and text announcements, connected to displays and audio equipment. Provides 10/100M Ethernet, HDMI display output, RS232 / IR control and DC 12V input.",
-            ports: ["10/100M Ethernet (RJ45)", "HDMI Display Output", "Speaker Out / 3.5mm Line Out", "RS232 / IR", "DC 12V Input"],
-            scenarios: {"teaching_zh": "在公共区域显示校园信息和直播节目。", "teaching_en": "Show campus information and live content in public areas.", "control_zh": "通过支持的 RS232 / IR 指令控制显示设备。", "control_en": "Control compatible displays with supported RS232 / IR commands.", "cascading_zh": "接收项目配置的定时音频与校园通知。", "cascading_en": "Receive scheduled audio and campus announcements as configured."},
+            genericName_zh: "NPS150 会议协作与集控",
+            role_zh: "面向会议室的 Dynamic BYOM 与设备集控中枢，连接自带笔记本与会议室外设，实现混合会议和统一控制。",
+            zone_zh: "Smart Meeting Room（智慧会议室 - NPS150）",
+            genericName_en: "NPS150 BYOM & Room Control",
+            role_en: "A meeting-room hub for Dynamic BYOM and centralized device control, connecting personal laptops with room peripherals for hybrid collaboration.",
+            zone_en: "Smart Meeting Room (NPS150)",
+            ports: [
+                "LAN",
+                "HDMI",
+                "USB",
+                "Line Out"
+            ],
+            scenarios: {
+                icon1: "💻", icon2: "🎛️",
+                teaching_en: "Connect a personal laptop to room cameras, microphones and USB peripherals for hybrid meetings with familiar conferencing software.",
+                control_en: "Control compatible displays, cameras, lighting, air conditioning and curtains through a touch panel, Web Console or App.",
+                badge1_en: "Dynamic BYOM",
+                badge2_en: "Centralized Control",
+                teaching_zh: "自带笔记本接入会议室摄像头、麦克风及 USB 外设，使用熟悉的会议软件开展混合会议。",
+                control_zh: "通过触控面板、Web Console 或 App，集中控制兼容的显示屏、摄像机、灯光、空调和窗帘。",
+                badge1_zh: "Dynamic BYOM",
+                badge2_zh: "设备集控"
+            }
         },
         mbx_library: {
             id: "mbx_library",
@@ -175,7 +190,7 @@
             role_zh: "MBX100 图书馆广播终端，用于文字通知、背景音乐和音视频内容。具备 10/100M 以太网、HDMI 显示输出、RS232 / IR 控制及 DC 12V 输入。",
             role_en: "MBX100 library endpoint for text notices, background music and AV content. Provides 10/100M Ethernet, HDMI display output, RS232 / IR control and DC 12V input.",
             ports: ["10/100M Ethernet (RJ45)", "HDMI Display Output", "Speaker Out / 3.5mm Line Out", "RS232 / IR", "DC 12V Input"],
-            scenarios: {"teaching_zh": "在图书馆显示阅读须知与校园信息。", "teaching_en": "Display library guidance and campus information.", "control_zh": "按项目配置控制显示电源与音量。", "control_en": "Control display power and audio volume as configured.", "cascading_zh": "接收闭馆提示、校园广播及文字通知。", "cascading_en": "Receive closing announcements, campus broadcasts and text notices."},
+            scenarios: {teaching_zh: "在图书馆显示阅读须知与校园信息。", teaching_en: "Display library guidance and campus information.", control_zh: "按项目配置控制显示电源与音量。", control_en: "Control display power and audio volume as configured.", cascading_zh: "接收闭馆提示、校园广播及文字通知。", cascading_en: "Receive closing announcements, campus broadcasts and text notices."},
         },
     });
 })(window.QnexApp);

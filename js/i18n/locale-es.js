@@ -24,11 +24,11 @@ window.I18N_DATA.es = {
         },
         live_broadcast: {
             btn: '📡 Emisión en directo (RTMP)', badge: 'EN DIRECTO', title: 'Distribución de vídeo en directo por el campus',
-            desc: 'El servidor multimedia distribuye vídeo RTMP a los terminales mediante la LAN Gigabit. En esta configuración, SL100 se dedica a las presentaciones locales y no recibe la emisión en directo.'
+            desc: "El Media Server opcional distribuye vídeo en directo por la LAN a NDP600, NMP311, NDP200 y MBX100 de la biblioteca. NPS150 y SL100 no reciben esta emisión."
         },
         bell_music: {
             btn: '🎵 Timbres y música programados', badge: 'AUDIO PROGRAMADO', title: 'Timbres escolares y música del almuerzo',
-            desc: 'El servidor multimedia envía audio programado a NDP600, NMP311, NDP200 y a los MBX del pasillo y la biblioteca. Los amplificadores integrados o el sistema de sonido externo alimentan los altavoces. SL100 no participa en esta emisión.'
+            desc: "El Media Server opcional distribuye timbres y música programados a NDP600, NMP311, NDP200 y MBX100 de la biblioteca. NPS150 y SL100 no participan."
         },
         cloud_control: {
             btn: '⚡ Control desde la nube (MQTT)', badge: 'CONTROL REMOTO', title: 'Control centralizado y gestión IoT desde la nube',
@@ -39,15 +39,15 @@ window.I18N_DATA.es = {
             desc: 'Q-NEX Cloud envía instrucciones de evacuación directamente por MQTT. No requiere servidor multimedia. Los terminales, incluido SL100, muestran el aviso en las pantallas conectadas. Este escenario representa un aviso de texto.'
         },
         local_teaching: {
-            btn: '💻 Clase local (sin tráfico LAN)', badge: 'AV LOCAL', title: 'Clase y presentación audiovisual local',
-            desc: 'Las señales del portátil, visualizador y micrófono se envían a pantallas y altavoces por las rutas AV locales de NDP600, NMP311, NDP200 o SL100, sin consumir ancho de banda de streaming de la LAN.'
+            btn: "💻 Clases y reuniones (AV local)", badge: 'AV LOCAL', title: "Clases y reuniones locales",
+            desc: "Las señales del portátil, visualizador y micrófono se envían a pantallas y altavoces por las rutas AV locales de NDP600, NMP311, NDP200 o SL100, sin consumir ancho de banda de streaming de la LAN. Control local y selección de fuentes; vídeo HDMI y Line Out a un altavoz activo."
         }
     },
     zones: {
-        cloud_plane: '☁️ Internet / Gestión en la nube pública', campus_lan: '🏫 Red local Gigabit del campus',
+        cloud_plane: '☁️ Internet / Gestión en la nube pública', campus_lan: "🏫 LAN Gigabit del campus",
         room_a: 'Aula A (atril de control multifunción)', room_b: 'Aula B (procesador NMP)',
         room_h: 'Auditorio (atril NDP200)', room_sl: 'Aula C (atril inteligente SL100)',
-        room_c: 'Pasillo (difusión MBX)', room_l: 'Biblioteca (audio y avisos)'
+        room_c: "Sala de reuniones inteligente (NPS150)", room_l: 'Biblioteca (audio y avisos)'
     },
     inspector: {
         role_label: 'FUNCIÓN EN EL SISTEMA', ports_label: 'PUERTOS Y CONECTORES', scenarios_label: 'APLICACIONES Y USOS',
@@ -55,9 +55,9 @@ window.I18N_DATA.es = {
         test_btn_prefix: '🚀 Enviar', test_btn_suffix: 'diagnóstico', ping_success: 'El equipo responde correctamente (RTT: 4.2ms)'
     },
     legend: {
-        title: 'NORMAS DE CABLEADO', filter_hint: 'Filtrar capas', lan: '🟦 LAN / Ethernet (#0074D9)',
-        hdmi: '🔴 HDMI / Vídeo (#FF4136)', audio: '🟢 Audio / Cable de altavoz (#2ECC40)',
-        wireless: '📶 Inalámbrico / 4G / Micrófono UHF (discontinuo)'
+        title: 'NORMAS DE CABLEADO', filter_hint: 'Filtrar capas', lan: '🟦 LAN / Ethernet',
+        hdmi: '🔴 HDMI / Vídeo', audio: '🟢 Audio / Cable de altavoz',
+        usb: "USB", wireless: '📶 Inalámbrico / 4G / Micrófono UHF (discontinuo)'
     },
     tour: { step_badge: 'Paso', prev_btn: '← Anterior', next_btn: 'Siguiente →', finish_btn: 'Finalizar formación 🎉', close_btn: '✕ Cerrar' }
 };
