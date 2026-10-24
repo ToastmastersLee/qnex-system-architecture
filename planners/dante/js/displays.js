@@ -39,8 +39,8 @@
         const layer = document.getElementById('displayLayer');
         layer.innerHTML = '';
         const copy = getDisplayCopy(document.getElementById('langSelect').value || 'en');
-        const screenX = state.roomLength * PPM * 0.15;
-        const screenWidth = state.roomLength * PPM * 0.70;
+        const screenWidth = 86 * 0.0254 * 16 / Math.sqrt(337) * PPM;
+        const screenX = (state.roomLength * PPM - screenWidth) / 2;
         const screenHeight = 11;
 
         const makeScreen = (x, y, label, accent, coverageEnd, auxiliary = false) => {
@@ -82,7 +82,7 @@
             layer.appendChild(group);
         };
 
-        makeScreen(0, 0.15, copy.main, '#f59e0b', MAIN_DISPLAY_DEPTH);
+        if(state.showIFP!==false)makeScreen(0, 0.15, 'QA1400 Pro 86″ IFP', '#f59e0b', MAIN_DISPLAY_DEPTH);
         state.auxDisplays.forEach((display, index) => {
             makeScreen(display.x, display.y, `${copy.canvas} ${index + 1} · ${display.size}″`, '#fb923c', display.coverageEnd, true);
         });

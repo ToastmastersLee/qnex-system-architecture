@@ -5,7 +5,7 @@
         if(!['lcs','dante'].includes(plan.sceneKind)||typeof plan.sceneHash!=='function')throw new Error('Missing 3D plan');
         const packaged=runtimeBase.pathname.includes('/planners/');
         const path=packaged?`../../demos/${plan.sceneKind}/index.html`:`../${plan.sceneKind==='lcs'?'LCS':'AISpeech'}/three-demo/index.html`;
-        const url=new URL(path,runtimeBase);url.searchParams.set('lang','en');url.searchParams.set('quote','3d1');url.hash=plan.sceneHash();
+        const url=new URL(path,runtimeBase);url.searchParams.set('lang','en');url.searchParams.set('quote','ifp86');url.hash=plan.sceneHash();
         const frame=document.createElement('iframe');frame.title='Quotation 3D render';
         frame.setAttribute('aria-hidden','true');frame.tabIndex=-1;
         frame.style.cssText='position:fixed;left:-10000px;top:0;width:1440px;height:1000px;border:0;pointer-events:none';
@@ -21,7 +21,7 @@
             };
             const timer=setTimeout(()=>finish(new Error('3D rendering timed out')),45000);
             window.addEventListener('message',receive);
-            frame.onload=()=>frame.contentWindow.postMessage({type:'qnex-quotation-capture',id,qnexModel:plan.qnexModel},location.protocol==='file:'?'*':location.origin);
+            frame.onload=()=>frame.contentWindow.postMessage({type:'qnex-quotation-capture',id,qnexModel:plan.qnexModel,ifpCount:plan.ifpCount},location.protocol==='file:'?'*':location.origin);
             frame.onerror=()=>finish(new Error('3D page failed to load'));
             frame.src=url.href;document.body.append(frame);
         });

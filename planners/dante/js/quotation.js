@@ -1,6 +1,7 @@
 (function(App){
     App.state.qnexModel='NDP600';
     App.state.showAuxDisplays=true;
+    App.state.showIFP=true;
     App.renderQnex=function(){
         const svg=document.getElementById('canvas');
         let g=document.getElementById('qnex-system-node');
@@ -12,12 +13,13 @@
     App.quotationForPlan=function(){
         const s=App.state,b=App.bomForPlan(s.roomLength,s.roomWidth,s.devices,s.auxDisplays),{line}=Quotation;
         const lines=Quotation.qnexLines(s.qnexModel);
+        if(s.showIFP)lines.push(line('QA1400 Pro 86-inch',1,'86-inch interactive flat panel for teaching presentations, touch interaction and hybrid learning.'));
         const purposes={m100:'Ceiling microphone for remote speech capture and local PA feed.',m40:'Ceiling microphone for speech capture and local PA feed.',dc20:'Dante ceiling speaker for classroom listening and teacher monitoring.'};
         for(const type of ['m100','m40','dc20'])if(b.counts[type])lines.push(line(type.toUpperCase(),b.counts[type],purposes[type]));
         if(b.du11)lines.push(line('DU11',b.du11,'Dante audio interface linking laptop / podium OPS and room audio.'));
         if(b.processor)lines.push(line(b.processor.type,b.processor.count,'Dante audio processing for the currently configured channel count.',false,false));
         for(const size of [55,65,75])if(b.counts[size])lines.push(line(`Auxiliary Display / TV ${size}-inch`,b.counts[size],'Auxiliary classroom display; model, mounting and signal distribution require selection.'));
-        return {sceneKind:'dante',qnexModel:s.qnexModel,sceneHash:()=>App.encodeSnapshot(App.snapshotFromState(s,'en')),title:'Dante Classroom',width:s.roomLength,depth:s.roomWidth,lines,
+        return {sceneKind:'dante',ifpCount:s.showIFP?1:0,qnexModel:s.qnexModel,sceneHash:()=>App.encodeSnapshot(App.snapshotFromState(s,'en')),title:'Dante Classroom',width:s.roomLength,depth:s.roomWidth,lines,
             summary:`Teaching, hybrid learning and unified classroom control with ${s.qnexModel} and Dante audio.`,
             detail:Quotation.scenarioDetail(s.qnexModel)};
     };
@@ -33,6 +35,9 @@
         const system=document.createElement('select');system.id='qnex-model';system.className='custom-select';
         Quotation.qnexModels.forEach(model=>system.add(new Option(model,model)));system.value=App.state.qnexModel;
         system.onchange=()=>{App.state.qnexModel=system.value;App.updateBOM();};systemLabel.append(system);sidebar.prepend(systemLabel);
+        const ifpLabel=document.createElement('label');const ifp=document.createElement('input');ifp.type='checkbox';ifp.id='include-ifp';ifp.checked=App.state.showIFP;
+        ifpLabel.append(ifp,document.createTextNode('QA1400 Pro 86″ IFP'));systemLabel.after(ifpLabel);
+        ifp.onchange=()=>{App.state.showIFP=ifp.checked;App.renderRoom();};
         const auxLabel=document.createElement('label');const aux=document.createElement('input');aux.type='checkbox';aux.id='include-aux-displays';aux.checked=App.state.showAuxDisplays;
         const auxTitle=document.createElement('span');auxLabel.append(aux,auxTitle);document.getElementById('auxDisplaySummary').before(auxLabel);
         aux.onchange=()=>{App.state.showAuxDisplays=aux.checked;App.renderRoom();};
