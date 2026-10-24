@@ -33,7 +33,7 @@
     }
 
     function renderAuxiliaryDisplays() {
-        state.auxDisplays = recommendAuxiliaryDisplays();
+        state.auxDisplays = state.showAuxDisplays === false ? [] : recommendAuxiliaryDisplays();
         updateAuxiliaryDisplaySummary();
 
         const layer = document.getElementById('displayLayer');
