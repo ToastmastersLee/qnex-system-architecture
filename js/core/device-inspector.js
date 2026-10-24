@@ -3,6 +3,7 @@
     Object.assign(Simulator.prototype, {
     selectDevice(deviceId, { openSidebar = true } = {}) {
         if (!this.isDeviceVisible(deviceId)) deviceId = 'switch';
+        const changedDevice = this.selectedDevice !== deviceId;
         this.selectedDevice = deviceId;
         const dev = TOPOLOGY_DATA.devices[deviceId];
         if (!dev) return;
@@ -28,6 +29,12 @@
         document.getElementById('inspector-img').src = dev.image;
         document.getElementById('inspector-zone').textContent = zoneText;
         document.getElementById('inspector-role').textContent = roleText;
+
+        this.updateProductVideo(deviceId);
+        if (changedDevice) {
+            document.getElementById('inspector-ports-section').open = false;
+            document.getElementById('sidebar-panel').scrollTop = 0;
+        }
 
         // Ports
         const portsList = document.getElementById('inspector-ports');

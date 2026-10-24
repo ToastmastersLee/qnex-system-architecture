@@ -22,6 +22,13 @@
                 target.src = embedded || path;
             }
         });
+        // Native checkbox rendering differs in SVG foreignObject; export explicit state.
+        clone.querySelectorAll('.legend-filter-chk').forEach(checkbox => {
+            const state = document.createElement('span');
+            state.className = 'legend-export-state';
+            state.textContent = checkbox.checked ? '✓' : '';
+            checkbox.replaceWith(state);
+        });
         const background = getComputedStyle(document.getElementById('board-container'));
         Object.assign(clone.style, {
             position: 'relative', top: '0', left: '0', transform: 'none', margin: '0',

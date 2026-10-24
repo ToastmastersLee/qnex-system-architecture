@@ -127,7 +127,7 @@
             setText('lbl-ports', translations.inspector.ports_label);
             setText('lbl-scenarios', translations.inspector.scenarios_label);
             if (this.selectedDevice) {
-                this.selectDevice(this.selectedDevice);
+                this.selectDevice(this.selectedDevice, { openSidebar: false });
                 return;
             }
             if (TOPOLOGY_DATA.devices?.switch) {
