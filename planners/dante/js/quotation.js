@@ -17,7 +17,7 @@
         if(b.du11)lines.push(line('DU11',b.du11,'Dante audio interface linking laptop / podium OPS and room audio.'));
         if(b.processor)lines.push(line(b.processor.type,b.processor.count,'Dante audio processing for the currently configured channel count.',false,false));
         for(const size of [55,65,75])if(b.counts[size])lines.push(line(`Auxiliary Display / TV ${size}-inch`,b.counts[size],'Auxiliary classroom display; model, mounting and signal distribution require selection.'));
-        return {title:'Dante Classroom',width:s.roomLength,depth:s.roomWidth,lines,
+        return {sceneKind:'dante',qnexModel:s.qnexModel,sceneHash:()=>App.encodeSnapshot(App.snapshotFromState(s,'en')),title:'Dante Classroom',width:s.roomLength,depth:s.roomWidth,lines,
             summary:`Teaching, hybrid learning and unified classroom control with ${s.qnexModel} and Dante audio.`,
             detail:Quotation.scenarioDetail(s.qnexModel)};
     };

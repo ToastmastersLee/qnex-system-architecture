@@ -1242,6 +1242,9 @@
     if (v.showLargeScreen) lines.push(line("Main display / IFP", 1, "Front teaching display; confirm size, model, installation and HDMI negotiation."));
     if (v.showDisplays) lines.push(line(`Auxiliary Display / TV ${v.displaySize}-inch`, v.displays.length, "Auxiliary display coverage; model, mounting and signal distribution require selection."));
     return {
+      sceneKind: "lcs",
+      qnexModel: v.qnexModel,
+      sceneHash: () => encodePlanSnapshot(createPlanSnapshot({ ...v, lang: "en", hubName: "LCS810 GEN2", projectTitle: "LCS GEN2 Hybrid Learning" })),
       title: "LCS GEN2 Hybrid Learning",
       width: v.roomWidth,
       depth: v.roomLength,
@@ -2369,6 +2372,7 @@
       return () => window.removeEventListener("mouseup", handleMouseUp);
     }, []);
     const view = {
+      activeCameraPlan,
       qnexModel,
       setQnexModel,
       activeStudentQty,

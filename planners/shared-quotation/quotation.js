@@ -1,5 +1,44 @@
 /* Browser-only preliminary quotations. Prices are intentionally zero. */
 (function () {
+    const runtimeBase=new URL('.',document.currentScript.src);
+    async function capture3D(plan) {
+        if(!['lcs','dante'].includes(plan.sceneKind)||typeof plan.sceneHash!=='function')throw new Error('Missing 3D plan');
+        const packaged=runtimeBase.pathname.includes('/planners/');
+        const path=packaged?`../../demos/${plan.sceneKind}/index.html`:`../${plan.sceneKind==='lcs'?'LCS':'AISpeech'}/three-demo/index.html`;
+        const url=new URL(path,runtimeBase);url.searchParams.set('lang','en');url.searchParams.set('quote','3d1');url.hash=plan.sceneHash();
+        const frame=document.createElement('iframe');frame.title='Quotation 3D render';
+        frame.setAttribute('aria-hidden','true');frame.tabIndex=-1;
+        frame.style.cssText='position:fixed;left:-10000px;top:0;width:1440px;height:1000px;border:0;pointer-events:none';
+        const id=crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random();
+        return new Promise((resolve,reject)=>{
+            const finish=(error,data)=>{clearTimeout(timer);window.removeEventListener('message',receive);frame.remove();error?reject(error):resolve(data);};
+            const receive=event=>{
+                if(event.source!==frame.contentWindow||(location.protocol!=='file:'&&event.origin!==location.origin)||event.data?.type!=='qnex-quotation-image'||event.data.id!==id)return;
+                const result=event.data;
+                if(result.error)return finish(new Error(result.error));
+                if(!result.data?.startsWith('data:image/png;base64,')||result.width!==1440||result.height!==1000||!result.upright)return finish(new Error('Invalid 3D image'));
+                finish(null,result);
+            };
+            const timer=setTimeout(()=>finish(new Error('3D rendering timed out')),45000);
+            window.addEventListener('message',receive);
+            frame.onload=()=>frame.contentWindow.postMessage({type:'qnex-quotation-capture',id,qnexModel:plan.qnexModel},location.protocol==='file:'?'*':location.origin);
+            frame.onerror=()=>finish(new Error('3D page failed to load'));
+            frame.src=url.href;document.body.append(frame);
+        });
+    }
+    function pixelAnchor(ws,x,y) {
+        let col=0,row=0;
+        while(x>=Math.floor((ws.getColumn(col+1).width||8.43)*7+5)){x-=Math.floor((ws.getColumn(col+1).width||8.43)*7+5);col++;}
+        while(y>=(ws.getRow(row+1).height||15)*4/3){y-=(ws.getRow(row+1).height||15)*4/3;row++;}
+        return {nativeCol:col,nativeColOff:Math.round(x*9525),nativeRow:row,nativeRowOff:Math.round(y*9525)};
+    }
+    function insertFittedImage(wb,ws,image,box) {
+        const scale=Math.min(box.width/image.width,box.height/image.height);
+        const width=image.width*scale,height=image.height*scale;
+        const left=box.x+(box.width-width)/2,top=box.y+(box.height-height)/2;
+        const id=wb.addImage({base64:image.data,extension:'png'});
+        ws.addImage(id,{tl:pixelAnchor(ws,left,top),br:pixelAnchor(ws,left+width,top+height),editAs:'oneCell'});
+    }
     const copy = {
         en:['Export quotation','Preparing…','Quotation failed. Retry.','Back to main'],
         zh:['导出报价表','正在生成…','导出失败，请重试','返回主页面'],
@@ -30,11 +69,16 @@
         const wb = new ExcelJS.Workbook(); wb.calcProperties.fullCalcOnLoad = true;
         const ws = wb.addWorksheet(plan.title.slice(0,31), {views:[{state:'normal',showGridLines:false}]});
         const widths=[20.9,33.6,50.3,18.6,18.6,14.5,17.3]; widths.forEach((v,i)=>ws.getColumn(i+1).width=v);
-        [18,14.25,14.25,14.25,45,55,145,15,45].forEach((v,i)=>ws.getRow(i+1).height=v);
+        [18,14.25,14.25,14.25,45,55,160,160,45].forEach((v,i)=>ws.getRow(i+1).height=v);
         for(let r=1;r<=6;r++) ws.mergeCells(r,1,r,7);
-        ws.mergeCells('A7:G8'); ws.mergeCells('A9:C9');
+        ws.mergeCells('A7:C8'); ws.mergeCells('D7:G8'); ws.mergeCells('A9:C9');
         ['IQ HOLDING (HK) LIMITED','IQ & Q-NEX Smart Education Solutions','6th Building, Pioneer Park I, Fuzhou High-technology Base, Shangjie Town, Minhou County, Fuzhou, China','TEL: 86-591-38202660   FAX: 86-591-38203003   WEB: WWW.IQBOARD.NET',`Quotation Proposal: ${plan.title}`,`Solution Description\n${plan.summary}`].forEach((v,i)=>ws.getCell(i+1,1).value=v);
         ws.getCell('A7').value=plan.detail;
+        const image=await capture3D(plan);
+        const columnPx=c=>Math.floor(ws.getColumn(c).width*7+5);
+        const left=columnPx(1)+columnPx(2)+columnPx(3);
+        const top=[1,2,3,4,5,6].reduce((sum,r)=>sum+ws.getRow(r).height*4/3,0);
+        insertFittedImage(wb,ws,image,{x:left+12,y:top+12,width:[4,5,6,7].reduce((sum,c)=>sum+columnPx(c),0)-24,height:320*4/3-24});
         [[1,'Model / Product'],[4,'Unit Price\n(USD/unit)'],[5,'Qty per Each Room'],[6,'Quantity for Rooms'],[7,'Sub Total\n(USD)']].forEach(([c,v])=>ws.getCell(9,c).value=v);
         const lines=plan.lines.filter(l=>l.quantity>0);
         const missing=[];
