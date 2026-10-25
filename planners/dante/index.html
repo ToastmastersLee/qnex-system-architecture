@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dante Classroom Coverage Simulator</title>
-    <link rel="stylesheet" href="css/base.css?v=20261024-ifp86">
-    <link rel="stylesheet" href="css/layout.css?v=20261024-ifp86">
-    <link rel="stylesheet" href="css/components.css?v=20261024-ifp86">
-<script src="../shared-quotation/vendor/exceljs.min.js?v=20261024-ifp86"></script>
-<script src="../shared-quotation/images.js?v=20261024-ifp86"></script>
-<script src="../shared-quotation/quotation.js?v=20261024-ifp86"></script>
+    <link rel="stylesheet" href="css/base.css?v=20261026-config">
+    <link rel="stylesheet" href="css/layout.css?v=20261026-config">
+    <link rel="stylesheet" href="css/components.css?v=20261026-config">
+<script src="../shared-quotation/vendor/exceljs.min.js?v=20261026-config"></script>
+<script src="../shared-quotation/images.js?v=20261026-config"></script>
+<script src="../shared-quotation/quotation.js?v=20261026-config"></script>
+<link rel="stylesheet" href="css/configuration.css?v=20261026-config">
 </head>
 <body>
 
@@ -241,18 +242,18 @@
             <g id="devicesLayer"></g>
         </svg>
 
-        <div class="instruction">
+        <details class="instruction"><summary data-config-copy="instructions">Instructions</summary><div>
             <span class="highlight" id="t_warnTitle">⚠️ Microphones (M100, M40) do not output sound. PA requires DC20s.</span><br>
-            <span id="t_warnDesc">Tip: Drag devices to position them. Double-click to delete.</span>
-        </div>
+            <span id="t_warnDesc">Tip: Drag devices to position them. Double-click to delete.</span></div>
+        </details>
 
         <!-- Floating Specs Panel -->
-        <div class="specs-panel" id="specsPanel">
+        <details class="specs-panel" id="specsPanel"><summary id="t_refTitle">Device reference</summary>
             <div class="bom-section">
-                <div class="bom-section-title" id="t_refTitle">💡 Device Specs (at 3.0m ceiling)</div>
+
                 <div id="refSpecsList" class="ref-specs-list"></div>
             </div>
-        </div>
+        </details>
 
         <!-- Floating BOM Panel -->
         <div class="bom-panel" id="bomPanel">
@@ -263,26 +264,28 @@
         </div>
     </div>
 
-    <script defer src="js/planning-core.js?v=20261024-ifp86"></script>
-    <script defer src="js/core.js?v=20261024-ifp86"></script>
-    <script defer src="js/presentation.js?v=20261024-ifp86"></script>
-    <script defer src="js/plan-snapshot.js?v=20261024-ifp86"></script>
-    <script defer src="js/locales-en-zh.js?v=20261024-ifp86"></script>
-    <script defer src="js/locales-hu-it.js?v=20261024-ifp86"></script>
-    <script defer src="js/locales-es-ja.js?v=20261024-ifp86"></script>
-    <script defer src="js/locales-ko-ar.js?v=20261024-ifp86"></script>
-    <script defer src="js/i18n.js?v=20261024-ifp86"></script>
-    <script defer src="js/displays.js?v=20261024-ifp86"></script>
-    <script defer src="js/room.js?v=20261024-ifp86"></script>
-    <script defer src="js/devices.js?v=20261024-ifp86"></script>
-    <script defer src="js/coverage.js?v=20261024-ifp86"></script>
-    <script defer src="js/recommend-mics.js?v=20261024-ifp86"></script>
-    <script defer src="js/recommend-speakers.js?v=20261024-ifp86"></script>
-    <script defer src="js/recommendation.js?v=20261024-ifp86"></script>
-    <script defer src="js/presets.js?v=20261024-ifp86"></script>
-    <script defer src="js/bom.js?v=20261024-ifp86"></script>
-    <script defer src="js/interactions.js?v=20261024-ifp86"></script>
-    <script defer src="js/main.js?v=20261024-ifp86"></script>
-<script defer src="js/quotation.js?v=20261024-ifp86"></script>
+    <script defer src="js/planning-core.js?v=20261026-config"></script>
+    <script defer src="js/core.js?v=20261026-config"></script>
+    <script defer src="js/presentation.js?v=20261026-config"></script>
+    <script defer src="js/configuration.js?v=20261026-config"></script>
+    <script defer src="js/configuration-copy.js?v=20261026-config"></script>
+    <script defer src="js/plan-snapshot.js?v=20261026-config"></script>
+    <script defer src="js/locales-en-zh.js?v=20261026-config"></script>
+    <script defer src="js/locales-hu-it.js?v=20261026-config"></script>
+    <script defer src="js/locales-es-ja.js?v=20261026-config"></script>
+    <script defer src="js/locales-ko-ar.js?v=20261026-config"></script>
+    <script defer src="js/i18n.js?v=20261026-config"></script>
+    <script defer src="js/displays.js?v=20261026-config"></script>
+    <script defer src="js/room.js?v=20261026-config"></script>
+    <script defer src="js/devices.js?v=20261026-config"></script>
+    <script defer src="js/coverage.js?v=20261026-config"></script>
+    <script defer src="js/recommend-mics.js?v=20261026-config"></script>
+    <script defer src="js/recommend-speakers.js?v=20261026-config"></script>
+    <script defer src="js/recommendation.js?v=20261026-config"></script>
+    <script defer src="js/presets.js?v=20261026-config"></script>
+    <script defer src="js/bom.js?v=20261026-config"></script>
+    <script defer src="js/interactions.js?v=20261026-config"></script>
+    <script defer src="js/main.js?v=20261026-config"></script>
+<script defer src="js/quotation.js?v=20261026-config"></script>
 </body>
 </html>

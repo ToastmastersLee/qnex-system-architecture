@@ -11,6 +11,7 @@
             y = state.roomWidth / 2;
         }
         
+        state.manualAudio = true;
         state.devices.push({
             id: App.idCounter++,
             type: type,
@@ -23,6 +24,7 @@
     }
 
     function clearAllDevices() {
+        state.manualAudio = true;
         state.devices = [];
         renderDevices();
         calculateCoverage();
@@ -90,7 +92,7 @@
                 label.setAttribute('font-size', '11');
                 label.setAttribute('font-weight', 'bold');
                 label.setAttribute('fill', '#22c55e');
-                label.textContent = App.audioName('m100', document.getElementById('langSelect').value, state.showModels) + ' #' + (state.devices.filter(item => item.type === device.type).findIndex(item => item.id === device.id) + 1);
+                label.textContent = App.audioName('m100', document.getElementById('langSelect').value, state.showModels) + ' #' + (state.devices.filter(item => ['m100','m40'].includes(device.type) ? ['m100','m40'].includes(item.type) : item.type === device.type).findIndex(item => item.id === device.id) + 1);
                 g.appendChild(label);
             } 
             else if (device.type === 'm40') {
@@ -127,7 +129,7 @@
                 label.setAttribute('font-size', '10');
                 label.setAttribute('font-weight', 'bold');
                 label.setAttribute('fill', '#a855f7');
-                label.textContent = App.audioName('m40', document.getElementById('langSelect').value, state.showModels) + ' #' + (state.devices.filter(item => item.type === device.type).findIndex(item => item.id === device.id) + 1);
+                label.textContent = App.audioName('m40', document.getElementById('langSelect').value, state.showModels) + ' #' + (state.devices.filter(item => ['m100','m40'].includes(device.type) ? ['m100','m40'].includes(item.type) : item.type === device.type).findIndex(item => item.id === device.id) + 1);
                 g.appendChild(label);
             }
             else if (device.type === 'dc20') {
@@ -153,12 +155,13 @@
                 label.setAttribute('font-size', '9');
                 label.setAttribute('font-weight', 'bold');
                 label.setAttribute('fill', '#3b82f6');
-                label.textContent = App.audioName('dc20', document.getElementById('langSelect').value, state.showModels) + ' #' + (state.devices.filter(item => item.type === device.type).findIndex(item => item.id === device.id) + 1);
+                label.textContent = App.audioName('dc20', document.getElementById('langSelect').value, state.showModels) + ' #' + (state.devices.filter(item => ['m100','m40'].includes(device.type) ? ['m100','m40'].includes(item.type) : item.type === device.type).findIndex(item => item.id === device.id) + 1);
                 g.appendChild(label);
             }
 
             layer.appendChild(g);
         });
+        App.renderTeachingDevices();
         updateBOM();
     }
 

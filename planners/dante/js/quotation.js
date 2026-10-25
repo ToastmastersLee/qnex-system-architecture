@@ -1,49 +1,60 @@
-(function(App){
-    App.state.qnexModel='NDP600';
-    App.state.showAuxDisplays=true;
-    App.state.showIFP=true;
-    App.renderQnex=function(){
-        const svg=document.getElementById('canvas');
-        let g=document.getElementById('qnex-system-node');
-        if(!g){g=document.createElementNS('http://www.w3.org/2000/svg','g');g.id='qnex-system-node';svg.append(g);}
-        g.setAttribute('transform',`translate(${App.state.roomLength*App.PPM-100},30)`);
-        g.innerHTML=`<rect x="-75" y="-12" width="150" height="25" rx="4" fill="#0072ce"/><text text-anchor="middle" y="4" fill="white" font-size="12">Q-NEX ${App.state.qnexModel}</text>`;
+(function (App) {
+    App.quotationForPlan = function () {
+        const s = App.state, e = s.equipment, b = App.configuredBOM(), { line } = Quotation;
+        const lines = Quotation.qnexLines(e.qnexModel).map(l => ({ ...l, quantity: l.quantity * e.qnexCount }));
+        if (s.showIFP) lines.push(line('QA1400 Pro 86-inch', e.ifpCount, '86-inch interactive flat panel for teaching presentations, touch interaction and hybrid learning.'));
+        for (const type of ['m100', 'm40', 'dc20']) lines.push(line(type.toUpperCase(), b.counts[type], type === 'dc20' ? 'Dante ceiling speaker for classroom listening.' : 'Dante ceiling microphone for speech capture and local PA feed.'));
+        lines.push(line('DU11', b.du11, 'Dante audio interface linking the meeting computer / podium OPS and room audio.'));
+        if (b.processor) lines.push(line(b.processor.type, b.processor.count, 'Dante audio processing for the configured channel count.', false, false));
+        for (const size of [55, 65, 75]) lines.push(line(`Auxiliary Display / TV ${size}-inch`, b.counts[size], 'Auxiliary classroom display; mounting and signal distribution require selection.'));
+        if (e.lcsEnabled) {
+            lines.push(line('LCS810 GEN2', e.lcsCount, 'K3200N1-D15 recording host for lecture capture and USB hybrid learning. Confirm Dante audio routing and ordered options.'));
+            lines.push(line('CV870', e.cameraCount, 'Teacher / student camera for lecture capture. Confirm recording and tracking configuration.'));
+        }
+        const snapshot = App.snapshotFromState(s, 'en');
+        return { sceneKind: 'dante', ifpCount: s.showIFP ? e.ifpCount : 0, qnexModel: e.qnexModel,
+            sceneHash: () => App.encodeSnapshot(snapshot), title: 'Dante Classroom', width: s.roomLength, depth: s.roomWidth,
+            lines: lines.filter(l => l.quantity > 0), summary: `Teaching, hybrid learning and unified classroom control with ${e.qnexModel} and Dante audio.`,
+            detail: Quotation.scenarioDetail(e.qnexModel, e.lcsEnabled) };
     };
-
-    App.quotationForPlan=function(){
-        const s=App.state,b=App.bomForPlan(s.roomLength,s.roomWidth,s.devices,s.auxDisplays),{line}=Quotation;
-        const lines=Quotation.qnexLines(s.qnexModel);
-        if(s.showIFP)lines.push(line('QA1400 Pro 86-inch',1,'86-inch interactive flat panel for teaching presentations, touch interaction and hybrid learning.'));
-        const purposes={m100:'Ceiling microphone for remote speech capture and local PA feed.',m40:'Ceiling microphone for speech capture and local PA feed.',dc20:'Dante ceiling speaker for classroom listening and teacher monitoring.'};
-        for(const type of ['m100','m40','dc20'])if(b.counts[type])lines.push(line(type.toUpperCase(),b.counts[type],purposes[type]));
-        if(b.du11)lines.push(line('DU11',b.du11,'Dante audio interface linking laptop / podium OPS and room audio.'));
-        if(b.processor)lines.push(line(b.processor.type,b.processor.count,'Dante audio processing for the currently configured channel count.',false,false));
-        for(const size of [55,65,75])if(b.counts[size])lines.push(line(`Auxiliary Display / TV ${size}-inch`,b.counts[size],'Auxiliary classroom display; model, mounting and signal distribution require selection.'));
-        return {sceneKind:'dante',ifpCount:s.showIFP?1:0,qnexModel:s.qnexModel,sceneHash:()=>App.encodeSnapshot(App.snapshotFromState(s,'en')),title:'Dante Classroom',width:s.roomLength,depth:s.roomWidth,lines,
-            summary:`Teaching, hybrid learning and unified classroom control with ${s.qnexModel} and Dante audio.`,
-            detail:Quotation.scenarioDetail(s.qnexModel)};
-    };
-    window.addEventListener('DOMContentLoaded',()=>{
-        const sidebar=document.querySelector('.sidebar');sidebar.id='dante-options';sidebar.hidden=true;
-        const toggle=document.createElement('button');toggle.id='dante-options-toggle';toggle.className='theme-toggle';toggle.setAttribute('aria-controls',sidebar.id);toggle.setAttribute('aria-expanded','false');
-        toggle.onclick=()=>{sidebar.hidden=!sidebar.hidden;toggle.setAttribute('aria-expanded',String(!sidebar.hidden));};
-        document.querySelector('.top-nav').prepend(toggle);
-        const back=document.createElement('a');back.href=new URLSearchParams(location.search).get('home')||'../../index.html';back.className='theme-toggle';document.querySelector('.top-nav').prepend(back);
-        const button=document.createElement('button');button.id='export-quotation';button.className='action-btn';button.onclick=()=>Quotation.download(button,App.quotationForPlan());sidebar.prepend(button);
-        const systemLabel=document.createElement('label');systemLabel.className='control-group';
-        const systemTitle=document.createElement('span');systemLabel.append(systemTitle);
-        const system=document.createElement('select');system.id='qnex-model';system.className='custom-select';
-        Quotation.qnexModels.forEach(model=>system.add(new Option(model,model)));system.value=App.state.qnexModel;
-        system.onchange=()=>{App.state.qnexModel=system.value;App.updateBOM();};systemLabel.append(system);sidebar.prepend(systemLabel);
-        const ifpLabel=document.createElement('label');const ifp=document.createElement('input');ifp.type='checkbox';ifp.id='include-ifp';ifp.checked=App.state.showIFP;
-        ifpLabel.append(ifp,document.createTextNode('QA1400 Pro 86″ IFP'));systemLabel.after(ifpLabel);
-        ifp.onchange=()=>{App.state.showIFP=ifp.checked;App.renderRoom();};
-        const auxLabel=document.createElement('label');const aux=document.createElement('input');aux.type='checkbox';aux.id='include-aux-displays';aux.checked=App.state.showAuxDisplays;
-        const auxTitle=document.createElement('span');auxLabel.append(aux,auxTitle);document.getElementById('auxDisplaySummary').before(auxLabel);
-        aux.onchange=()=>{App.state.showAuxDisplays=aux.checked;App.renderRoom();};
-        const refresh=()=>{const lang=document.getElementById('langSelect').value;document.documentElement.lang=lang;const t=Quotation.words(lang);button.textContent=t[0];back.textContent=t[3];systemTitle.textContent=lang==='zh'?'Q-NEX 系统':'Q-NEX System';auxTitle.textContent=lang==='zh'?'辅助显示屏':'Auxiliary Displays';toggle.textContent=lang==='zh'?'配置与报价':'Configuration / quotation';};
-        document.getElementById('langSelect').addEventListener('change',refresh);refresh();
-        const q=new URLSearchParams(location.search);if(q.get('theme')==='light'&&!document.body.classList.contains('light-mode'))App.toggleTheme();
-        if(q.get('lang')&&document.querySelector(`#langSelect option[value="${CSS.escape(q.get('lang'))}"]`)){document.getElementById('langSelect').value=q.get('lang');App.changeLanguage(q.get('lang'));refresh();}
+    window.addEventListener('DOMContentLoaded', () => {
+        const s = App.state, sidebar = document.querySelector('.sidebar'), nav = document.querySelector('.top-nav');
+        sidebar.id = 'dante-options'; sidebar.hidden = true;
+        const toggle = document.createElement('button'); toggle.id = 'dante-options-toggle'; toggle.className = 'theme-toggle';
+        toggle.setAttribute('aria-controls', sidebar.id); toggle.setAttribute('aria-expanded', 'false');
+        function open(value) { sidebar.hidden = !value; toggle.setAttribute('aria-expanded', String(value)); }
+        toggle.onclick = () => open(sidebar.hidden); nav.prepend(toggle);
+        const back = document.createElement('a'); back.href = new URLSearchParams(location.search).get('home') || '../../index.html'; back.className = 'theme-toggle'; nav.prepend(back);
+        const exportButton = document.createElement('button'); exportButton.id = 'export-quotation'; exportButton.className = 'action-btn';
+        exportButton.onclick = () => Quotation.download(exportButton, App.quotationForPlan()); sidebar.prepend(exportButton);
+        const bom = document.getElementById('bomPanel'); sidebar.prepend(bom);
+        const warning = document.createElement('p'); warning.id = 'processor-warning'; bom.append(warning);
+        const note = document.createElement('p'); note.id = 'configuration-note'; sidebar.prepend(note);
+        const restore = document.createElement('button'); restore.id = 'restore-recommended'; restore.className = 'action-btn'; restore.onclick = () => App.restoreRecommended(); bom.after(restore);
+        function checkbox(id, text, checked, change) {
+            const label = document.createElement('label'), input = document.createElement('input'), title = document.createElement('span');
+            input.type = 'checkbox'; input.id = id; input.checked = checked; title.textContent = text;
+            label.append(input, title); bom.before(label); input.onchange = () => { change(input.checked); App.renderRoom(); };
+            return { input, title };
+        }
+        const lcs = checkbox('include-lcs', '', false, v => { s.equipment.lcsEnabled = v; });
+        const ifp = checkbox('include-ifp', 'QA1400 Pro 86″ IFP', true, v => { s.showIFP = v; if (v && !s.equipment.ifpCount) s.equipment.ifpCount = 1; });
+        const aux = checkbox('include-aux-displays', '', true, v => { s.showAuxDisplays = v; });
+        const shortcut = document.createElement('button'); shortcut.id = 'bom-shortcut'; shortcut.className = 'theme-toggle'; shortcut.textContent = 'BOM';
+        shortcut.onclick = () => { open(true); bom.scrollIntoView({ block: 'start' }); }; document.querySelector('.main-area').append(shortcut);
+        App.refreshConfigurationUI = () => {
+            const lang = document.getElementById('langSelect').value, t = Quotation.words(lang), c = App.configurationCopy(lang);
+            document.documentElement.lang = lang; exportButton.textContent = t[0]; back.textContent = t[3];
+            toggle.textContent = c.configuration; note.textContent = c.manual; restore.textContent = c.restore; lcs.title.textContent = c.includeLCS;
+            aux.title.textContent = App.getDisplayCopy(lang).title; ifp.input.checked = s.showIFP; aux.input.checked = s.showAuxDisplays; lcs.input.checked = s.equipment.lcsEnabled;
+            document.querySelectorAll('[data-config-copy]').forEach(el => { el.textContent = c[el.dataset.configCopy]; });
+        };
+        document.getElementById('langSelect').addEventListener('change', () => { App.refreshConfigurationUI(); App.updateBOM(); });
+        const q = new URLSearchParams(location.search);
+        if (q.get('theme') === 'light' && !document.body.classList.contains('light-mode')) App.toggleTheme();
+        if (q.get('lang') && [...document.getElementById('langSelect').options].some(o => o.value === q.get('lang'))) {
+            document.getElementById('langSelect').value = q.get('lang'); App.changeLanguage(q.get('lang'));
+        }
+        App.refreshConfigurationUI(); App.renderRoom();
     });
 })(window.AISpeech);

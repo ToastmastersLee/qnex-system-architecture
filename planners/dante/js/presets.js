@@ -5,6 +5,7 @@
     const buildProductRecommendation = (...args) => App.buildProductRecommendation(...args);
 
     function applyScenario(scenario) {
+        const retained = state.manualAudio ? state.devices : null;
         if (scenario === 'medium') {
             state.roomLength = 8.0;
             state.roomWidth = 10.0;
@@ -64,6 +65,8 @@
 
         Object.assign(state.heightProfile, { mode: 'uniform', front: state.height, rear: state.height,
             split: state.roomWidth / 2, drop: 0, manualPickup: null, manualPA: null });
+
+        if (retained) state.devices = retained;
 
         // Sync inputs
         document.getElementById('lengthSlider').value = state.roomLength;

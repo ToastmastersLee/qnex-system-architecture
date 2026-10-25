@@ -33,7 +33,8 @@
     }
 
     function renderAuxiliaryDisplays() {
-        state.auxDisplays = state.showAuxDisplays === false ? [] : recommendAuxiliaryDisplays();
+        if (!state.manualAux) state.auxDisplays = recommendAuxiliaryDisplays();
+        App.fitConfiguration();
         updateAuxiliaryDisplaySummary();
 
         const layer = document.getElementById('displayLayer');
@@ -43,8 +44,9 @@
         const screenX = (state.roomLength * PPM - screenWidth) / 2;
         const screenHeight = 11;
 
-        const makeScreen = (x, y, label, accent, coverageEnd, auxiliary = false) => {
+        const makeScreen = (x, y, label, accent, coverageEnd, auxiliary = false, device = null) => {
             const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            if (device) { group.setAttribute('class','device'); group.dataset.auxId = device.id; }
             const pxY = y * PPM;
             const pxX = auxiliary ? x * PPM - 5 : screenX;
             const rectWidth = auxiliary ? 10 : screenWidth;
@@ -82,9 +84,9 @@
             layer.appendChild(group);
         };
 
-        if(state.showIFP!==false)makeScreen(0, 0.15, 'QA1400 Pro 86″ IFP', '#f59e0b', MAIN_DISPLAY_DEPTH);
-        state.auxDisplays.forEach((display, index) => {
-            makeScreen(display.x, display.y, `${copy.canvas} ${index + 1} · ${display.size}″`, '#fb923c', display.coverageEnd, true);
+        // Main screens are actual teaching-device instances.
+        (state.showAuxDisplays === false ? [] : state.auxDisplays).forEach((display, index) => {
+            makeScreen(display.x, display.y, `${copy.canvas} ${index + 1} · ${display.size}″`, '#fb923c', display.coverageEnd, true, display);
         });
     }
 

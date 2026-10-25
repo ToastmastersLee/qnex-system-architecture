@@ -23,7 +23,9 @@
         }
         if (target && target.classList?.contains('device')) {
             const id = parseInt(target.getAttribute('data-id'));
-            draggingDevice = state.devices.find(d => d.id === id);
+            draggingDevice = target.dataset.teachingId ? state.teachingDevices.find(d => d.id === target.dataset.teachingId) : target.dataset.auxId ? state.auxDisplays.find(d => d.id === target.dataset.auxId) : state.devices.find(d => d.id === id);
+            if (target.dataset.auxId) state.manualAux = true;
+            else if (!target.dataset.teachingId) state.manualAudio = true;
         }
     });
 
@@ -40,8 +42,7 @@
             draggingDevice.x = tx;
             draggingDevice.y = ty;
             
-            renderDevices();
-            calculateCoverage();
+            App.renderRoom();
         }
     });
 
@@ -53,8 +54,20 @@
         }
         if (target && target.classList?.contains('device')) {
             const id = parseInt(target.getAttribute('data-id'));
+            if (target.dataset.teachingId) {
+                const d = state.teachingDevices.find(v => v.id === target.dataset.teachingId);
+                const key = {qnex:'qnexCount',ifp:'ifpCount',station:'lcsCount',camera:'cameraCount'}[d.type];
+                state.teachingDevices = state.teachingDevices.filter(v => v !== d);
+                state.equipment[key]--; App.renderRoom(); return;
+            }
+            if (target.dataset.auxId) {
+                state.manualAux = true;
+                state.auxDisplays = state.auxDisplays.filter(d => d.id !== target.dataset.auxId);
+                App.renderRoom(); return;
+            }
             const idx = state.devices.findIndex(d => d.id === id);
             if (idx > -1) {
+                state.manualAudio = true;
                 state.devices.splice(idx, 1);
                 renderDevices();
                 calculateCoverage();

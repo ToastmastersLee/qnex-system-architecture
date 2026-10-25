@@ -152,7 +152,8 @@
             }
         });
 
-        // Initialize medium classroom by default
+        // Initialize teaching positions after the actual default room dimensions are selected.
+        state.teachingDevices = [];
         applyScenario('medium');
     });
 

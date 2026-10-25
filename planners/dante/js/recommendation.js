@@ -11,7 +11,7 @@
     }
 
     function recalculateProductPlan() {
-        state.devices = buildProductRecommendation();
+        if (!state.manualAudio) state.devices = buildProductRecommendation();
         document.getElementById('presetSelect').value = 'custom';
         renderRoom();
     }

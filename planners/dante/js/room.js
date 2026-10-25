@@ -8,6 +8,7 @@
     const calculateCoverage = (...args) => App.calculateCoverage(...args);
 
     function renderRoom() {
+        App.fitConfiguration();
         const len = state.roomLength;
         const wid = state.roomWidth;
         const pxLen = len * PPM;
