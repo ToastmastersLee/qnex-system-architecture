@@ -17,7 +17,7 @@
     <div class="room-controls">
       <label><span data-i18n="preset">Room</span><select id="preset"><option value="medium">8 × 10 m</option><option value="standard">10 × 10 m</option><option value="large">10 × 14 m</option><option value="step">10 × 20 m</option><option value="small">5 × 6 m</option><option value="custom" data-i18n="custom">Custom</option></select></label>
       <label><span data-i18n="length">Length X</span><input id="room-length" type="number" min="2" max="40" step="0.5" value="8"></label>
-      <label><span data-i18n="width">Depth Y</span><input id="room-width" type="number" min="2" max="20" step="0.5" value="10"></label>
+      <label><span data-i18n="width">Depth Y</span><input id="room-width" type="number" min="2" max="40" step="0.5" value="10"></label>
       <button id="recalculate" class="primary" data-i18n="recalculate">Recalculate</button>
     </div>
     <div class="top-actions"><select id="language" class="language-select" aria-label="Language"><option value="en">English</option></select><button id="export" data-i18n="export">Export PNG</button></div>
@@ -47,7 +47,7 @@
         <div id="rear-height-controls" hidden>
           <label class="height-profile-field"><span id="rear-height-label">Rear height</span><input id="rear-height" type="number" min="2" max="4" step="0.01" value="3"></label>
           <input id="rear-height-slider" type="range" min="2" max="4" step="0.01" value="3" aria-label="Rear ceiling height">
-          <label class="height-profile-field"><span id="split-depth-label">Front zone depth</span><input id="split-depth" type="number" min="0.1" max="19.9" step="0.01" value="5"></label>
+          <label class="height-profile-field"><span id="split-depth-label">Front zone depth</span><input id="split-depth" type="number" min="0.1" max="39.9" step="0.01" value="5"></label>
         </div>
         <p id="profile-estimate" class="microcopy" role="status"></p>
         <button id="reset-m100-radii" type="button" hidden>Use 73° estimate</button>

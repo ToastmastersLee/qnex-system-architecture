@@ -9,7 +9,7 @@
         if (!input || typeof input !== 'object') fail();
         if (![1, 2, 3].includes(input.version)) fail('snapshotVersion');
         const { length, width, height } = input;
-        if (!number(length, 2, 40) || !number(width, 2, 20) || !number(height, 2, 4)) fail();
+        if (!number(length, 2, 40) || !number(width, 2, 40) || !number(height, 2, 4)) fail();
         if (!Array.isArray(input.devices) || !Array.isArray(input.displays)) fail();
         const ids = new Set();
         function entry(value) {
