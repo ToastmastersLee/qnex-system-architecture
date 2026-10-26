@@ -48,6 +48,7 @@
             toggle.textContent = c.configuration; note.textContent = c.manual; restore.textContent = c.restore; lcs.title.textContent = c.includeLCS;
             aux.title.textContent = App.getDisplayCopy(lang).title; ifp.input.checked = s.showIFP; aux.input.checked = s.showAuxDisplays; lcs.input.checked = s.equipment.lcsEnabled;
             document.querySelectorAll('[data-config-copy]').forEach(el => { el.textContent = c[el.dataset.configCopy]; });
+            App.refreshWorkspace?.();
         };
         document.getElementById('langSelect').addEventListener('change', () => { App.refreshConfigurationUI(); App.updateBOM(); });
         const q = new URLSearchParams(location.search);

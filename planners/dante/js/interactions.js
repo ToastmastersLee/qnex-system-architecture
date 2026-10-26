@@ -25,7 +25,7 @@
             const id = parseInt(target.getAttribute('data-id'));
             draggingDevice = target.dataset.teachingId ? state.teachingDevices.find(d => d.id === target.dataset.teachingId) : target.dataset.auxId ? state.auxDisplays.find(d => d.id === target.dataset.auxId) : state.devices.find(d => d.id === id);
             if (target.dataset.auxId) state.manualAux = true;
-            else if (!target.dataset.teachingId) state.manualAudio = true;
+            else if (!target.dataset.teachingId) App.lockAudioCounts(state);
         }
     });
 
@@ -69,6 +69,7 @@
             if (idx > -1) {
                 state.manualAudio = true;
                 state.devices.splice(idx, 1);
+                App.lockAudioCounts(state); state.audioDraft = null;
                 renderDevices();
                 calculateCoverage();
                 document.getElementById('presetSelect').value = 'custom';

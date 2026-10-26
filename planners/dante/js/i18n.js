@@ -63,9 +63,9 @@
         document.getElementById('t_spkCoverage').textContent = i18n[lang].spkCoverage;
         document.getElementById('t_auxDisplaysLabel').textContent = getDisplayCopy(lang).title;
         document.getElementById('t_devicesLabel').textContent = i18n[lang].devicesLabel;
-        document.getElementById('t_addM100').textContent = i18n[lang].addM100;
-        document.getElementById('t_addM40').textContent = i18n[lang].addM40;
-        document.getElementById('t_addDC20').textContent = i18n[lang].addDC20;
+
+
+
         document.getElementById('t_reset').textContent = i18n[lang].reset;
         document.getElementById('t_clearAll').textContent = i18n[lang].clearAll;
         document.getElementById('t_warnTitle').textContent = i18n[lang].warnTitle;

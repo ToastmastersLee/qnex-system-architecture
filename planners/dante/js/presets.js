@@ -5,7 +5,7 @@
     const buildProductRecommendation = (...args) => App.buildProductRecommendation(...args);
 
     function applyScenario(scenario) {
-        const retained = state.manualAudio ? state.devices : null;
+        const request = App.appliedAudioRequest(state), draft = state.audioDraft;
         if (scenario === 'medium') {
             state.roomLength = 8.0;
             state.roomWidth = 10.0;
@@ -13,7 +13,7 @@
             Object.assign(state.heightProfile, { mode: 'uniform', front: state.height, rear: state.height,
                 split: state.roomWidth / 2, drop: 0, manualPickup: null, manualPA: null });
             updateRadiiFromHeight(state.height);
-            state.devices = buildProductRecommendation();
+            state.devices = buildProductRecommendation(request);
         } 
         else if (scenario === 'standard') {
             state.roomLength = 10.0;
@@ -50,7 +50,7 @@
             // Recalculate. It prevents the preset BOM from disagreeing with a
             // recalculation made without changing any room dimensions.
             updateRadiiFromHeight(state.height);
-            state.devices = buildProductRecommendation();
+            state.devices = buildProductRecommendation(request);
         }
         else if (scenario === 'small') {
             state.roomLength = 5.0;
@@ -66,7 +66,10 @@
         Object.assign(state.heightProfile, { mode: 'uniform', front: state.height, rear: state.height,
             split: state.roomWidth / 2, drop: 0, manualPickup: null, manualPA: null });
 
-        if (retained) state.devices = retained;
+        updateRadiiFromHeight(state.height);
+        if (request.mode === 'fixed') state.devices = buildProductRecommendation(request);
+        App.commitAudioLayout(state, request);
+        state.audioDraft = draft;
 
         // Sync inputs
         document.getElementById('lengthSlider').value = state.roomLength;

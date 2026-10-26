@@ -19,6 +19,8 @@
             y: y
         });
         
+        App.lockAudioCounts(state);
+        state.audioDraft = null;
         renderDevices();
         calculateCoverage();
     }
@@ -26,6 +28,8 @@
     function clearAllDevices() {
         state.manualAudio = true;
         state.devices = [];
+        App.lockAudioCounts(state);
+        state.audioDraft = null;
         renderDevices();
         calculateCoverage();
         document.getElementById('presetSelect').value = 'custom';
@@ -33,6 +37,8 @@
 
     function toggleVisibility(type, isVisible) {
         state.show[type] = isVisible;
+        App.lockAudioCounts(state);
+        state.audioDraft = null;
         renderDevices();
         calculateCoverage();
     }

@@ -25,9 +25,8 @@
         if (e.qnexModel === 'NDP600') row('stand', 'NDP600 Height-Adjustable Stand', e.qnexCount, null, null, null, copy.linked);
         row('ifp', 'QA1400 Pro 86-inch', e.ifpCount, null, null, v => { s.showIFP = v > 0; set('ifpCount', v); });
         for (const type of ['m100', 'm40', 'dc20']) {
-            row(type, type.toUpperCase(), b.counts[type], type === 'dc20' ? null : ['M100', 'M40'], model => {
-                s.manualAudio = true; s.devices.filter(d => d.type === type).forEach(d => d.type = model.toLowerCase()); App.renderRoom();
-            }, count => App.setAudioCount(type, count));
+            row(type, App.audioName(type, document.getElementById('langSelect').value, s.showModels) +
+                (type === 'm100' ? ' · A' : type === 'm40' ? ' · B' : ''), b.counts[type], null, null, null);
         }
         row('du11', 'DU11', b.du11, null, null, v => set('du11Count', v));
         row('processor', e.processorModel, b.processor?.count || 0, ['DP88', 'DP44'], v => set('processorModel', v), v => set('processorCount', v));
@@ -48,6 +47,7 @@
         const warning = document.getElementById('processor-warning');
         if (warning) { warning.textContent = copy.capacity; warning.hidden = b.channels <= (b.processor?.count || 0) * (e.processorModel === 'DP44' ? 4 : 8); }
         App.refreshConfigurationUI?.();
+        App.refreshAudioUI?.();
     }
     App.updateBOM = updateBOM;
 })(window.AISpeech);

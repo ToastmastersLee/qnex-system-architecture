@@ -87,9 +87,6 @@
             }
         });
         document.getElementById('t_recalculate').addEventListener('click', () => App.recalculateProductPlan());
-        document.getElementById('t_addM100').addEventListener('click', () => App.addDevice('m100'));
-        document.getElementById('t_addM40').addEventListener('click', () => App.addDevice('m40'));
-        document.getElementById('t_addDC20').addEventListener('click', () => App.addDevice('dc20'));
         document.getElementById('t_reset').addEventListener('click', () => App.resetPositions());
         document.getElementById('t_clearAll').addEventListener('click', () => App.clearAllDevices());
         document.querySelectorAll('[data-visibility]').forEach((checkbox) => {

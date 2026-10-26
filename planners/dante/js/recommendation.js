@@ -4,14 +4,17 @@
     const planMicrophoneDevices = (...args) => App.planMicrophoneDevices(...args);
     const planSpeakerDevices = (...args) => App.planSpeakerDevices(...args);
 
-    function buildProductRecommendation() {
+    function buildProductRecommendation(request = App.audioRequest(state)) {
+        if (request.mode === 'fixed') return App.fixedAudioDevices(request.counts);
         const micDevices = planMicrophoneDevices();
         const speakerDevices = planSpeakerDevices(micDevices);
         return [...micDevices, ...speakerDevices];
     }
 
     function recalculateProductPlan() {
-        if (!state.manualAudio) state.devices = buildProductRecommendation();
+        const request = App.audioRequest(state);
+        state.devices = buildProductRecommendation(request);
+        App.commitAudioLayout(state, request);
         document.getElementById('presetSelect').value = 'custom';
         renderRoom();
     }

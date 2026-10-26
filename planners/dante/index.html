@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dante Classroom Coverage Simulator</title>
-    <link rel="stylesheet" href="css/base.css?v=20261026-config">
-    <link rel="stylesheet" href="css/layout.css?v=20261026-config">
-    <link rel="stylesheet" href="css/components.css?v=20261026-config">
-<script src="../shared-quotation/vendor/exceljs.min.js?v=20261026-config"></script>
-<script src="../shared-quotation/images.js?v=20261026-config"></script>
-<script src="../shared-quotation/quotation.js?v=20261026-config"></script>
-<link rel="stylesheet" href="css/configuration.css?v=20261026-config">
+    <link rel="stylesheet" href="css/base.css?v=20261026-quantities">
+    <link rel="stylesheet" href="css/layout.css?v=20261026-quantities">
+    <link rel="stylesheet" href="css/components.css?v=20261026-quantities">
+<script src="../shared-quotation/vendor/exceljs.min.js?v=20261026-quantities"></script>
+<script src="../shared-quotation/images.js?v=20261026-quantities"></script>
+<script src="../shared-quotation/quotation.js?v=20261026-quantities"></script>
+<link rel="stylesheet" href="css/configuration.css?v=20261026-quantities">
+<link rel="stylesheet" href="css/workspace.css?v=20261026-quantities">
 </head>
 <body>
 
@@ -186,11 +187,7 @@
         <!-- Device Controls Card -->
         <div class="control-group">
             <label id="t_devicesLabel" class="group-title">🔧 Device Controls</label>
-            <div class="btn-grid">
-                <button id="t_addM100" class="add-m100">+ M100</button>
-                <button id="t_addM40" class="add-m40">+ M40</button>
-                <button id="t_addDC20" class="add-dc20">+ DC20</button>
-            </div>
+            <div id="audio-count-controls"></div>
             <div class="device-actions">
                 <button id="t_reset" class="secondary">↺ Reset</button>
                 <button id="t_clearAll" class="danger">🗑️ Clear</button>
@@ -199,7 +196,7 @@
     </div>
 
     <div class="main-area">
-        <svg id="canvas" width="600" height="500">
+        <svg id="canvas" aria-label="Classroom plan">
             <defs>
                 <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
                     <path d="M 50 0 L 0 0 0 50" fill="none" stroke="var(--grid-line)" stroke-width="1"/>
@@ -264,28 +261,31 @@
         </div>
     </div>
 
-    <script defer src="js/planning-core.js?v=20261026-config"></script>
-    <script defer src="js/core.js?v=20261026-config"></script>
-    <script defer src="js/presentation.js?v=20261026-config"></script>
-    <script defer src="js/configuration.js?v=20261026-config"></script>
-    <script defer src="js/configuration-copy.js?v=20261026-config"></script>
-    <script defer src="js/plan-snapshot.js?v=20261026-config"></script>
-    <script defer src="js/locales-en-zh.js?v=20261026-config"></script>
-    <script defer src="js/locales-hu-it.js?v=20261026-config"></script>
-    <script defer src="js/locales-es-ja.js?v=20261026-config"></script>
-    <script defer src="js/locales-ko-ar.js?v=20261026-config"></script>
-    <script defer src="js/i18n.js?v=20261026-config"></script>
-    <script defer src="js/displays.js?v=20261026-config"></script>
-    <script defer src="js/room.js?v=20261026-config"></script>
-    <script defer src="js/devices.js?v=20261026-config"></script>
-    <script defer src="js/coverage.js?v=20261026-config"></script>
-    <script defer src="js/recommend-mics.js?v=20261026-config"></script>
-    <script defer src="js/recommend-speakers.js?v=20261026-config"></script>
-    <script defer src="js/recommendation.js?v=20261026-config"></script>
-    <script defer src="js/presets.js?v=20261026-config"></script>
-    <script defer src="js/bom.js?v=20261026-config"></script>
-    <script defer src="js/interactions.js?v=20261026-config"></script>
-    <script defer src="js/main.js?v=20261026-config"></script>
-<script defer src="js/quotation.js?v=20261026-config"></script>
+    <script defer src="js/planning-core.js?v=20261026-quantities"></script>
+    <script defer src="js/core.js?v=20261026-quantities"></script>
+    <script defer src="js/presentation.js?v=20261026-quantities"></script>
+    <script defer src="js/configuration.js?v=20261026-quantities"></script>
+    <script defer src="js/configuration-copy.js?v=20261026-quantities"></script>
+    <script defer src="js/audio-layout.js?v=20261026-quantities"></script>
+    <script defer src="js/audio-controls.js?v=20261026-quantities"></script>
+    <script defer src="js/plan-snapshot.js?v=20261026-quantities"></script>
+    <script defer src="js/locales-en-zh.js?v=20261026-quantities"></script>
+    <script defer src="js/locales-hu-it.js?v=20261026-quantities"></script>
+    <script defer src="js/locales-es-ja.js?v=20261026-quantities"></script>
+    <script defer src="js/locales-ko-ar.js?v=20261026-quantities"></script>
+    <script defer src="js/i18n.js?v=20261026-quantities"></script>
+    <script defer src="js/displays.js?v=20261026-quantities"></script>
+    <script defer src="js/room.js?v=20261026-quantities"></script>
+    <script defer src="js/devices.js?v=20261026-quantities"></script>
+    <script defer src="js/coverage.js?v=20261026-quantities"></script>
+    <script defer src="js/recommend-mics.js?v=20261026-quantities"></script>
+    <script defer src="js/recommend-speakers.js?v=20261026-quantities"></script>
+    <script defer src="js/recommendation.js?v=20261026-quantities"></script>
+    <script defer src="js/presets.js?v=20261026-quantities"></script>
+    <script defer src="js/bom.js?v=20261026-quantities"></script>
+    <script defer src="js/interactions.js?v=20261026-quantities"></script>
+    <script defer src="js/main.js?v=20261026-quantities"></script>
+<script defer src="js/quotation.js?v=20261026-quantities"></script>
+<script defer src="js/workspace.js?v=20261026-quantities"></script>
 </body>
 </html>

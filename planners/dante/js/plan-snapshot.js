@@ -7,7 +7,7 @@
 
     function validateSnapshot(input) {
         if (!input || typeof input !== 'object') fail();
-        if (![1, 2, 3].includes(input.version)) fail('snapshotVersion');
+        if (![1, 2, 3, 4].includes(input.version)) fail('snapshotVersion');
         const { length, width, height } = input;
         if (!number(length, 2, 40) || !number(width, 2, 40) || !number(height, 2, 4)) fail();
         if (!Array.isArray(input.devices) || !Array.isArray(input.displays)) fail();
@@ -47,7 +47,7 @@
                 drop: p.drop, manualPickup: p.manualPickup, manualPA: p.manualPA };
         }
         let equipment, teachingDevices;
-        if (input.version === 3) {
+        if (input.version === 3 || (input.version === 4 && input.equipment)) {
             const e = input.equipment;
             const qty = n => Number.isInteger(n) && number(n, 0, 99);
             if (!e || !['NDP600','SL100','NMP311'].includes(e.qnexModel) || !['DP44','DP88'].includes(e.processorModel) ||
@@ -65,17 +65,25 @@
                 if (teachingDevices.filter(d => d.type === type).length !== count) fail();
             }
         }
+        let audioLayout;
+        if (input.version === 4) {
+            const a = input.audioLayout, actual = App.audioCounts(devices);
+            if (!a || !['auto','fixed'].includes(a.mode) || !a.counts ||
+                App.audioTypes.some(type => !Number.isInteger(a.counts[type]) || a.counts[type] !== actual[type])) fail();
+            if (!equipment && input.teachingDevices?.length) fail();
+            audioLayout = { mode:a.mode, counts:actual };
+        }
         return { version: input.version, length, width, height, devices, displays,
             radii: Object.fromEntries(radiusKeys.map(key => [key, input.radii[key]])),
             show: Object.fromEntries(showKeys.map(key => [key, input.show[key]])),
             language: input.language, showModels: input.showModels, ...(heightProfile ? { heightProfile } : {}),
-            ...(equipment ? { equipment, teachingDevices } : {}) };
+            ...(equipment ? { equipment, teachingDevices } : {}), ...(audioLayout ? {audioLayout} : {}) };
     }
     function snapshotFromState(state, language) {
         if (state === App.state && state.equipment) App.syncTeachingDevices();
-        return validateSnapshot({ version: state.equipment ? 3 : state.heightProfile ? 2 : 1, length: state.roomLength, width: state.roomWidth, height: state.height,
+        return validateSnapshot({ version: 4, audioLayout:App.appliedAudioRequest(state), length: state.roomLength, width: state.roomWidth, height: state.height,
             devices: state.devices, displays: state.showAuxDisplays === false ? [] : state.auxDisplays, radii: state.radii, show: state.show,
-            language, showModels: state.showModels === true, heightProfile: state.heightProfile,
+            language, showModels: state.showModels === true, heightProfile: state.heightProfile || {mode:"uniform",front:state.height,rear:state.height,split:state.roomWidth/2,drop:0,manualPickup:null,manualPA:null},
             equipment: state.equipment ? {...state.equipment, ifpCount:state.showIFP === false ? 0 : state.equipment.ifpCount} : undefined,
             teachingDevices: state.teachingDevices });
     }

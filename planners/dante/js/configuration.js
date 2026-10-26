@@ -77,10 +77,8 @@
     };
     App.setAudioCount = function (type, count) {
         if (!quantity(count)) return;
-        s.manualAudio = true;
-        s.devices = App.reconcileInstances(s.devices, type, Number(count), (i, retained) => ({
-            id: App.idCounter++, type, ...slot(i, s.roomLength, s.roomWidth, retained) }));
-        App.renderRoom();
+        App.stageAudioCount(s, type, Number(count));
+        App.refreshAudioUI?.();
     };
     App.setAuxCount = function (size, count) {
         if (!quantity(count)) return;
@@ -98,9 +96,9 @@
         App.renderRoom();
     };
     App.restoreRecommended = function () {
-        s.manualAudio = false; s.manualAux = false;
-        s.equipment.processorCount = null; s.equipment.du11Count = null;
-        s.devices = App.buildProductRecommendation();
+        s.audioDraft = null;
+        s.devices = App.buildProductRecommendation({mode:'auto'});
+        App.commitAudioLayout(s, {mode:'auto'});
         App.renderRoom();
     };
     App.renderTeachingDevices = function () {

@@ -254,3 +254,10 @@
 #rear-height-controls { display: grid; gap: 7px; }
 #rear-height-controls[hidden] { display: none; }
 #profile-estimate[data-warning="true"] { color: #d79235; font-weight: 600; }
+
+.audio-count-row { display:grid;grid-template-columns:minmax(0,1fr) 72px;align-items:center;gap:10px;margin:12px 0;font-size:13px; }
+.audio-count-row select { width:100%;padding:8px;border:1px solid var(--border);border-radius:8px;background:var(--panel);color:var(--text); }
+.audio-count-status { font-size:12px;color:var(--teal); }
+.audio-count-card[data-pending="true"] .audio-count-status,.audio-layout-warning {color:#d97706;}
+.audio-count-actions {display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+.audio-count-actions button {padding:9px 12px;text-align:start;font-size:12px;}
